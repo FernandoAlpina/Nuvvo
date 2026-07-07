@@ -1,0 +1,18 @@
+/*
+Theme Name: Nuvvo
+Theme URI: https://nuvvodesign.com.br
+Author: Alpina Digital
+Author URI: https://alpina.digital
+Description: Tema do site Nuvvo Design — mobiliário de alta decoração. Construído sobre o framework Alpina V4 (backend) mantendo o front-end aprovado do Nuvvo (design system próprio: tokens/base/components + JS vanilla).
+Version: 1.0.0
+Requires at least: 6.3
+Requires PHP: 8.1
+License: Proprietary
+Text Domain: nuvvo
+*/
+
+/*
+  Este arquivo contém APENAS o cabeçalho exigido pelo WordPress.
+  O CSS real do tema é enfileirado via backend (Alp_Scripts do Nuvvo):
+  styles/tokens.css -> styles/base.css -> styles/components.css -> [css por template].
+*/
