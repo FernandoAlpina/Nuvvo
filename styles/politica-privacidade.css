@@ -1,0 +1,206 @@
+/* ============================================================
+   POLÍTICA DE PRIVACIDADE — estilos específicos
+   ============================================================ */
+
+/* =============== HERO CURTO =============== */
+.policy-hero {
+  background: var(--color-cream);
+  min-height: 30vh;
+  min-height: 30svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-block: calc(var(--space-8) + var(--space-2)) var(--space-5);
+}
+.policy-hero__title {
+  font-size: clamp(2.5rem, 4vw + 1rem, 4rem);
+  color: var(--color-ink);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-2);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: policy-hero-in 0.8s var(--ease-emph) 200ms forwards;
+}
+.policy-hero__updated {
+  font-family: var(--font-tech);
+  font-size: 0.8125rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: policy-hero-in 0.8s var(--ease-emph) 360ms forwards;
+}
+@keyframes policy-hero-in { to { opacity: 1; transform: translateY(0); } }
+
+/* =============== LAYOUT PRINCIPAL =============== */
+.policy-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: clamp(var(--space-4), 4vw, var(--space-6));
+  padding-block: var(--space-5) var(--space-7);
+  align-items: start;
+}
+.policy-layout__toc { position: sticky; top: 100px; }
+.policy-layout__toc-mobile { display: none; }
+
+@media (max-width: 1023px) {
+  .policy-layout { grid-template-columns: 1fr; }
+  .policy-layout__toc { display: none; }
+  .policy-layout__toc-mobile { display: block; position: relative; }
+}
+
+/* =============== POLICY BODY (texto editorial) =============== */
+.policy-body {
+  max-width: 680px;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 0.25vw + 0.95rem, 1.0625rem);
+  line-height: 1.72;
+  color: var(--color-ink);
+}
+.policy-body p { margin: 0 0 var(--space-3); }
+.policy-body p:last-child { margin-bottom: 0; }
+
+.policy-body section {
+  scroll-margin-top: 100px;
+}
+.policy-body section + section { margin-top: var(--space-6); }
+
+.policy-body h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 1.5vw + 1rem, 2rem);
+  color: var(--color-ink);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-tight);
+  margin: 0 0 var(--space-3);
+  font-weight: 400;
+}
+.policy-body h2 .policy-body__num {
+  display: inline-block;
+  margin-right: 12px;
+  color: var(--color-taupe-dark);
+  font-size: 0.65em;
+  font-family: var(--font-tech);
+  letter-spacing: var(--tracking-mega);
+  vertical-align: middle;
+  transform: translateY(-3px);
+}
+
+.policy-body h3 {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: var(--space-4) 0 var(--space-2);
+}
+.policy-body h4 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: var(--space-3) 0 var(--space-2);
+}
+
+.policy-body strong { font-weight: 600; }
+.policy-body em { font-style: italic; }
+.policy-body a {
+  color: var(--color-burgundy);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast);
+}
+.policy-body a:hover { color: var(--color-burgundy-soft); }
+
+.policy-body ul {
+  list-style: none;
+  padding-left: var(--space-3);
+  margin: var(--space-3) 0;
+}
+.policy-body ul li {
+  position: relative;
+  padding-left: var(--space-3);
+  margin-bottom: var(--space-1);
+}
+.policy-body ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-taupe);
+}
+.policy-body ol {
+  padding-left: var(--space-4);
+  margin: var(--space-3) 0;
+}
+.policy-body ol li { margin-bottom: var(--space-1); }
+.policy-body ol li::marker { color: var(--color-taupe-dark); font-family: var(--font-tech); }
+
+.policy-body hr {
+  border: 0;
+  height: 1px;
+  background: var(--color-line);
+  margin: var(--space-5) 0;
+}
+
+.policy-body__dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px var(--space-3);
+  background: var(--color-cream-warm);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  margin: var(--space-3) 0;
+}
+.policy-body__dl dt {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.policy-body__dl dd {
+  margin: 0;
+  color: var(--color-ink-soft);
+}
+
+/* =============== BLOCO "GERENCIAR COOKIES" =============== */
+.manage-cookies {
+  background: var(--color-cream-warm);
+  padding: clamp(var(--space-4), 4vw, var(--space-5));
+  border-radius: var(--radius-md);
+  margin-top: var(--space-6);
+  text-align: center;
+}
+.manage-cookies__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.5vw + 0.5rem, 1.5rem);
+  color: var(--color-ink);
+  margin: 0 0 var(--space-2);
+  letter-spacing: var(--tracking-tight);
+}
+.manage-cookies__text {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--color-ink-soft);
+  line-height: 1.55;
+  margin: 0 0 var(--space-3);
+  max-width: 48ch;
+  margin-inline: auto;
+}
+
+/* =============== AVISO DE MINUTA (banner topo - dev only) =============== */
+.draft-notice {
+  background: rgba(80, 7, 26, 0.06);
+  border-bottom: 1px solid rgba(80, 7, 26, 0.2);
+  padding: var(--space-2) var(--pad-x);
+  font-family: var(--font-tech);
+  font-size: 0.75rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-burgundy);
+  text-align: center;
+}
+.draft-notice strong { font-weight: 600; }

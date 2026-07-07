@@ -1,0 +1,89 @@
+/* ============================================================
+   INSPIRE-SE — estilos específicos da página
+   ============================================================ */
+
+/* =============== HERO CURTO =============== */
+.inspire-hero {
+  background: var(--color-cream);
+  min-height: 44vh;
+  min-height: 44svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-block: calc(var(--space-8) + var(--space-2)) var(--space-5);
+  position: relative;
+  overflow: hidden;
+}
+.inspire-hero::before {
+  /* textura sutil de fundo */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(159, 141, 122, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(80, 7, 26, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+.inspire-hero__inner { position: relative; z-index: 1; }
+
+.inspire-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-tech);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: var(--tracking-mega);
+  text-transform: uppercase;
+  color: var(--color-taupe-dark);
+  margin-bottom: var(--space-3);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: inspire-in 0.8s var(--ease-emph) 200ms forwards;
+}
+.inspire-hero__eyebrow::before,
+.inspire-hero__eyebrow::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+}
+
+.inspire-hero__title {
+  font-size: clamp(3rem, 6vw + 1rem, 6rem);
+  line-height: 1;
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: inspire-in 1s var(--ease-emph) 320ms forwards;
+}
+.inspire-hero__sub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.125rem, 1vw + 0.8rem, 1.5rem);
+  color: var(--color-taupe-dark);
+  margin-top: var(--space-3);
+  letter-spacing: var(--tracking-tight);
+  max-width: 36ch;
+  margin-inline: auto;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: inspire-in 1s var(--ease-emph) 480ms forwards;
+}
+@keyframes inspire-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 639px) {
+  .inspire-hero { min-height: 36vh; padding-block: var(--space-7) var(--space-4); }
+}
+
+/* =============== GALLERY SECTION =============== */
+.gallery-section {
+  padding-block: 0 var(--space-7);
+}
+.gallery-section__inner {
+  padding-top: var(--space-3);
+}

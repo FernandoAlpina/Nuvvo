@@ -1,0 +1,162 @@
+/* ============================================================
+   A NUVVO — estilos específicos da página
+   (importado depois de tokens/base/components — sobrescreve onde necessário)
+   ============================================================ */
+
+/* =============== HERO INSTITUCIONAL =============== */
+.about-hero {
+  position: relative;
+  min-height: 82vh;
+  min-height: 82svh;
+  display: flex;
+  align-items: flex-end;
+  padding-block: var(--space-7) var(--space-6);
+  overflow: hidden;
+  isolation: isolate;
+}
+.about-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+.about-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* parallax sutil via data-attr no JS — fallback estático */
+  will-change: transform;
+}
+.about-hero__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(26, 26, 26, 0.22) 0%, rgba(26, 26, 26, 0.08) 32%, rgba(26, 26, 26, 0.45) 70%, rgba(26, 26, 26, 0.78) 100%);
+  z-index: -1;
+}
+.about-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 920px;
+}
+.about-hero__title {
+  font-size: clamp(2.5rem, 4.5vw + 1rem, 4.25rem);
+  color: var(--color-cream);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-tight);
+  max-width: 18ch;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: about-hero-in 1.05s var(--ease-emph) 300ms forwards;
+}
+.about-hero__sub {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  color: rgba(240, 237, 228, 0.88);
+  max-width: 60ch;
+  margin-top: var(--space-3);
+  line-height: 1.55;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: about-hero-in 1.05s var(--ease-emph) 520ms forwards;
+}
+@keyframes about-hero-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 767px) {
+  .about-hero { min-height: 62vh; min-height: 62svh; padding-block: var(--space-6) var(--space-5); }
+}
+
+/* =============== ESSÊNCIA (texto editorial) =============== */
+.essence-text {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+.essence-text__quote-mark {
+  position: absolute;
+  top: -32px;
+  left: -8px;
+  font-family: var(--font-display);
+  font-size: 8rem;
+  line-height: 1;
+  color: var(--color-taupe);
+  opacity: 0.32;
+  font-style: italic;
+  pointer-events: none;
+  user-select: none;
+}
+.essence-text p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  line-height: 1.75;
+  color: var(--color-ink);
+  margin: 0;
+}
+.essence-text p + p { margin-top: var(--space-4); }
+.essence-text strong {
+  font-weight: 500;
+  color: var(--color-taupe-dark);
+}
+.essence-text em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--color-burgundy);
+  font-size: 1.05em;
+  letter-spacing: var(--tracking-tight);
+}
+
+@media (max-width: 767px) {
+  .essence-text__quote-mark { font-size: 5rem; top: -20px; left: -4px; }
+}
+
+/* =============== TIMELINE SECTION HEADER =============== */
+.timeline-section .timeline-section__head {
+  text-align: center;
+  margin-bottom: var(--space-3);
+}
+
+/* =============== FEATURED DIFERENCIAIS — head com setas =============== */
+.features__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+.features__nav { display: flex; gap: var(--space-1); }
+.features__swiper {
+  overflow: visible;
+  padding-top: 8px;
+}
+.features__swiper .swiper-slide { height: auto; }
+
+/* =============== DESIGNER SECTION ajustes =============== */
+.designer-section {
+  background: var(--color-cream-warm);
+}
+
+/* =============== BREADCRUMB =============== */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-tech);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-cream);
+  opacity: 0.78;
+  position: absolute;
+  top: calc(var(--space-7) + var(--space-2));
+  left: var(--pad-x);
+  right: var(--pad-x);
+  z-index: 2;
+}
+.breadcrumb a { color: inherit; }
+.breadcrumb a:hover { color: var(--color-cream); opacity: 1; }
+.breadcrumb__sep { opacity: 0.5; }
+.breadcrumb__current { color: var(--color-cream); opacity: 1; }
+@media (max-width: 767px) { .breadcrumb { display: none; } }

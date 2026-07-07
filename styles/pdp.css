@@ -1,0 +1,47 @@
+/* ============================================================
+   PDP — estilos específicos (sobrescritas locais + helpers)
+   Maior parte está em components.css; aqui ficam ajustes finos.
+   ============================================================ */
+
+/* Margem extra nos blocos do PDP pra ritmo editorial */
+.pdp-section + .pdp-section { margin-top: 0; }
+
+/* CTA primary da PDP — full-width opcional */
+.pdp-hero__cta-primary .btn { width: 100%; justify-content: space-between; }
+
+/* Selo "Nuvvo Signature" no hero quando produto não tem designer */
+.pdp-hero__signature-badge svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Ajuste do desenho técnico (cotas em Arquitecta) */
+.tech-drawing-label {
+  font-family: var(--font-tech);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  fill: var(--color-taupe-dark);
+  font-variant-numeric: tabular-nums;
+}
+.tech-drawing-line {
+  stroke: var(--color-taupe-dark);
+  stroke-width: 1;
+  fill: none;
+}
+.tech-drawing-shape {
+  stroke: var(--color-ink);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+/* Galeria PDP — items featured (wide/tall) */
+.pdp-gallery__item--first {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+@media (max-width: 1023px) {
+  .pdp-gallery__item--first { grid-column: span 2; grid-row: span 1; }
+}
+@media (max-width: 479px) {
+  .pdp-gallery__item--first { grid-column: span 2; }
+}

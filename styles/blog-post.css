@@ -1,0 +1,27 @@
+/* ============================================================
+   BLOG POST — estilos específicos da página de post individual
+   ============================================================ */
+
+/* Container principal do post (post-header + share + body + cta + related) */
+.post-article {
+  background: var(--color-cream);
+}
+
+/* Wrapper do corpo do post — share bar horizontal acima do texto.
+   A .share-bar é horizontal em todos os breakpoints (ver components.css).
+   Aqui só garantimos o contexto de largura do corpo. */
+.post-content-grid {
+  position: relative;
+}
+
+/* Espaçamento do corpo do post:
+   o .post-header já dá respiro abaixo da imagem (padding-bottom: space-6 = 64px),
+   então a .section genérica NÃO precisa do padding-top gigante (clamp até 128px).
+   Removemos a duplicação pra a share bar não flutuar isolada entre dois vazios. */
+.post-article .section {
+  padding-top: 0;
+}
+/* A share bar (margin-bottom: space-4) já separa do texto — zera o padding-top do body. */
+.post-article .post-body {
+  padding-top: 0;
+}

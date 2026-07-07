@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Blog Nuvvo News | Tendências, Dicas de Decoração e Cuidados com Estofados</title>
+  <meta name="description" content="Explore o universo da alta decoração com a Nuvvo Design. Dicas de arquitetos, tendências em design contemporâneo e guias práticos sobre conservação de móveis.">
+  <meta name="theme-color" content="#F0EDE4">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Nuvvo Design">
+  <meta property="og:title" content="Blog Nuvvo News | Tendências, Dicas de Decoração e Cuidados com Estofados">
+  <meta property="og:description" content="Explore o universo da alta decoração com a Nuvvo Design.">
+  <meta property="og:url" content="https://nuvvodesign.com.br/blog.html">
+  <meta property="og:image" content="https://nuvvodesign.com.br/assets/img/hero-1.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Preconnect / Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Raleway:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/blog-listagem.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon.png">
+
+  <!-- Schema.org: Blog + BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Blog",
+        "@id": "https://nuvvodesign.com.br/blog.html#blog",
+        "url": "https://nuvvodesign.com.br/blog.html",
+        "name": "Nuvvo News",
+        "description": "Tendências, dicas de decoração e cuidados com estofados — assinado pela Nuvvo Design.",
+        "publisher": { "@id": "https://nuvvodesign.com.br/#organization" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://nuvvodesign.com.br/" },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://nuvvodesign.com.br/blog.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="page-blog">
+
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header is-scrolled" role="banner" data-static-header>
+    <div class="wrap header__inner">
+      <a href="index.html" class="header__logo" aria-label="Nuvvo Design — Página inicial">
+        <img src="assets/img/logo-cream.png" alt="Nuvvo Design" class="logo-img" width="120">
+        <span class="logo-text logo-text--scrolled" aria-hidden="true">nuvvo<span class="dot">.</span></span>
+      </a>
+
+      <button class="header__menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-nav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="primary-nav" class="header__nav" role="navigation" aria-label="Menu principal">
+        <ul class="header__nav-list">
+          <li><a href="index.html" class="header__nav-link">Home</a></li>
+
+          <li class="has-dropdown" aria-expanded="false">
+            <a href="catalogo.html" class="header__nav-link">Catálogo</a>
+            <ul class="dropdown" role="menu">
+              <li><a class="dropdown__link" href="catalogo/sofas.html">Sofás</a></li>
+              <li><a class="dropdown__link" href="catalogo/poltronas.html">Poltronas</a></li>
+              <li><a class="dropdown__link" href="catalogo/bancos.html">Bancos</a></li>
+              <li><a class="dropdown__link" href="catalogo/camas.html">Camas</a></li>
+            </ul>
+          </li>
+
+          <li><a href="a-nuvvo.html"     class="header__nav-link">A Nuvvo</a></li>
+          <li><a href="inspire-se.html"  class="header__nav-link">Inspire-se</a></li>
+          <li><a href="blog.html"        class="header__nav-link" aria-current="page">Blog</a></li>
+          <li><a href="https://3dwarehouse.sketchup.com/user/61f45a49-50d6-41a1-8202-89e4f458c8ea" class="header__nav-link" target="_blank" rel="noopener">Blocos 3D</a></li>
+          <li><a href="contato.html"     class="header__nav-link">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ 1. HERO ============ -->
+    <section class="blog-hero" aria-label="Apresentação">
+      <div class="wrap blog-hero__inner">
+        <span class="blog-hero__eyebrow">Blog</span>
+        <h1 class="blog-hero__title">Nuvvo News</h1>
+        <p class="blog-hero__sub">Reflexões, guias e tendências do universo da alta&nbsp;decoração.</p>
+      </div>
+    </section>
+
+    <!-- ============ 2. FILTER BAR ============ -->
+    <div class="filter-bar" role="region" aria-label="Filtros de categoria do blog">
+      <div class="wrap filter-bar__inner">
+        <div class="filter-chips" data-filter-chips role="group" aria-label="Filtrar por categoria">
+          <button type="button" class="filter-chip" data-filter="todos"               aria-pressed="true">Todos</button>
+          <button type="button" class="filter-chip" data-filter="cuidados-materiais"  aria-pressed="false">Cuidados e Materiais</button>
+          <button type="button" class="filter-chip" data-filter="dicas-decoracao"     aria-pressed="false">Dicas de Decoração</button>
+          <button type="button" class="filter-chip" data-filter="tendencias"          aria-pressed="false">Tendências</button>
+        </div>
+        <span class="filter-results" data-filter-results aria-live="polite">5 posts</span>
+      </div>
+    </div>
+
+    <!-- ============ 3. CATEGORY BANNER ============ -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="category-banner" data-category-banner>
+          <div data-banner-cat="todos">
+            <h2 class="category-banner__title">Todos</h2>
+            <p class="category-banner__text">Uma curadoria completa sobre o universo Nuvvo. Explore nossas tendências, guias técnicos e reflexões sobre o design contemporâneo que transforma o morar.</p>
+          </div>
+          <div data-banner-cat="cuidados-materiais" hidden>
+            <h2 class="category-banner__title">Cuidados e Materiais</h2>
+            <p class="category-banner__text">A sofisticação começa na estrutura. Conheça a ciência por trás do nosso conforto: do rigor técnico das espumas certificadas à durabilidade da madeira e a estética impecável de nossa curadoria de tecidos.</p>
+          </div>
+          <div data-banner-cat="dicas-decoracao" hidden>
+            <h2 class="category-banner__title">Dicas de Decoração</h2>
+            <p class="category-banner__text">Onde o design encontra a vida cotidiana. Dicas sobre proporção, respiro e o uso consciente do espaço, para que seu ambiente seja, acima de tudo, um reflexo do seu bem-estar.</p>
+          </div>
+          <div data-banner-cat="tendencias" hidden>
+            <h2 class="category-banner__title">Tendências</h2>
+            <p class="category-banner__text">Um olhar atento sobre o viver contemporâneo. Acompanhe as reflexões de Deivid de Almeida sobre a evolução do mobiliário, a ergonomia tátil e a nova cultura do morar&nbsp;bem.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. LISTAGEM ============ -->
+    <section class="section blog-listagem">
+      <div class="wrap">
+        <div class="blog-grid" data-blog-grid>
+
+          <!-- Post 1 — FEATURED double-width -->
+          <a href="blog/tendencias-em-design-contemporaneo.html"
+             class="post-card post-card--featured blog-grid__featured"
+             data-category="tendencias"
+             aria-label="Leia: O novo morar — a ergonomia tátil e a era dos estofados Puffy">
+            <div class="post-card__media">
+              <img src="assets/img/gallery-4.jpg" alt="Vista superior das almofadas com volume e dobras — estética puffy" loading="lazy">
+            </div>
+            <div class="post-card__content">
+              <span class="post-card__tag">Tendências</span>
+              <h2 class="post-card__title">O novo morar: a ergonomia tátil e a era dos estofados Puffy</h2>
+              <p class="post-card__meta">
+                <time datetime="2026-05-15">15 mai 2026</time>
+                <span class="post-card__meta-sep"></span>
+                <span>5 min de leitura</span>
+                <span class="post-card__meta-sep"></span>
+                <span>por Deivid de Almeida</span>
+              </p>
+              <p class="post-card__excerpt">O designer da Nuvvo compartilha um olhar crítico sobre a transformação do setor moveleiro: a aceleração das tendências, a ascensão do estofado puffy e o desafio das indústrias na nova cultura do morar.</p>
+              <span class="post-card__cta">Leia mais</span>
+            </div>
+          </a>
+
+          <div class="blog-grid__rest">
+
+            <!-- Post 2 — Cuidados e Materiais -->
+            <a href="blog/guia-de-tecidos-para-estofados-de-alta-decoracao.html"
+               class="post-card"
+               data-category="cuidados-materiais"
+               aria-label="Leia: Guia de tecidos para estofados de alta decoração">
+              <div class="post-card__media">
+                <img src="assets/img/gallery-6.png" alt="Close das almofadas e braço com textura de tecido" loading="lazy">
+              </div>
+              <span class="post-card__tag">Cuidados e Materiais</span>
+              <h3 class="post-card__title">Guia de tecidos para estofados de alta decoração: como escolher o ideal para seu projeto</h3>
+              <p class="post-card__meta">
+                <time datetime="2026-05-02">02 mai 2026</time>
+                <span class="post-card__meta-sep"></span>
+                <span>6 min de leitura</span>
+              </p>
+              <span class="post-card__cta">Leia mais</span>
+            </a>
+
+            <!-- Post 3 — Dicas de Decoração -->
+            <a href="blog/proporcao-e-respiro-na-sala-de-estar.html"
+               class="post-card"
+               data-category="dicas-decoracao"
+               aria-label="Leia: Proporção e respiro na sala de estar">
+              <div class="post-card__media">
+                <img src="assets/img/hero-1.png" alt="Ambiente residencial Nuvvo com composição bem-resolvida" loading="lazy">
+              </div>
+              <span class="post-card__tag">Dicas de Decoração</span>
+              <h3 class="post-card__title">Proporção e respiro: os princípios invisíveis de uma sala de estar bem-resolvida</h3>
+              <p class="post-card__meta">
+                <time datetime="2026-04-20">20 abr 2026</time>
+                <span class="post-card__meta-sep"></span>
+                <span>5 min de leitura</span>
+              </p>
+              <span class="post-card__cta">Leia mais</span>
+            </a>
+
+            <!-- Post 4 — Tendências -->
+            <a href="blog/cores-e-texturas-2026-paleta-do-morar-contemporaneo.html"
+               class="post-card"
+               data-category="tendencias"
+               aria-label="Leia: A paleta do morar contemporâneo 2026">
+              <div class="post-card__media">
+                <img src="assets/img/gallery-1.png" alt="Detalhe do sofá Pecan com mesa lateral de madeira" loading="lazy">
+              </div>
+              <span class="post-card__tag">Tendências</span>
+              <h3 class="post-card__title">A paleta do morar contemporâneo: cores e texturas que definem 2026</h3>
+              <p class="post-card__meta">
+                <time datetime="2026-04-08">08 abr 2026</time>
+                <span class="post-card__meta-sep"></span>
+                <span>4 min de leitura</span>
+              </p>
+              <span class="post-card__cta">Leia mais</span>
+            </a>
+
+            <!-- Post 5 — Cuidados e Materiais -->
+            <a href="blog/como-conservar-seu-estofado-de-alta-decoracao.html"
+               class="post-card"
+               data-category="cuidados-materiais"
+               aria-label="Leia: Como conservar seu estofado de alta decoração">
+              <div class="post-card__media">
+                <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect width="600" height="400" fill="#9F8D7A"/>
+                  <g opacity="0.35" fill="#F0EDE4">
+                    <rect x="80" y="180" width="440" height="80" rx="6"/>
+                    <rect x="80" y="100" width="440" height="80" rx="6"/>
+                    <rect x="60" y="160" width="40" height="160" rx="4"/>
+                    <rect x="500" y="160" width="40" height="160" rx="4"/>
+                  </g>
+                  <text x="300" y="385" font-family="DM Sans, sans-serif" font-size="11" fill="#F0EDE4" text-anchor="middle" letter-spacing="2">[ CUIDADOS · CAPA EM BREVE ]</text>
+                </svg>
+              </div>
+              <span class="post-card__tag">Cuidados e Materiais</span>
+              <h3 class="post-card__title">Como conservar seu estofado de alta decoração: guia prático de limpeza e manutenção</h3>
+              <p class="post-card__meta">
+                <time datetime="2026-03-25">25 mar 2026</time>
+                <span class="post-card__meta-sep"></span>
+                <span>7 min de leitura</span>
+              </p>
+              <span class="post-card__cta">Leia mais</span>
+            </a>
+
+            <!-- Empty state -->
+            <div class="blog-empty" data-blog-empty hidden>
+              <h3 class="blog-empty__title">Em breve, novos conteúdos nesta categoria.</h3>
+              <button type="button" class="btn btn--secondary" data-show-all>
+                Ver todos os posts
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="load-more-wrapper">
+          <button type="button" class="btn btn--secondary load-more" data-load-more hidden>
+            <span class="load-more__label">Carregar mais</span>
+            <span class="load-more__spinner" aria-hidden="true"></span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ 5. CTA FINAL ============ -->
+    <section class="cta-final" aria-label="Vamos conversar">
+      <div class="wrap cta-final__inner reveal">
+        <h2 class="cta-final__title">Vamos transformar suas inspirações em projeto?</h2>
+        <p class="cta-final__lede">Compartilhe seu projeto conosco e nossa equipe traduzirá sua&nbsp;visão.</p>
+        <a href="https://wa.me/5554999485915?text=Ol%C3%A1%2C%20li%20no%20blog%20da%20Nuvvo%20e%20gostaria%20de%20falar%20com%20um%20especialista"
+           class="btn btn--cream"
+           target="_blank" rel="noopener">
+          Falar com especialista
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="wrap">
+      <div class="footer__grid">
+        <div>
+          <a href="index.html" class="header__logo" aria-label="Nuvvo Design — Página inicial" style="margin-bottom: var(--space-2); display: inline-block;">
+            <img src="assets/img/logo-cream.png" alt="Nuvvo Design" class="logo-img" width="120">
+          </a>
+          <p class="footer__brand-tag">Mobiliário de alta decoração</p>
+          <a href="tel:+5554999485915" class="footer__phone">(54) 9 9948-5915</a>
+          <address class="footer__address">
+            Rua Teresa Lívia Rodigheri, 662<br>
+            Loteamento Villa Bella<br>
+            CEP 99150-000 — Marau, RS
+          </address>
+        </div>
+        <div>
+          <h4 class="footer__col-title">Catálogo</h4>
+          <ul class="footer__list">
+            <li><a href="catalogo/sofas.html">Sofás</a></li>
+            <li><a href="catalogo/poltronas.html">Poltronas</a></li>
+            <li><a href="catalogo/bancos.html">Bancos</a></li>
+            <li><a href="catalogo/camas.html">Camas</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer__col-title">Institucional</h4>
+          <ul class="footer__list">
+            <li><a href="a-nuvvo.html">A Nuvvo</a></li>
+            <li><a href="inspire-se.html">Inspire-se</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer__col-title">Redes sociais</h4>
+          <div class="footer__social">
+            <a href="https://www.instagram.com/nuvvo.design" target="_blank" rel="noopener" aria-label="Instagram da Nuvvo Design">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </a>
+            <a href="https://www.facebook.com/nuvvodesign" target="_blank" rel="noopener" aria-label="Facebook da Nuvvo Design">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© <span data-year>2026</span> Nuvvo Design by Sofá News</span>
+        <a href="politica-de-privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ WHATSAPP FLUTUANTE ============ -->
+  <a class="wa-float"
+     href="https://wa.me/5554999485915?text=Ol%C3%A1%2C%20gostaria%20de%20conhecer%20a%20Nuvvo%20Design"
+     target="_blank"
+     rel="noopener"
+     aria-label="Falar com a Nuvvo no WhatsApp">
+    <svg class="wa-float__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.25 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.48-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.66.31s-.86.85-.86 2.07c0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29z"/>
+    </svg>
+    <span class="wa-float__text">Fale conosco</span>
+  </a>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.42/bundled/lenis.min.js" defer></script>
+  <script src="scripts/main.js" defer></script>
+  <script src="scripts/animations.js" defer></script>
+  <script src="scripts/blog-listagem.js" defer></script>
+  <script src="scripts/cookie-banner.js" defer></script>
+
+</body>
+</html>

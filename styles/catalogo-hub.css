@@ -1,0 +1,140 @@
+/* ============================================================
+   CATÁLOGO — HUB
+   ============================================================ */
+
+/* =============== HERO =============== */
+.catalog-hero {
+  background: var(--color-cream);
+  min-height: 56vh;
+  min-height: 56svh;
+  display: flex;
+  align-items: center;
+  padding-block: calc(var(--space-8) + var(--space-2)) var(--space-5);
+  position: relative;
+  overflow: hidden;
+}
+.catalog-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(159, 141, 122, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(80, 7, 26, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+.catalog-hero__inner { position: relative; z-index: 1; }
+.catalog-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-tech);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: var(--tracking-mega);
+  text-transform: uppercase;
+  color: var(--color-taupe-dark);
+  margin-bottom: var(--space-3);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: catalog-in 0.8s var(--ease-emph) 200ms forwards;
+}
+.catalog-hero__eyebrow::before {
+  content: '';
+  width: 28px; height: 1px;
+  background: currentColor;
+}
+.catalog-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw + 1rem, 7rem);
+  line-height: 0.95;
+  color: var(--color-ink);
+  letter-spacing: -0.025em;
+  margin: 0 0 var(--space-3);
+  opacity: 0;
+  transform: translateY(24px);
+  animation: catalog-in 1s var(--ease-emph) 320ms forwards;
+}
+.catalog-hero__sub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.125rem, 1vw + 0.8rem, 1.5rem);
+  color: var(--color-taupe-dark);
+  margin: 0;
+  max-width: 38ch;
+  letter-spacing: var(--tracking-tight);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: catalog-in 1s var(--ease-emph) 480ms forwards;
+}
+@keyframes catalog-in { to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 767px) {
+  .catalog-hero { min-height: 42vh; padding-block: var(--space-7) var(--space-4); }
+}
+
+/* =============== CARDS DE CATEGORIA (4) =============== */
+.catalog-categories {
+  padding-block: var(--space-5) var(--space-7);
+}
+.catalog-categories__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(var(--space-2), 1.5vw, var(--space-3));
+}
+.catalog-categories__grid .card-cat {
+  aspect-ratio: 3 / 4;
+}
+@media (max-width: 1023px) {
+  .catalog-categories__grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+  .catalog-categories__grid .card-cat { aspect-ratio: 3 / 4; }
+}
+@media (max-width: 479px) {
+  .catalog-categories__grid { grid-template-columns: 1fr; }
+}
+
+/* =============== DIFERENCIAIS (carrossel) =============== */
+.catalog-features {
+  background: var(--color-cream-warm);
+  padding-block: var(--space-7);
+}
+.catalog-features__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+/* =============== INSPIRE-SE prévia (carrossel) =============== */
+.catalog-inspire {
+  padding-block: var(--space-7);
+}
+.catalog-inspire__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+/* =============== SUPORTE AO ARQUITETO =============== */
+.catalog-support {
+  background: var(--color-cream);
+  padding-block: var(--space-7);
+}
+.catalog-support__head {
+  text-align: center;
+  margin-bottom: var(--space-3);
+  max-width: 720px;
+  margin-inline: auto;
+}
+.catalog-support__lede {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  color: var(--color-ink-soft);
+  line-height: 1.6;
+  max-width: 56ch;
+  margin: var(--space-3) auto var(--space-4);
+}
