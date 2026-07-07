@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+#
+# Hook pre-push: ao dar `git push`, envia as alterações da branch main
+# para o servidor FTP (/public_html) via .deploy/deploy.sh.
+#
+# O git passa pela stdin, uma linha por ref:
+#   <local_ref> <local_sha> <remote_ref> <remote_sha>
+#
+# O deploy é "best-effort": se o servidor estiver inacessível (fora da VPN),
+# o push para o GitHub continua normalmente e é exibido um aviso.
+
+ZERO="0000000000000000000000000000000000000000"
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  # só faz deploy da branch main
+  case "$remote_ref" in
+    refs/heads/main) ;;
+    *) continue ;;
+  esac
+
+  # deleção de branch (local vazio) -> não faz deploy
+  [ "$local_sha" = "$ZERO" ] && continue
+
+  echo ""
+  echo ">> Deploy para o servidor (VPN)..."
+
+  if [ "$remote_sha" = "$ZERO" ]; then
+    # main ainda não existe no remoto -> envia tudo
+    bash "$REPO_ROOT/.deploy/deploy.sh" --all
+  else
+    bash "$REPO_ROOT/.deploy/deploy.sh" "$remote_sha" "$local_sha"
+  fi
+done
+
+# nunca bloqueia o push por falha de deploy
+exit 0
