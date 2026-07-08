@@ -8,13 +8,24 @@ get_header();
 ?>
 
     <!-- ============ 1. HERO INSTITUCIONAL ============ -->
+    <?php
+    // Hero editável (imagem via single_image; textos via campos da página) — fallback no conteúdo atual.
+    $anv_hero_img_id = function_exists('rwmb_meta') ? rwmb_meta('nuvvo_anuvvo_hero_img', [], get_the_ID()) : '';
+    if (is_array($anv_hero_img_id)) { $anv_hero_img_id = reset($anv_hero_img_id); }
+    $anv_hero_img = $anv_hero_img_id ? wp_get_attachment_image_url((int) $anv_hero_img_id, 'full') : '';
+    if (!$anv_hero_img) { $anv_hero_img = get_template_directory_uri() . '/assets/img/hero-2.jpg'; }
+
+    $anv_hero_eyebrow = nuvvo_pgf('nuvvo_anuvvo_hero_eyebrow', '');
+    $anv_hero_titulo  = nuvvo_pgf('nuvvo_anuvvo_hero_titulo', 'Uma jornada construída sobre a atenção aos detalhes');
+    $anv_hero_sub     = nuvvo_pgf('nuvvo_anuvvo_hero_sub', 'A Nuvvo Design nasce para materializar a bagagem de duas décadas e meia de trabalho artesanal. Somos a evolução de uma trajetória dedicada à qualidade, seriedade e respeito em cada projeto executado.');
+    ?>
     <section class="about-hero" aria-label="Apresentação da Nuvvo Design">
       <div class="about-hero__media">
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/hero-2.jpg"
+        <img src="<?php echo esc_url($anv_hero_img); ?>"
              alt="Ambiente residencial com mobiliário Nuvvo Design"
              loading="eager" fetchpriority="high"
-             data-parallax="0.15"
-             width="1920" height="1280">
+             data-parallax="0.15"<?php if (!$anv_hero_img_id) : ?>
+             width="1920" height="1280"<?php endif; ?>>
       </div>
 
       <nav class="breadcrumb" aria-label="Você está aqui">
@@ -24,8 +35,9 @@ get_header();
       </nav>
 
       <div class="wrap about-hero__inner">
-        <h1 class="about-hero__title">Uma jornada construída sobre a atenção aos detalhes</h1>
-        <p class="about-hero__sub">A Nuvvo Design nasce para materializar a bagagem de duas décadas e meia de trabalho artesanal. Somos a evolução de uma trajetória dedicada à qualidade, seriedade e respeito em cada projeto executado.</p>
+        <?php if ($anv_hero_eyebrow) : ?><span class="eyebrow" style="color: var(--color-cream);"><?php echo esc_html($anv_hero_eyebrow); ?></span><?php endif; ?>
+        <h1 class="about-hero__title"><?php echo esc_html($anv_hero_titulo); ?></h1>
+        <p class="about-hero__sub"><?php echo esc_html($anv_hero_sub); ?></p>
       </div>
     </section>
 
@@ -112,68 +124,53 @@ get_header();
           </div>
         </header>
 
+        <?php
+        // Diferenciais editáveis (grupo clonável) — fallback nos 5 cards atuais.
+        // Ícones pré-definidos (chave => markup interno do SVG) reusando os SVGs originais.
+        $anv_dif_icons = [
+            'star'    => '<path d="M16 2l3.7 9.5L29 13l-7 6.5L24 29l-8-5-8 5 2-9.5L3 13l9.3-1.5z"/>',
+            'sliders' => '<circle cx="9" cy="9" r="2.5"/><path d="M3 9h3.5M11.5 9H29"/><circle cx="20" cy="17" r="2.5"/><path d="M3 17h14.5M22.5 17H29"/><circle cx="13" cy="25" r="2.5"/><path d="M3 25h7.5M15.5 25H29"/>',
+            'people'  => '<circle cx="10" cy="11" r="3.5"/><path d="M3 27c0-4 3-7 7-7s7 3 7 7"/><circle cx="22" cy="11" r="3.5"/><path d="M16 22c1.5-1 3.5-2 6-2s4.5 1 6 3"/>',
+            'doc'     => '<rect x="5" y="3" width="22" height="26" rx="2"/><path d="M10 11h12M10 16h12M10 21h7"/><path d="M19 24l3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/>',
+            'craft'   => '<path d="M6 16c0-5 4-9 10-9s10 4 10 9v9H6z"/><path d="M11 25v-6M16 25v-9M21 25v-6"/>',
+        ];
+        $anv_dif = function_exists('rwmb_meta') ? array_filter((array) rwmb_meta('nuvvo_anuvvo_diferenciais', [], get_the_ID())) : [];
+        if (!$anv_dif) {
+            $anv_dif = [
+                ['icone' => 'star',    'titulo' => 'Design Exclusivo',                'texto' => 'Peças com identidade única, pensadas para expressar autenticidade em cada ambiente.',                                                          'link' => 'https://wa.me/5554999485915?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20Design%20Exclusivo%20da%20Nuvvo.',                    'target' => '1', 'aria' => 'Design Exclusivo — falar no WhatsApp'],
+                ['icone' => 'sliders', 'titulo' => 'Personalização de acabamentos',   'texto' => 'Diversas opções de tecidos e medidas pré-definidas para adequar cada peça ao seu projeto.',                                                     'link' => 'https://wa.me/5554999485915?text=Ol%C3%A1%21%20Tenho%20interesse%20na%20personaliza%C3%A7%C3%A3o%20%28medidas%20e%20acabamentos%29%20da%20Nuvvo.', 'target' => '1', 'aria' => 'Personalização de acabamentos — falar no WhatsApp'],
+                ['icone' => 'people',  'titulo' => 'Parceria com o arquiteto',        'texto' => 'Acompanhamento humano e próximo, garantindo suporte em todas as etapas: da especificação à entrega.',                                          'link' => 'https://wa.me/5554999485915?text=Ol%C3%A1%21%20Sou%20arquiteto%28a%29%20e%20gostaria%20de%20falar%20com%20a%20equipe%20da%20Nuvvo.',              'target' => '1', 'aria' => 'Parceria com o arquiteto — falar no WhatsApp'],
+                ['icone' => 'doc',     'titulo' => 'Praticidade na especificação',    'texto' => 'Disponibilizamos blocos 3D e fichas técnicas detalhadas para integrar nosso design ao seu projeto com precisão e agilidade.',                    'link' => 'https://3dwarehouse.sketchup.com/user/61f45a49-50d6-41a1-8202-89e4f458c8ea',                                                             'target' => '1', 'aria' => 'Praticidade na especificação — biblioteca de blocos 3D no 3D Warehouse'],
+                ['icone' => 'craft',   'titulo' => 'Zelo e Produção Artesanal',       'texto' => 'Nossos estofados unem a precisão da engenharia de ponta ao cuidado rigoroso do trabalho manual, assegurando um acabamento impecável em cada processo.', 'link' => 'https://wa.me/5554999485915?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20a%20produ%C3%A7%C3%A3o%20artesanal%20da%20Nuvvo.',        'target' => '1', 'aria' => 'Zelo e Produção Artesanal — falar no WhatsApp'],
+            ];
+        }
+        ?>
         <div class="swiper features__swiper reveal">
           <div class="swiper-wrapper">
-
+            <?php foreach ($anv_dif as $d) :
+              $d_titulo = $d['titulo'] ?? '';
+              $d_texto  = $d['texto'] ?? '';
+              $d_link   = $d['link'] ?? '';
+              $d_icon   = $d['icone'] ?? '';
+              $d_svg    = $anv_dif_icons[$d_icon] ?? $anv_dif_icons['star'];
+              $d_aria   = $d['aria'] ?? $d_titulo;
+              $d_target = !empty($d['target']);
+              $d_tag    = $d_link ? 'a' : 'div'; // vira <a> se tiver link, senão <div> (preserva comportamento atual)
+            ?>
             <article class="swiper-slide">
-              <!-- href configurável por card (hoje: WhatsApp atual) -->
-              <a class="card-feature" href="https://wa.me/5554999485915?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20Design%20Exclusivo%20da%20Nuvvo." target="_blank" rel="noopener" aria-label="Design Exclusivo — falar no WhatsApp">
-                <svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-                  <path d="M16 2l3.7 9.5L29 13l-7 6.5L24 29l-8-5-8 5 2-9.5L3 13l9.3-1.5z"/>
-                </svg>
-                <h3 class="card-feature__title">Design Exclusivo</h3>
-                <p class="card-feature__body">Peças com identidade única, pensadas para expressar autenticidade em cada ambiente.</p>
-              </a>
+              <<?php echo $d_tag; ?> class="card-feature"<?php
+                if ($d_link) {
+                    echo ' href="' . esc_url($d_link) . '"';
+                    if ($d_target) { echo ' target="_blank" rel="noopener"'; }
+                    echo ' aria-label="' . esc_attr($d_aria) . '"';
+                }
+              ?>>
+                <svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><?php echo $d_svg; ?></svg>
+                <h3 class="card-feature__title"><?php echo esc_html($d_titulo); ?></h3>
+                <p class="card-feature__body"><?php echo esc_html($d_texto); ?></p>
+              </<?php echo $d_tag; ?>>
             </article>
-
-            <article class="swiper-slide">
-              <a class="card-feature" href="https://wa.me/5554999485915?text=Ol%C3%A1%21%20Tenho%20interesse%20na%20personaliza%C3%A7%C3%A3o%20%28medidas%20e%20acabamentos%29%20da%20Nuvvo." target="_blank" rel="noopener" aria-label="Personalização de acabamentos — falar no WhatsApp">
-                <svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-                  <circle cx="9" cy="9" r="2.5"/><path d="M3 9h3.5M11.5 9H29"/>
-                  <circle cx="20" cy="17" r="2.5"/><path d="M3 17h14.5M22.5 17H29"/>
-                  <circle cx="13" cy="25" r="2.5"/><path d="M3 25h7.5M15.5 25H29"/>
-                </svg>
-                <h3 class="card-feature__title">Personalização de acabamentos</h3>
-                <p class="card-feature__body">Diversas opções de tecidos e medidas pré-definidas para adequar cada peça ao seu projeto.</p>
-              </a>
-            </article>
-
-            <article class="swiper-slide">
-              <!-- destino: WhatsApp do consultor responsável (hoje: WhatsApp atual) -->
-              <a class="card-feature" href="https://wa.me/5554999485915?text=Ol%C3%A1%21%20Sou%20arquiteto%28a%29%20e%20gostaria%20de%20falar%20com%20a%20equipe%20da%20Nuvvo." target="_blank" rel="noopener" aria-label="Parceria com o arquiteto — falar no WhatsApp">
-                <svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-                  <circle cx="10" cy="11" r="3.5"/><path d="M3 27c0-4 3-7 7-7s7 3 7 7"/>
-                  <circle cx="22" cy="11" r="3.5"/><path d="M16 22c1.5-1 3.5-2 6-2s4.5 1 6 3"/>
-                </svg>
-                <h3 class="card-feature__title">Parceria com o arquiteto</h3>
-                <p class="card-feature__body">Acompanhamento humano e próximo, garantindo suporte em todas as etapas: da especificação à entrega.</p>
-              </a>
-            </article>
-
-            <article class="swiper-slide">
-              <!-- Biblioteca de blocos 3D no 3D Warehouse -->
-              <a class="card-feature" href="https://3dwarehouse.sketchup.com/user/61f45a49-50d6-41a1-8202-89e4f458c8ea" target="_blank" rel="noopener" aria-label="Praticidade na especificação — biblioteca de blocos 3D no 3D Warehouse">
-                <svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-                  <rect x="5" y="3" width="22" height="26" rx="2"/>
-                  <path d="M10 11h12M10 16h12M10 21h7"/>
-                  <path d="M19 24l3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <h3 class="card-feature__title">Praticidade na especificação</h3>
-                <p class="card-feature__body">Disponibilizamos blocos 3D e fichas técnicas detalhadas para integrar nosso design ao seu projeto com precisão e agilidade.</p>
-              </a>
-            </article>
-
-            <article class="swiper-slide">
-              <a class="card-feature" href="https://wa.me/5554999485915?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20a%20produ%C3%A7%C3%A3o%20artesanal%20da%20Nuvvo." target="_blank" rel="noopener" aria-label="Zelo e Produção Artesanal — falar no WhatsApp">
-                <svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-                  <path d="M6 16c0-5 4-9 10-9s10 4 10 9v9H6z"/>
-                  <path d="M11 25v-6M16 25v-9M21 25v-6"/>
-                </svg>
-                <h3 class="card-feature__title">Zelo e Produção Artesanal</h3>
-                <p class="card-feature__body">Nossos estofados unem a precisão da engenharia de ponta ao cuidado rigoroso do trabalho manual, assegurando um acabamento impecável em cada processo.</p>
-              </a>
-            </article>
-
+            <?php endforeach; ?>
           </div>
           <div class="swiper-pagination features__pagination"></div>
         </div>
@@ -181,28 +178,45 @@ get_header();
     </section>
 
     <!-- ============ 6. DESIGNER ============ -->
-    <section class="section designer-section" aria-label="Designer Deivid de Almeida">
+    <?php
+    // Designer editável — fallback nos dados atuais.
+    $anv_designer_nome  = nuvvo_pgf('nuvvo_anuvvo_designer_nome', 'Deivid de Almeida');
+    $anv_designer_cargo = nuvvo_pgf('nuvvo_anuvvo_designer_cargo', 'Designer assinado');
+
+    $anv_designer_foto_id = function_exists('rwmb_meta') ? rwmb_meta('nuvvo_anuvvo_designer_foto', [], get_the_ID()) : '';
+    if (is_array($anv_designer_foto_id)) { $anv_designer_foto_id = reset($anv_designer_foto_id); }
+    $anv_designer_foto = $anv_designer_foto_id ? wp_get_attachment_image_url((int) $anv_designer_foto_id, 'full') : '';
+    if (!$anv_designer_foto) { $anv_designer_foto = get_template_directory_uri() . '/assets/img/designer-deivid.jpg'; }
+
+    $anv_designer_bio = function_exists('rwmb_meta') ? rwmb_meta('nuvvo_anuvvo_designer_bio', [], get_the_ID()) : '';
+    if (is_array($anv_designer_bio)) { $anv_designer_bio = reset($anv_designer_bio); }
+    ?>
+    <section class="section designer-section" aria-label="<?php echo esc_attr('Designer ' . $anv_designer_nome); ?>">
       <div class="wrap">
         <div class="designer-split">
 
           <div class="designer-split__photo reveal">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/img/designer-deivid.jpg"
-                 alt="Retrato editorial em preto e branco do designer Deivid de Almeida"
-                 loading="lazy"
-                 width="600" height="750">
+            <img src="<?php echo esc_url($anv_designer_foto); ?>"
+                 alt="<?php echo esc_attr('Retrato editorial em preto e branco do designer ' . $anv_designer_nome); ?>"
+                 loading="lazy"<?php if (!$anv_designer_foto_id) : ?>
+                 width="600" height="750"<?php endif; ?>>
           </div>
 
           <div class="designer-split__content reveal reveal--delay-1">
-            <span class="eyebrow">Designer assinado</span>
-            <h2 class="designer-split__title">Design sob a assinatura de Deivid de Almeida</h2>
+            <span class="eyebrow"><?php echo esc_html($anv_designer_cargo); ?></span>
+            <h2 class="designer-split__title">Design sob a assinatura de <?php echo esc_html($anv_designer_nome); ?></h2>
 
             <div class="designer-split__body">
+              <?php if ($anv_designer_bio) :
+                  echo wp_kses_post($anv_designer_bio);
+              else : ?>
               <p>Atuante na <em>indústria moveleira desde os anos 2000</em>, Deivid de Almeida construiu uma <strong>expertise técnica lapidada em um processo constante de evolução e refinamento</strong>. Cada peça que assina carrega o repertório de mais de duas décadas de prática.</p>
 
               <p>Seu trabalho parte de uma obsessão silenciosa: <strong>traduzir comportamento humano em mobiliário</strong>. <em>Ergonomia</em>, <em>conforto tátil</em> e <em>perfeição técnica</em> deixam de ser exigências para se tornarem ponto de partida — porque é assim que o design se torna invisível e essencial ao mesmo tempo.</p>
+              <?php endif; ?>
             </div>
 
-            <span class="designer-split__signature">Deivid de Almeida</span>
+            <span class="designer-split__signature"><?php echo esc_html($anv_designer_nome); ?></span>
           </div>
 
         </div>
@@ -289,14 +303,22 @@ get_header();
     </section>
 
     <!-- ============ 9. CTA FINAL (reusado da Home) ============ -->
+    <?php
+    // CTA final editável — fallback no conteúdo atual.
+    $anv_cta_titulo = nuvvo_pgf('nuvvo_anuvvo_cta_titulo', 'Vamos construir juntos espaços que inspiram?');
+    $anv_cta_lede   = nuvvo_pgf('nuvvo_anuvvo_cta_lede', 'Deixe-se inspirar pela harmonia e conforto que o nosso design pode oferecer. Nossa equipe está pronta para te orientar.');
+    $anv_cta_btn    = nuvvo_pgf('nuvvo_anuvvo_cta_btn', 'Falar com consultor');
+    $anv_cta_msg    = nuvvo_pgf('nuvvo_anuvvo_cta_msg', 'Olá, gostaria de falar com um consultor da Nuvvo Design');
+    $anv_cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($anv_cta_msg) : 'https://wa.me/5554999485915?text=' . rawurlencode($anv_cta_msg);
+    ?>
     <section class="cta-final" aria-label="Vamos conversar">
       <div class="wrap cta-final__inner reveal">
-        <h2 class="cta-final__title">Vamos construir juntos espaços que inspiram?</h2>
-        <p class="cta-final__lede">Deixe-se inspirar pela harmonia e conforto que o nosso design pode oferecer. Nossa equipe está pronta para te orientar.</p>
-        <a href="https://wa.me/5554999485915?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20consultor%20da%20Nuvvo%20Design"
+        <h2 class="cta-final__title"><?php echo esc_html($anv_cta_titulo); ?></h2>
+        <p class="cta-final__lede"><?php echo esc_html($anv_cta_lede); ?></p>
+        <a href="<?php echo esc_url($anv_cta_url); ?>"
            class="btn btn--cream"
            target="_blank" rel="noopener">
-          Falar com consultor
+          <?php echo esc_html($anv_cta_btn); ?>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>

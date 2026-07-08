@@ -24,6 +24,48 @@ $hero_sub    = $read('nuvvo_home_hero_sub', 'Design autoral que traduz a harmoni
 $hero_cta    = $read('nuvvo_home_hero_cta', 'Falar com especialista');
 $hero_cta_msg = $read('nuvvo_home_hero_cta_msg', 'Olá, gostaria de falar com um especialista da Nuvvo Design');
 $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) : 'https://wa.me/5554999485915?text=' . rawurlencode($hero_cta_msg);
+
+// Catálogo (seção #catalog): título/sub editáveis + cards dinâmicos por termo.
+$cat_titulo = $read('nuvvo_home_catalogo_titulo', '');
+$cat_sub    = $read('nuvvo_home_catalogo_sub', 'Explore peças desenvolvidas com alta marcenaria, produção artesanal e acabamento impecável.');
+$cat_terms  = get_terms(['taxonomy' => 'categoria_produto', 'parent' => 0, 'hide_empty' => false]);
+if (is_wp_error($cat_terms)) { $cat_terms = []; }
+
+// Produtos em destaque: título editável (slides via WP_Query na seção).
+$destaque_titulo = $read('nuvvo_home_destaque_titulo', 'Seleção em destaque');
+
+// Pilares (A essência): grupo clonável com fallback nos 3 atuais.
+$pilares = [];
+if ($home_id && function_exists('rwmb_meta')) {
+    foreach ((array) rwmb_meta('nuvvo_home_pilares', [], $home_id) as $p) {
+        $p_num = isset($p['numero']) ? trim((string) $p['numero']) : '';
+        $p_tit = isset($p['titulo']) ? trim((string) $p['titulo']) : '';
+        $p_txt = isset($p['texto']) ? trim((string) $p['texto']) : '';
+        if ($p_tit === '' && $p_txt === '') { continue; }
+        $pilares[] = ['numero' => $p_num, 'titulo' => $p_tit, 'texto' => $p_txt];
+    }
+}
+if (!$pilares) {
+    $pilares = [
+        ['numero' => '01', 'titulo' => 'Design Exclusivo', 'texto' => 'Peças com identidade própria, assinadas e criadas para serem um convite ao bem estar, à contemplação e à celebração da vida.'],
+        ['numero' => '02', 'titulo' => 'Capacidade de Personalização', 'texto' => 'Mais de 3.000 opções de cores e acabamentos, além de diversas medidas disponíveis para a especificação precisa do seu projeto.'],
+        ['numero' => '03', 'titulo' => 'Acompanhamento Próximo', 'texto' => 'Atuamos lado a lado com o arquiteto em todas as etapas, da especificação técnica à entrega final.'],
+    ];
+}
+
+// Nuvvo News: título editável (cards via WP_Query na seção).
+$news_titulo = $read('nuvvo_home_news_titulo', 'Nuvvo News: dicas e tendências');
+
+// Depoimentos: título/subtítulo editáveis (itens via WP_Query na seção).
+$testi_titulo = $read('nuvvo_home_testi_titulo', 'A experiência Nuvvo');
+$testi_sub    = $read('nuvvo_home_testi_sub', 'A experiência Nuvvo');
+
+// CTA final.
+$cta_titulo = $read('nuvvo_home_cta_titulo', 'Vamos construir juntos espaços que inspiram?');
+$cta_lede   = $read('nuvvo_home_cta_lede', 'Deixe-se inspirar pela harmonia e conforto que o nosso design pode oferecer. Nossa equipe está pronta para te orientar.');
+$cta_btn    = $read('nuvvo_home_cta_btn', 'Falar com consultor');
+$cta_msg    = $read('nuvvo_home_cta_msg', 'Olá, gostaria de falar com um consultor da Nuvvo Design');
+$cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'https://wa.me/5554999485915?text=' . rawurlencode($cta_msg);
 ?>
 
     <!-- ============ 1. HERO ============ -->
@@ -109,8 +151,12 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
         <header class="catalog__head">
           <div class="reveal">
             <span class="eyebrow">Catálogo</span>
+            <?php if ($cat_titulo !== '') : ?>
+            <h2 class="section-title"><?php echo esc_html($cat_titulo); ?></h2>
+            <?php else : ?>
             <h2 class="section-title">Catálogo Nuvvo:<br>Mobiliário de alta decoração</h2>
-            <p class="lede">Explore peças desenvolvidas com alta marcenaria, produção artesanal e acabamento impecável.</p>
+            <?php endif; ?>
+            <p class="lede"><?php echo esc_html($cat_sub); ?></p>
           </div>
           <a href="<?php echo esc_url(home_url('/catalogo/')); ?>" class="btn btn--secondary reveal reveal--delay-1">
             Ver catálogo
@@ -119,6 +165,50 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
         </header>
 
         <div class="catalog__grid">
+
+          <?php if ($cat_terms) :
+              foreach ($cat_terms as $ci => $ct) :
+                  $ct_link = get_term_link($ct);
+                  if (is_wp_error($ct_link)) { continue; }
+
+                  // Imagem do termo (term meta single image); fallback = SVG placeholder.
+                  $ct_img_url = '';
+                  if (function_exists('rwmb_meta')) {
+                      $ct_imgs = rwmb_meta('categoria_produto_imagem', ['object_type' => 'term', 'size' => 'large'], $ct->term_id);
+                      if (is_array($ct_imgs) && $ct_imgs) {
+                          $ct_first   = reset($ct_imgs);
+                          $ct_img_url = is_array($ct_first) ? ($ct_first['url'] ?? '') : (wp_get_attachment_image_url((int) $ct_first, 'large') ?: '');
+                      }
+                  }
+                  $ct_delay = $ci > 0 ? ' reveal--delay-' . min((int) $ci, 3) : '';
+                  ?>
+          <a href="<?php echo esc_url($ct_link); ?>" class="card-cat reveal<?php echo $ct_delay; ?>">
+            <div class="card-cat__media">
+              <?php if ($ct_img_url) : ?>
+                <img src="<?php echo esc_url($ct_img_url); ?>"
+                     alt="Coleção de <?php echo esc_attr($ct->name); ?> Nuvvo"
+                     loading="lazy"
+                     width="800" height="1000">
+              <?php else : ?>
+                <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect width="400" height="500" fill="#7A6B5C"/>
+                  <g opacity="0.4" fill="#F0EDE4">
+                    <rect x="120" y="180" width="160" height="220" rx="20"/>
+                    <rect x="120" y="280" width="160" height="100" rx="8"/>
+                    <rect x="100" y="260" width="30" height="160" rx="4"/>
+                    <rect x="270" y="260" width="30" height="160" rx="4"/>
+                  </g>
+                </svg>
+              <?php endif; ?>
+            </div>
+            <div class="card-cat__label">
+              <span class="card-cat__name"><?php echo esc_html($ct->name); ?></span>
+              <span class="card-cat__arrow" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M10 7h7v7"/></svg>
+              </span>
+            </div>
+          </a>
+          <?php endforeach; else : ?>
 
           <a href="<?php echo esc_url(home_url('/catalogo/sofas/')); ?>" class="card-cat reveal">
             <div class="card-cat__media">
@@ -183,6 +273,8 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
             </div>
           </a>
 
+          <?php endif; ?>
+
         </div>
       </div>
     </section>
@@ -193,7 +285,7 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
         <header class="featured__head reveal">
           <div>
             <span class="eyebrow">Seleção</span>
-            <h2 class="section-title">Seleção em destaque</h2>
+            <h2 class="section-title"><?php echo esc_html($destaque_titulo); ?></h2>
           </div>
           <div class="featured__nav" role="group" aria-label="Navegar produtos">
             <button class="swiper-btn featured__prev" type="button" aria-label="Produto anterior">
@@ -207,6 +299,55 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
 
         <div class="swiper featured__swiper reveal">
           <div class="swiper-wrapper">
+
+            <?php
+            $destaque_q = new WP_Query([
+                'post_type'      => 'produto',
+                'posts_per_page' => 8,
+                'orderby'        => ['menu_order' => 'ASC', 'date' => 'DESC'],
+                'meta_query'     => [[
+                    'key'   => 'produto_destaque_home',
+                    'value' => '1',
+                ]],
+            ]);
+            if ($destaque_q->have_posts()) :
+                while ($destaque_q->have_posts()) : $destaque_q->the_post();
+                    $prod_id  = get_the_ID();
+                    $prod_sig = rwmb_meta('produto_signature', [], $prod_id);
+                    $prod_des = (array) rwmb_meta('produto_designer', [], $prod_id);
+                    $prod_des_id = $prod_des ? (int) reset($prod_des) : 0;
+
+                    // Imagem: destaque (thumbnail) ou 1ª imagem do hero.
+                    $prod_img = get_the_post_thumbnail_url($prod_id, 'nuvvo_card');
+                    if (!$prod_img) {
+                        $prod_hero = (array) rwmb_meta('produto_hero_imagens', ['size' => 'nuvvo_card'], $prod_id);
+                        if ($prod_hero) {
+                            $prod_hero_first = reset($prod_hero);
+                            $prod_img = is_array($prod_hero_first) ? ($prod_hero_first['url'] ?? '') : '';
+                        }
+                    }
+                    ?>
+            <article class="swiper-slide">
+              <a href="<?php echo esc_url(get_permalink($prod_id)); ?>" class="card-prod">
+                <div class="card-prod__media">
+                  <?php if ($prod_sig) : ?><span class="card-prod__tag">Nuvvo Signature</span><?php endif; ?>
+                  <?php if ($prod_img) : ?>
+                  <img src="<?php echo esc_url($prod_img); ?>" alt="<?php echo esc_attr(get_the_title($prod_id)); ?>" loading="lazy" width="600" height="450">
+                  <?php endif; ?>
+                </div>
+                <h3 class="card-prod__title"><?php echo esc_html(get_the_title($prod_id)); ?></h3>
+                <?php if ($prod_des_id) : ?>
+                <p class="card-prod__designer">Designer <?php echo esc_html(get_the_title($prod_des_id)); ?></p>
+                <?php elseif ($prod_sig) : ?>
+                <p class="card-prod__designer">Nuvvo Signature</p>
+                <?php endif; ?>
+                <span class="card-prod__link">Ver detalhes</span>
+              </a>
+            </article>
+                <?php
+                endwhile;
+                wp_reset_postdata();
+            else : ?>
 
             <!-- Sofá Pecan — lançamento Nuvvo Signature -->
             <article class="swiper-slide">
@@ -298,6 +439,8 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
               </a>
             </article>
 
+            <?php endif; ?>
+
           </div>
           <div class="swiper-pagination featured__pagination"></div>
         </div>
@@ -315,38 +458,24 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
 
         <div class="essence__grid">
 
-          <article class="card-pillar reveal">
-            <span class="card-pillar__num">01</span>
-            <svg class="card-pillar__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-              <circle cx="16" cy="16" r="11"/>
-              <path d="M16 5v22M5 16h22"/>
-            </svg>
-            <h3 class="card-pillar__title">Design Exclusivo</h3>
-            <p class="card-pillar__body">Peças com identidade própria, assinadas e criadas para serem um convite ao bem estar, à contemplação e à celebração da vida.</p>
+          <?php
+          // Ícones fixos do tema (o grupo editável não tem campo de ícone): ciclados por posição.
+          $pillar_icons = [
+              '<svg class="card-pillar__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="16" cy="16" r="11"/><path d="M16 5v22M5 16h22"/></svg>',
+              '<svg class="card-pillar__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><rect x="4" y="4" width="11" height="11"/><rect x="17" y="4" width="11" height="11"/><rect x="4" y="17" width="11" height="11"/><rect x="17" y="17" width="11" height="11"/></svg>',
+              '<svg class="card-pillar__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 24c4-8 8-12 12-12s8 4 12 12"/><circle cx="10" cy="10" r="3"/><circle cx="22" cy="10" r="3"/></svg>',
+          ];
+          foreach ($pilares as $pk => $pilar) :
+              $pilar_delay = $pk > 0 ? ' reveal--delay-' . min((int) $pk, 4) : '';
+              $pilar_icon  = $pillar_icons[$pk % count($pillar_icons)];
+              ?>
+          <article class="card-pillar reveal<?php echo $pilar_delay; ?>">
+            <?php if ($pilar['numero'] !== '') : ?><span class="card-pillar__num"><?php echo esc_html($pilar['numero']); ?></span><?php endif; ?>
+            <?php echo $pilar_icon; // SVG fixo do tema, seguro ?>
+            <h3 class="card-pillar__title"><?php echo esc_html($pilar['titulo']); ?></h3>
+            <p class="card-pillar__body"><?php echo esc_html($pilar['texto']); ?></p>
           </article>
-
-          <article class="card-pillar reveal reveal--delay-1">
-            <span class="card-pillar__num">02</span>
-            <svg class="card-pillar__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-              <rect x="4" y="4" width="11" height="11"/>
-              <rect x="17" y="4" width="11" height="11"/>
-              <rect x="4" y="17" width="11" height="11"/>
-              <rect x="17" y="17" width="11" height="11"/>
-            </svg>
-            <h3 class="card-pillar__title">Capacidade de Personalização</h3>
-            <p class="card-pillar__body">Mais de 3.000 opções de cores e acabamentos, além de diversas medidas disponíveis para a especificação precisa do seu projeto.</p>
-          </article>
-
-          <article class="card-pillar reveal reveal--delay-2">
-            <span class="card-pillar__num">03</span>
-            <svg class="card-pillar__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-              <path d="M4 24c4-8 8-12 12-12s8 4 12 12"/>
-              <circle cx="10" cy="10" r="3"/>
-              <circle cx="22" cy="10" r="3"/>
-            </svg>
-            <h3 class="card-pillar__title">Acompanhamento Próximo</h3>
-            <p class="card-pillar__body">Atuamos lado a lado com o arquiteto em todas as etapas, da especificação técnica à entrega final.</p>
-          </article>
+          <?php endforeach; ?>
 
         </div>
       </div>
@@ -375,6 +504,43 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
 
         <div class="swiper gallery__swiper reveal">
           <div class="swiper-wrapper">
+
+            <?php
+            $insp_q = new WP_Query([
+                'post_type'      => 'inspiracao',
+                'posts_per_page' => 6,
+                'orderby'        => ['menu_order' => 'ASC', 'date' => 'DESC'],
+            ]);
+            if ($insp_q->have_posts()) :
+                while ($insp_q->have_posts()) : $insp_q->the_post();
+                    $insp_id   = get_the_ID();
+                    $insp_url  = '';
+                    $insp_meta_alt = '';
+                    $insp_imgs = rwmb_meta('inspiracao_imagem', ['size' => 'large'], $insp_id);
+                    if (is_array($insp_imgs) && $insp_imgs) {
+                        $insp_first = reset($insp_imgs);
+                        if (is_array($insp_first)) {
+                            $insp_url      = $insp_first['url'] ?? '';
+                            $insp_meta_alt = $insp_first['alt'] ?? '';
+                        } else {
+                            $insp_url = wp_get_attachment_image_url((int) $insp_first, 'large') ?: '';
+                        }
+                    }
+                    if (!$insp_url) { continue; }
+                    $insp_alt = rwmb_meta('inspiracao_alt', [], $insp_id);
+                    $insp_alt = is_string($insp_alt) ? trim($insp_alt) : '';
+                    if ($insp_alt === '') { $insp_alt = $insp_meta_alt !== '' ? $insp_meta_alt : get_the_title($insp_id); }
+                    ?>
+            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria — <?php echo esc_attr($insp_alt); ?>">
+              <img src="<?php echo esc_url($insp_url); ?>" alt="<?php echo esc_attr($insp_alt); ?>" loading="lazy" width="800" height="1000">
+              <span class="gallery__slide-zoom" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
+              </span>
+            </a>
+                <?php
+                endwhile;
+                wp_reset_postdata();
+            else : ?>
 
             <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria — detalhe do braço do sofá Pecan">
               <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-1.png" alt="Detalhe do braço do sofá Pecan com mesa lateral de madeira" loading="lazy" width="800" height="1000">
@@ -413,6 +579,8 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
               </span>
             </a>
 
+            <?php endif; ?>
+
           </div>
         </div>
       </div>
@@ -424,12 +592,53 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
         <header class="news__head">
           <div class="reveal">
             <span class="eyebrow">Nuvvo News</span>
-            <h2 class="section-title section-title--nowrap">Nuvvo News: dicas e tendências</h2>
+            <h2 class="section-title section-title--nowrap"><?php echo esc_html($news_titulo); ?></h2>
           </div>
           <a href="<?php echo esc_url(home_url('/blog/')); ?>" class="link-underline reveal reveal--delay-1">Ver todas as publicações</a>
         </header>
 
         <div class="news__grid">
+
+          <?php
+          $news_q = new WP_Query([
+              'post_type'           => 'post',
+              'posts_per_page'      => 3,
+              'ignore_sticky_posts' => true,
+          ]);
+          if ($news_q->have_posts()) :
+              while ($news_q->have_posts()) : $news_q->the_post();
+                  $post_id    = get_the_ID();
+                  $post_img   = get_the_post_thumbnail_url($post_id, 'nuvvo_card');
+                  $post_delay = $news_q->current_post > 0 ? ' reveal--delay-' . min($news_q->current_post, 2) : '';
+                  $post_cats  = get_the_category($post_id);
+                  $post_cat   = ($post_cats && !is_wp_error($post_cats)) ? $post_cats[0]->name : '';
+                  ?>
+          <article class="reveal<?php echo $post_delay; ?>">
+            <a href="<?php echo esc_url(get_permalink($post_id)); ?>" class="card-post">
+              <div class="card-post__media">
+                <?php if ($post_img) : ?>
+                <img src="<?php echo esc_url($post_img); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>" loading="lazy" width="400" height="280">
+                <?php else : ?>
+                <svg viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect width="400" height="280" fill="#9F8D7A"/>
+                  <g opacity="0.4" fill="#F0EDE4"><rect x="40" y="140" width="320" height="100" rx="8"/></g>
+                </svg>
+                <?php endif; ?>
+              </div>
+              <div class="card-post__meta">
+                <?php if ($post_cat !== '') : ?>
+                <span><?php echo esc_html($post_cat); ?></span>
+                <span class="card-post__meta-sep">/</span>
+                <?php endif; ?>
+                <time datetime="<?php echo esc_attr(get_the_date('Y-m-d', $post_id)); ?>"><?php echo esc_html(get_the_date('j M Y', $post_id)); ?></time>
+              </div>
+              <h3 class="card-post__title"><?php echo esc_html(get_the_title($post_id)); ?></h3>
+            </a>
+          </article>
+              <?php
+              endwhile;
+              wp_reset_postdata();
+          else : ?>
 
           <article class="reveal">
             <a href="<?php echo esc_url(home_url('/blog/escolher-sofa-living-contemporaneo/')); ?>" class="card-post">
@@ -482,6 +691,8 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
             </a>
           </article>
 
+          <?php endif; ?>
+
         </div>
       </div>
     </section>
@@ -491,8 +702,8 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
       <div class="wrap">
         <header class="testi__head reveal">
           <div>
-            <span class="eyebrow">A experiência Nuvvo</span>
-            <h2 class="section-title">A experiência Nuvvo</h2>
+            <span class="eyebrow"><?php echo esc_html($testi_sub); ?></span>
+            <h2 class="section-title"><?php echo esc_html($testi_titulo); ?></h2>
           </div>
           <div class="featured__nav" role="group" aria-label="Navegar depoimentos">
             <button class="swiper-btn testi__prev" type="button" aria-label="Depoimento anterior">
@@ -506,6 +717,48 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
 
         <div class="swiper testi__swiper reveal">
           <div class="swiper-wrapper">
+
+            <?php
+            $testi_q = new WP_Query([
+                'post_type'      => 'depoimento',
+                'posts_per_page' => -1,
+                'orderby'        => ['menu_order' => 'ASC', 'date' => 'DESC'],
+            ]);
+            if ($testi_q->have_posts()) :
+                while ($testi_q->have_posts()) : $testi_q->the_post();
+                    $dep_id    = get_the_ID();
+                    $dep_texto = rwmb_meta('depoimento_texto', [], $dep_id);
+                    $dep_texto = is_string($dep_texto) ? trim($dep_texto) : '';
+                    if ($dep_texto === '') { continue; }
+                    $dep_nome = rwmb_meta('depoimento_nome', [], $dep_id);
+                    $dep_nome = is_string($dep_nome) ? trim($dep_nome) : '';
+                    if ($dep_nome === '') { $dep_nome = get_the_title($dep_id); }
+                    $dep_cargo = rwmb_meta('depoimento_cargo', [], $dep_id);
+                    $dep_cargo = is_string($dep_cargo) ? trim($dep_cargo) : '';
+
+                    // Avatar: foto (se houver) ou inicial do nome.
+                    $dep_foto_url = '';
+                    $dep_fotos = rwmb_meta('depoimento_foto', ['size' => 'thumbnail'], $dep_id);
+                    if (is_array($dep_fotos) && $dep_fotos) {
+                        $dep_first    = reset($dep_fotos);
+                        $dep_foto_url = is_array($dep_first) ? ($dep_first['url'] ?? '') : (wp_get_attachment_image_url((int) $dep_first, 'thumbnail') ?: '');
+                    }
+                    $dep_inicial = $dep_nome !== '' ? mb_strtoupper(mb_substr($dep_nome, 0, 1)) : '·';
+                    ?>
+            <figure class="swiper-slide testi__item">
+              <blockquote class="testi__quote"><?php echo esc_html($dep_texto); ?></blockquote>
+              <figcaption class="testi__author">
+                <span class="testi__avatar" aria-hidden="true"><?php if ($dep_foto_url) : ?><img src="<?php echo esc_url($dep_foto_url); ?>" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"><?php else : echo esc_html($dep_inicial); endif; ?></span>
+                <div>
+                  <div class="testi__name"><?php echo esc_html($dep_nome); ?></div>
+                  <?php if ($dep_cargo !== '') : ?><div class="testi__role"><?php echo esc_html($dep_cargo); ?></div><?php endif; ?>
+                </div>
+              </figcaption>
+            </figure>
+                <?php
+                endwhile;
+                wp_reset_postdata();
+            else : ?>
 
             <figure class="swiper-slide testi__item">
               <blockquote class="testi__quote">
@@ -585,6 +838,8 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
               </figcaption>
             </figure>
 
+            <?php endif; ?>
+
           </div>
           <div class="swiper-pagination testi__pagination"></div>
         </div>
@@ -594,12 +849,12 @@ $hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) 
     <!-- ============ 9. CTA FINAL ============ -->
     <section class="cta-final" aria-label="Vamos conversar">
       <div class="wrap cta-final__inner reveal">
-        <h2 class="cta-final__title">Vamos construir juntos espaços que inspiram?</h2>
-        <p class="cta-final__lede">Deixe-se inspirar pela harmonia e conforto que o nosso design pode oferecer. Nossa equipe está pronta para te orientar.</p>
-        <a href="https://wa.me/5554999485915?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20consultor%20da%20Nuvvo%20Design"
+        <h2 class="cta-final__title"><?php echo esc_html($cta_titulo); ?></h2>
+        <p class="cta-final__lede"><?php echo esc_html($cta_lede); ?></p>
+        <a href="<?php echo esc_url($cta_url); ?>"
            class="btn btn--cream"
            target="_blank" rel="noopener">
-          Falar com consultor
+          <?php echo esc_html($cta_btn); ?>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
