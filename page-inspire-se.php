@@ -10,9 +10,9 @@ get_header();
     <!-- ============ 1. HERO ============ -->
     <section class="inspire-hero" aria-label="Apresentação">
       <div class="wrap inspire-hero__inner">
-        <span class="inspire-hero__eyebrow">Galeria</span>
-        <h1 class="inspire-hero__title">Inspirações</h1>
-        <p class="inspire-hero__sub">Compomos cenários para as suas melhores histórias.</p>
+        <span class="inspire-hero__eyebrow"><?php echo esc_html(nuvvo_pgf('nuvvo_inspirese_hero_eyebrow', 'Galeria')); ?></span>
+        <h1 class="inspire-hero__title"><?php echo esc_html(nuvvo_pgf('nuvvo_inspirese_hero_titulo', 'Inspirações')); ?></h1>
+        <p class="inspire-hero__sub"><?php echo esc_html(nuvvo_pgf('nuvvo_inspirese_hero_sub', 'Compomos cenários para as suas melhores histórias.')); ?></p>
       </div>
     </section>
 
@@ -35,6 +35,68 @@ get_header();
       <div class="wrap gallery-section__inner">
 
         <div class="gallery-grid" data-gallery aria-live="polite">
+
+          <?php
+          // Galeria dinâmica a partir do CPT `inspiracao`.
+          $insp_q = new WP_Query([
+              'post_type'      => 'inspiracao',
+              'posts_per_page' => -1,
+              'orderby'        => ['menu_order' => 'ASC', 'date' => 'DESC'],
+          ]);
+          if ($insp_q->have_posts()) :
+              while ($insp_q->have_posts()) : $insp_q->the_post();
+                  $iid = get_the_ID();
+
+                  // Proporção -> classe do grid
+                  $prop = rwmb_meta('inspiracao_proporcao', [], $iid);
+                  $prop = is_string($prop) ? trim($prop) : '';
+                  $prop_class = $prop === 'wide' ? ' gallery-item--wide' : ($prop === 'tall' ? ' gallery-item--tall' : '');
+
+                  // Imagem (field image_advanced, máx. 1) -> url exibição + url full p/ lightbox
+                  $imgs     = rwmb_meta('inspiracao_imagem', ['size' => 'large'], $iid);
+                  $img_url  = '';
+                  $img_full = '';
+                  $img_meta_alt = '';
+                  if (is_array($imgs) && $imgs) {
+                      $first = reset($imgs);
+                      if (is_array($first)) {
+                          $img_url      = $first['url'] ?? '';
+                          $img_full     = $first['full_url'] ?? ($first['url'] ?? '');
+                          $img_meta_alt = $first['alt'] ?? '';
+                      } else {
+                          $img_url  = wp_get_attachment_image_url((int) $first, 'large') ?: '';
+                          $img_full = wp_get_attachment_image_url((int) $first, 'full') ?: '';
+                      }
+                  }
+
+                  // Texto alternativo
+                  $alt = rwmb_meta('inspiracao_alt', [], $iid);
+                  $alt = is_string($alt) ? trim($alt) : '';
+                  if ($alt === '') { $alt = $img_meta_alt !== '' ? $img_meta_alt : get_the_title($iid); }
+
+                  // Categorias -> data-category (slugs por vírgula)
+                  $cats  = [];
+                  $terms = get_the_terms($iid, 'categoria_inspiracao');
+                  if ($terms && !is_wp_error($terms)) {
+                      foreach ($terms as $t) { $cats[] = $t->slug; }
+                  }
+                  $data_cat = $cats ? implode(',', $cats) : 'todos';
+
+                  if (!$img_url) { continue; }
+                  ?>
+          <button type="button" class="gallery-item<?php echo $prop_class; ?>" data-category="<?php echo esc_attr($data_cat); ?>" aria-label="<?php echo esc_attr($alt); ?>">
+            <img src="<?php echo esc_url($img_url); ?>"<?php echo $img_full ? ' data-full="' . esc_url($img_full) . '"' : ''; ?> alt="<?php echo esc_attr($alt); ?>" loading="lazy">
+            <span class="gallery-item__zoom" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
+            </span>
+          </button>
+              <?php
+              endwhile;
+              wp_reset_postdata();
+          else :
+          ?>
+
+          <!-- ====== FALLBACK: galeria estática (nenhum item no CPT `inspiracao`) ====== -->
 
           <!-- ====== LIVING (7) ====== -->
 
@@ -205,6 +267,8 @@ get_header();
               <text x="200" y="305" font-family="DM Sans, sans-serif" font-size="10" fill="#7A6B5C" text-anchor="middle" letter-spacing="2">[ SUÍTE 04 · EM BREVE ]</text>
             </svg>
           </button>
+
+          <?php endif; // fim fallback estático ?>
 
           <!-- Empty state -->
           <div class="gallery-empty" data-gallery-empty hidden>

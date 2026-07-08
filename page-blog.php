@@ -5,14 +5,23 @@
  */
 if (!defined('ABSPATH')) { exit; }
 get_header();
+
+/* Listagem dinâmica a partir dos posts nativos (fallback estático se vazio). */
+$blog_q = new WP_Query([
+  'post_type'           => 'post',
+  'post_status'         => 'publish',
+  'posts_per_page'      => -1,
+  'ignore_sticky_posts' => true,
+]);
+$blog_has_posts = $blog_q->have_posts();
 ?>
 
     <!-- ============ 1. HERO ============ -->
     <section class="blog-hero" aria-label="Apresentação">
       <div class="wrap blog-hero__inner">
-        <span class="blog-hero__eyebrow">Blog</span>
-        <h1 class="blog-hero__title">Nuvvo News</h1>
-        <p class="blog-hero__sub">Reflexões, guias e tendências do universo da alta&nbsp;decoração.</p>
+        <span class="blog-hero__eyebrow"><?php echo esc_html(nuvvo_pgf('nuvvo_blog_hero_eyebrow', 'Blog')); ?></span>
+        <h1 class="blog-hero__title"><?php echo esc_html(nuvvo_pgf('nuvvo_blog_hero_titulo', 'Nuvvo News')); ?></h1>
+        <p class="blog-hero__sub"><?php echo esc_html(nuvvo_pgf('nuvvo_blog_hero_sub', 'Reflexões, guias e tendências do universo da alta decoração.')); ?></p>
       </div>
     </section>
 
@@ -25,7 +34,14 @@ get_header();
           <button type="button" class="filter-chip" data-filter="dicas-decoracao"     aria-pressed="false">Dicas de Decoração</button>
           <button type="button" class="filter-chip" data-filter="tendencias"          aria-pressed="false">Tendências</button>
         </div>
-        <span class="filter-results" data-filter-results aria-live="polite">5 posts</span>
+        <span class="filter-results" data-filter-results aria-live="polite"><?php
+          if ($blog_has_posts) {
+            $blog_n = (int) $blog_q->found_posts;
+            echo esc_html($blog_n === 1 ? '1 post' : $blog_n . ' posts');
+          } else {
+            echo '5 posts';
+          }
+        ?></span>
       </div>
     </div>
 
@@ -57,6 +73,82 @@ get_header();
     <section class="section blog-listagem">
       <div class="wrap">
         <div class="blog-grid" data-blog-grid>
+        <?php if ($blog_has_posts) :
+          $blog_i = 0;
+          $bp_placeholder = '<svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="600" height="400" fill="#9F8D7A"/><g opacity="0.35" fill="#F0EDE4"><rect x="80" y="180" width="440" height="80" rx="6"/><rect x="80" y="100" width="440" height="80" rx="6"/><rect x="60" y="160" width="40" height="160" rx="4"/><rect x="500" y="160" width="40" height="160" rx="4"/></g><text x="300" y="385" font-family="DM Sans, sans-serif" font-size="11" fill="#F0EDE4" text-anchor="middle" letter-spacing="2">[ CAPA EM BREVE ]</text></svg>';
+          while ($blog_q->have_posts()) : $blog_q->the_post();
+            $bp_id       = get_the_ID();
+            $bp_cats     = get_the_category();
+            $bp_cat      = ($bp_cats && !is_wp_error($bp_cats)) ? $bp_cats[0] : null;
+            $bp_cat_slug = $bp_cat ? $bp_cat->slug : 'todos';
+            $bp_cat_name = $bp_cat ? $bp_cat->name : '';
+            $bp_img      = get_the_post_thumbnail_url($bp_id, $blog_i === 0 ? 'nuvvo_hero' : 'nuvvo_card');
+            if (!$bp_img) { $bp_img = get_the_post_thumbnail_url($bp_id, 'full'); }
+            $bp_words    = str_word_count(wp_strip_all_tags(strip_shortcodes(get_the_content())));
+            $bp_read_min = max(1, (int) ceil($bp_words / 200));
+            $bp_date_iso = get_the_date('Y-m-d');
+            $bp_date_disp = mb_strtolower(get_the_date('d M Y'));
+            ?>
+            <?php if ($blog_i === 0) : /* Primeiro post — variante destaque */ ?>
+              <a href="<?php echo esc_url(get_permalink()); ?>"
+                 class="post-card post-card--featured blog-grid__featured"
+                 data-category="<?php echo esc_attr($bp_cat_slug); ?>"
+                 aria-label="<?php echo esc_attr('Leia: ' . get_the_title()); ?>">
+                <div class="post-card__media">
+                  <?php if ($bp_img) : ?>
+                    <img src="<?php echo esc_url($bp_img); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy">
+                  <?php else : echo $bp_placeholder; endif; ?>
+                </div>
+                <div class="post-card__content">
+                  <?php if ($bp_cat_name) : ?><span class="post-card__tag"><?php echo esc_html($bp_cat_name); ?></span><?php endif; ?>
+                  <h2 class="post-card__title"><?php echo esc_html(get_the_title()); ?></h2>
+                  <p class="post-card__meta">
+                    <time datetime="<?php echo esc_attr($bp_date_iso); ?>"><?php echo esc_html($bp_date_disp); ?></time>
+                    <span class="post-card__meta-sep"></span>
+                    <span><?php echo esc_html($bp_read_min); ?> min de leitura</span>
+                    <?php $bp_author = get_the_author(); if ($bp_author) : ?>
+                    <span class="post-card__meta-sep"></span>
+                    <span>por <?php echo esc_html($bp_author); ?></span>
+                    <?php endif; ?>
+                  </p>
+                  <?php $bp_excerpt = get_the_excerpt(); if ($bp_excerpt) : ?><p class="post-card__excerpt"><?php echo esc_html($bp_excerpt); ?></p><?php endif; ?>
+                  <span class="post-card__cta">Leia mais</span>
+                </div>
+              </a>
+
+              <div class="blog-grid__rest">
+            <?php else : /* Demais posts */ ?>
+              <a href="<?php echo esc_url(get_permalink()); ?>"
+                 class="post-card"
+                 data-category="<?php echo esc_attr($bp_cat_slug); ?>"
+                 aria-label="<?php echo esc_attr('Leia: ' . get_the_title()); ?>">
+                <div class="post-card__media">
+                  <?php if ($bp_img) : ?>
+                    <img src="<?php echo esc_url($bp_img); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy">
+                  <?php else : echo $bp_placeholder; endif; ?>
+                </div>
+                <?php if ($bp_cat_name) : ?><span class="post-card__tag"><?php echo esc_html($bp_cat_name); ?></span><?php endif; ?>
+                <h3 class="post-card__title"><?php echo esc_html(get_the_title()); ?></h3>
+                <p class="post-card__meta">
+                  <time datetime="<?php echo esc_attr($bp_date_iso); ?>"><?php echo esc_html($bp_date_disp); ?></time>
+                  <span class="post-card__meta-sep"></span>
+                  <span><?php echo esc_html($bp_read_min); ?> min de leitura</span>
+                </p>
+                <span class="post-card__cta">Leia mais</span>
+              </a>
+            <?php endif; $blog_i++; ?>
+          <?php endwhile; ?>
+
+            <!-- Empty state -->
+            <div class="blog-empty" data-blog-empty hidden>
+              <h3 class="blog-empty__title">Em breve, novos conteúdos nesta categoria.</h3>
+              <button type="button" class="btn btn--secondary" data-show-all>
+                Ver todos os posts
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </div><!-- /.blog-grid__rest -->
+        <?php wp_reset_postdata(); else : /* Fallback estático (sem posts nativos) */ ?>
 
           <!-- Post 1 — FEATURED double-width -->
           <a href="<?php echo esc_url(home_url('/blog/tendencias-em-design-contemporaneo/')); ?>"
@@ -174,7 +266,7 @@ get_header();
             </div>
 
           </div>
-
+        <?php endif; ?>
         </div>
 
         <div class="load-more-wrapper">

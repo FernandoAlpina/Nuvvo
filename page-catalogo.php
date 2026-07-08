@@ -5,75 +5,72 @@
  */
 if (!defined('ABSPATH')) { exit; }
 get_header();
+
+$pid = get_the_ID();
+
+// Categorias (termos-pai) para os cards dinâmicos.
+$cat_terms = get_terms([
+    'taxonomy'   => 'categoria_produto',
+    'parent'     => 0,
+    'hide_empty' => false,
+]);
+if (is_wp_error($cat_terms)) {
+    $cat_terms = [];
+}
 ?>
 
     <!-- ============ 1. HERO ============ -->
     <section class="catalog-hero" aria-label="Catálogo">
       <div class="wrap catalog-hero__inner">
-        <span class="catalog-hero__eyebrow">Catálogo</span>
-        <h1 class="catalog-hero__title">Coleção</h1>
-        <p class="catalog-hero__sub">Mobiliário autoral concebido para projetos que pedem singularidade.</p>
+        <span class="catalog-hero__eyebrow"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_hero_eyebrow', 'Catálogo')); ?></span>
+        <h1 class="catalog-hero__title"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_hero_titulo', 'Coleção')); ?></h1>
+        <p class="catalog-hero__sub"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_hero_sub', 'Mobiliário autoral concebido para projetos que pedem singularidade.')); ?></p>
       </div>
     </section>
 
-    <!-- ============ 2. CATEGORIAS (4 cards) ============ -->
+    <!-- ============ 2. CATEGORIAS (cards dinâmicos por termo) ============ -->
     <section class="section catalog-categories" aria-label="Categorias">
       <div class="wrap">
         <div class="catalog-categories__grid">
 
-          <a href="<?php echo esc_url(home_url('/catalogo/sofas/')); ?>" class="card-cat reveal">
-            <div class="card-cat__media">
-              <img src="<?php echo get_template_directory_uri(); ?>/assets/img/cat-sofas.png" alt="Coleção de sofás Nuvvo Design" loading="lazy">
-            </div>
-            <div class="card-cat__label">
-              <span class="card-cat__name">Sofás</span>
-              <span class="card-cat__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M10 7h7v7"/></svg></span>
-            </div>
-          </a>
+          <?php foreach ($cat_terms as $i => $t) :
+              $link = get_term_link($t);
+              if (is_wp_error($link)) { continue; }
 
-          <a href="<?php echo esc_url(home_url('/catalogo/poltronas/')); ?>" class="card-cat reveal reveal--delay-1">
-            <div class="card-cat__media">
-              <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect width="400" height="500" fill="#7A6B5C"/>
-                <g opacity="0.4" fill="#F0EDE4">
-                  <rect x="120" y="180" width="160" height="220" rx="20"/>
-                  <rect x="120" y="280" width="160" height="100" rx="8"/>
-                  <rect x="100" y="260" width="30" height="160" rx="4"/>
-                  <rect x="270" y="260" width="30" height="160" rx="4"/>
-                </g>
-              </svg>
-            </div>
-            <div class="card-cat__label">
-              <span class="card-cat__name">Poltronas</span>
-              <span class="card-cat__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M10 7h7v7"/></svg></span>
-            </div>
-          </a>
+              // Imagem do termo (term meta single image); fallback = SVG placeholder.
+              $cat_img_url = '';
+              if (function_exists('rwmb_meta')) {
+                  $cat_imgs = rwmb_meta('categoria_produto_imagem', ['object_type' => 'term', 'size' => 'large'], $t->term_id);
+                  if (is_array($cat_imgs) && $cat_imgs) {
+                      $first = reset($cat_imgs);
+                      $cat_img_url = is_array($first) ? ($first['url'] ?? '') : '';
+                  }
+              }
 
-          <a href="<?php echo esc_url(home_url('/catalogo/bancos/')); ?>" class="card-cat reveal reveal--delay-2">
+              $delay = $i > 0 ? ' reveal--delay-' . min((int) $i, 3) : '';
+              ?>
+          <a href="<?php echo esc_url($link); ?>" class="card-cat reveal<?php echo $delay; ?>">
             <div class="card-cat__media">
-              <img src="<?php echo get_template_directory_uri(); ?>/assets/img/cat-bancos.jpg" alt="Coleção de bancos Nuvvo Design" loading="lazy">
+              <?php if ($cat_img_url) : ?>
+                <img src="<?php echo esc_url($cat_img_url); ?>" alt="Coleção de <?php echo esc_attr($t->name); ?> Nuvvo Design" loading="lazy">
+              <?php else : ?>
+                <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect width="400" height="500" fill="#7A6B5C"/>
+                  <g opacity="0.4" fill="#F0EDE4">
+                    <rect x="120" y="180" width="160" height="220" rx="20"/>
+                    <rect x="120" y="280" width="160" height="100" rx="8"/>
+                    <rect x="100" y="260" width="30" height="160" rx="4"/>
+                    <rect x="270" y="260" width="30" height="160" rx="4"/>
+                  </g>
+                </svg>
+              <?php endif; ?>
             </div>
             <div class="card-cat__label">
-              <span class="card-cat__name">Bancos</span>
+              <span class="card-cat__name"><?php echo esc_html($t->name); ?></span>
               <span class="card-cat__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M10 7h7v7"/></svg></span>
             </div>
           </a>
-
-          <a href="<?php echo esc_url(home_url('/catalogo/camas/')); ?>" class="card-cat reveal reveal--delay-3">
-            <div class="card-cat__media">
-              <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect width="400" height="500" fill="#50071A"/>
-                <g opacity="0.35" fill="#F0EDE4">
-                  <rect x="40" y="200" width="320" height="80" rx="8"/>
-                  <rect x="40" y="290" width="320" height="220" rx="6"/>
-                </g>
-              </svg>
-            </div>
-            <div class="card-cat__label">
-              <span class="card-cat__name">Camas</span>
-              <span class="card-cat__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M10 7h7v7"/></svg></span>
-            </div>
-          </a>
+          <?php endforeach; ?>
 
         </div>
       </div>
@@ -96,58 +93,49 @@ get_header();
         <div class="swiper cat-features__swiper reveal">
           <div class="swiper-wrapper">
 
-            <article class="swiper-slide">
-              <div class="card-feature">
-                <svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M16 2l3.7 9.5L29 13l-7 6.5L24 29l-8-5-8 5 2-9.5L3 13l9.3-1.5z"/></svg>
-                <h3 class="card-feature__title">Design Exclusivo</h3>
-                <p class="card-feature__body">Peças com identidade própria, criadas para projetos que recusam o genérico.</p>
-              </div>
-            </article>
+            <?php
+            // Ícones padrão de cada diferencial do tema (usados no fallback).
+            $dif_icons_default = [
+                '<svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M16 2l3.7 9.5L29 13l-7 6.5L24 29l-8-5-8 5 2-9.5L3 13l9.3-1.5z"/></svg>',
+                '<svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><rect x="4" y="4" width="11" height="11"/><rect x="17" y="4" width="11" height="11"/><rect x="4" y="17" width="11" height="11"/><rect x="17" y="17" width="11" height="11"/></svg>',
+                '<svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M16 3l11 5v8c0 7-5 11-11 13C5 27 0 23 0 16V8l11-5z" transform="translate(2.5 0)"/><path d="M12 16l3 3 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                '<svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M6 16c0-5 4-9 10-9s10 4 10 9v9H6z"/><path d="M11 25v-6M16 25v-9M21 25v-6"/></svg>',
+                '<svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><rect x="5" y="3" width="22" height="26" rx="2"/><path d="M10 11h12M10 16h12M10 21h7"/><path d="M19 24l3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            ];
 
-            <article class="swiper-slide">
-              <div class="card-feature">
-                <svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-                  <rect x="4" y="4" width="11" height="11"/><rect x="17" y="4" width="11" height="11"/>
-                  <rect x="4" y="17" width="11" height="11"/><rect x="17" y="17" width="11" height="11"/>
-                </svg>
-                <h3 class="card-feature__title">Curadoria de Acabamentos</h3>
-                <p class="card-feature__body">Mais de 3.000 opções entre tecidos, texturas e cores, selecionadas com critério técnico e estético.</p>
-              </div>
-            </article>
+            // Conteúdo padrão (fallback) — replica os diferenciais atuais.
+            $dif_fallback = [
+                ['titulo' => 'Design Exclusivo',          'texto' => 'Peças com identidade própria, criadas para projetos que recusam o genérico.'],
+                ['titulo' => 'Curadoria de Acabamentos',  'texto' => 'Mais de 3.000 opções entre tecidos, texturas e cores, selecionadas com critério técnico e estético.'],
+                ['titulo' => 'Qualidade Certificada',     'texto' => 'Espumas certificadas, madeiras nobres e processos rigorosamente controlados.'],
+                ['titulo' => 'Excelência Artesanal',      'texto' => 'Cada peça é produzida com cuidado manual e atenção a cada detalhe do acabamento.'],
+                ['titulo' => 'Suporte ao Arquiteto',      'texto' => 'Acompanhamento técnico próximo, com blocos 3D e fichas detalhadas para especificação precisa.'],
+            ];
 
-            <article class="swiper-slide">
-              <div class="card-feature">
-                <svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-                  <path d="M16 3l11 5v8c0 7-5 11-11 13C5 27 0 23 0 16V8l11-5z" transform="translate(2.5 0)"/>
-                  <path d="M12 16l3 3 6-6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <h3 class="card-feature__title">Qualidade Certificada</h3>
-                <p class="card-feature__body">Espumas certificadas, madeiras nobres e processos rigorosamente controlados.</p>
-              </div>
-            </article>
+            // Grupo editável; se vazio, usa o fallback.
+            $dif_items = [];
+            $dif_group = function_exists('rwmb_meta') ? (array) rwmb_meta('nuvvo_catalogo_diferenciais', [], $pid) : [];
+            foreach ($dif_group as $g) {
+                $gt = isset($g['titulo']) ? trim((string) $g['titulo']) : '';
+                $gb = isset($g['texto']) ? trim((string) $g['texto']) : '';
+                if ($gt === '' && $gb === '') { continue; }
+                $dif_items[] = ['titulo' => $gt, 'texto' => $gb];
+            }
+            if (!$dif_items) {
+                $dif_items = $dif_fallback;
+            }
 
+            foreach ($dif_items as $di => $ditem) :
+                $icon = $dif_icons_default[$di % count($dif_icons_default)];
+                ?>
             <article class="swiper-slide">
               <div class="card-feature">
-                <svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-                  <path d="M6 16c0-5 4-9 10-9s10 4 10 9v9H6z"/>
-                  <path d="M11 25v-6M16 25v-9M21 25v-6"/>
-                </svg>
-                <h3 class="card-feature__title">Excelência Artesanal</h3>
-                <p class="card-feature__body">Cada peça é produzida com cuidado manual e atenção a cada detalhe do acabamento.</p>
+                <?php echo $icon; // SVG fixo do tema, seguro ?>
+                <h3 class="card-feature__title"><?php echo esc_html($ditem['titulo']); ?></h3>
+                <p class="card-feature__body"><?php echo esc_html($ditem['texto']); ?></p>
               </div>
             </article>
-
-            <article class="swiper-slide">
-              <div class="card-feature">
-                <svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-                  <rect x="5" y="3" width="22" height="26" rx="2"/>
-                  <path d="M10 11h12M10 16h12M10 21h7"/>
-                  <path d="M19 24l3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <h3 class="card-feature__title">Suporte ao Arquiteto</h3>
-                <p class="card-feature__body">Acompanhamento técnico próximo, com blocos 3D e fichas detalhadas para especificação precisa.</p>
-              </div>
-            </article>
+            <?php endforeach; ?>
 
           </div>
           <div class="swiper-pagination cat-features__pagination"></div>
@@ -261,12 +249,12 @@ get_header();
     <!-- ============ 7. CTA FINAL ============ -->
     <section class="cta-final" aria-label="Vamos conversar">
       <div class="wrap cta-final__inner reveal">
-        <h2 class="cta-final__title">Vamos transformar seu próximo projeto?</h2>
-        <p class="cta-final__lede">Compartilhe seu projeto conosco e nossa equipe traduzirá sua&nbsp;visão.</p>
+        <h2 class="cta-final__title"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_cta_titulo', 'Vamos transformar seu próximo projeto?')); ?></h2>
+        <p class="cta-final__lede"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_cta_lede', 'Compartilhe seu projeto conosco e nossa equipe traduzirá sua visão.')); ?></p>
         <a href="https://wa.me/5554999485915?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Nuvvo%20sobre%20um%20projeto"
            class="btn btn--cream"
            target="_blank" rel="noopener">
-          Falar com especialista
+          <?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_cta_label', 'Falar com especialista')); ?>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>

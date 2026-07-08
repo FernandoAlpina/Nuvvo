@@ -1,6 +1,6 @@
 <?php
 /**
- * Template da página (page-politica-privacidade). Fase F0: markup estático portado; vira editável (Meta Box) depois.
+ * Template da página (page-politica-privacidade). F1.3: hero e corpo editáveis (Meta Box) com fallback no texto atual.
  * @package Nuvvo (Alpina V4)
  */
 if (!defined('ABSPATH')) { exit; }
@@ -10,8 +10,8 @@ get_header();
     <!-- ============ HERO ============ -->
     <section class="policy-hero" aria-label="Política de Privacidade">
       <div class="wrap">
-        <h1 class="policy-hero__title">Política de Privacidade</h1>
-        <p class="policy-hero__updated">Última atualização: 26 de maio de 2026</p>
+        <h1 class="policy-hero__title"><?php echo esc_html(nuvvo_pgf('nuvvo_politica_hero_titulo', 'Política de Privacidade')); ?></h1>
+        <p class="policy-hero__updated"><?php echo esc_html(nuvvo_pgf('nuvvo_politica_hero_atualizacao', 'Última atualização: 26 de maio de 2026')); ?></p>
       </div>
     </section>
 
@@ -59,6 +59,13 @@ get_header();
 
         <!-- CORPO -->
         <div class="policy-body">
+
+          <?php
+          // Corpo editável (Meta Box wysiwyg) com fallback no texto atual.
+          $pol_corpo = function_exists('rwmb_meta') ? rwmb_meta('nuvvo_politica_corpo', [], get_the_ID()) : '';
+          if ($pol_corpo) :
+              echo wp_kses_post($pol_corpo);
+          else : ?>
 
           <section id="introducao">
             <h2><span class="policy-body__num">01</span>Introdução</h2>
@@ -192,6 +199,7 @@ get_header();
               <li><strong>Endereço</strong>: Rua Teresa Lívia Rodigheri, 662, Loteamento Villa Bella, Marau/RS, CEP 99150-000</li>
             </ul>
           </section>
+          <?php endif; ?>
 
           <!-- ============ BLOCO GERENCIAR COOKIES ============ -->
           <aside class="manage-cookies" id="gerenciar-cookies">
