@@ -1,8 +1,8 @@
 name: Deploy DEV (tema Nuvvo) via FTP
 
 # Publica o TEMA no ambiente de desenvolvimento a cada push na branch 'wordpress'.
-# Destino: /public_html/dev/wp-content/themes/nuvvo/ no servidor 10.10.10.1 (VPN).
-# A branch main continua com o deploy do site estático de produção (deploy.yml).
+# Destino: /public_html/wp-content/themes/nuvvo/ no servidor 10.10.10.1 (VPN).
+# O dev nuvvo.alpdev.com.br roda WordPress na raiz /public_html.
 on:
   push:
     branches: [wordpress]
@@ -22,7 +22,7 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
           # Caminho do tema no ambiente de dev (não é segredo; host/user/senha vêm dos secrets)
-          server-dir: public_html/dev/wp-content/themes/nuvvo/
+          server-dir: public_html/wp-content/themes/nuvvo/
           protocol: ftp
           port: 21
           local-dir: ./
