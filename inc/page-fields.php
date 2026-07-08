@@ -16,6 +16,26 @@ foreach (glob(get_template_directory() . '/backend/project/page-fields/*.php') a
 }
 
 /**
+ * Páginas cujo conteúdo é 100% em painéis Meta Box (sem editor de blocos),
+ * para a edição ficar igual ao padrão Impl Master. (Política usa o editor.)
+ */
+function nuvvo_pages_sem_editor(): array
+{
+    return ['home', 'a-nuvvo', 'contato', 'catalogo', 'inspire-se', 'blog'];
+}
+
+// Remove o editor (área de blocos) ao editar essas páginas — só os painéis de seção aparecem.
+add_action('admin_init', function () {
+    if (empty($_GET['post'])) {
+        return;
+    }
+    $slug = get_post_field('post_name', (int) $_GET['post']);
+    if (in_array($slug, nuvvo_pages_sem_editor(), true)) {
+        remove_post_type_support('page', 'editor');
+    }
+});
+
+/**
  * Lê um campo da página atual com fallback (para texto simples).
  */
 function nuvvo_pgf(string $id, string $default = ''): string
