@@ -40,23 +40,23 @@ add_action('wp_enqueue_scripts', function () {
     $page_css = null;
     if (is_front_page()) {
         $page_css = 'sections';
-    } elseif (is_page_template('template-a-nuvvo.php')) {
+    } elseif (is_page('a-nuvvo')) {
         $page_css = 'a-nuvvo';
-    } elseif (is_page_template('template-catalogo.php')) {
+    } elseif (is_page('catalogo')) {
         $page_css = 'catalogo-hub';
     } elseif (is_tax('categoria_produto') || is_post_type_archive('produto')) {
         $page_css = 'catalogo-listagem';
     } elseif (is_singular('produto')) {
         $page_css = 'pdp';
-    } elseif (is_page_template('template-inspire-se.php')) {
+    } elseif (is_page('inspire-se')) {
         $page_css = 'inspire-se';
-    } elseif (is_home() || is_page_template('template-blog.php')) {
+    } elseif (is_page('blog') || is_home()) {
         $page_css = 'blog-listagem';
     } elseif (is_singular('post')) {
         $page_css = 'blog-post';
-    } elseif (is_page_template('template-contato.php')) {
+    } elseif (is_page('contato')) {
         $page_css = 'contato';
-    } elseif (is_page_template('template-politica-privacidade.php')) {
+    } elseif (is_page('politica-de-privacidade')) {
         $page_css = 'politica-privacidade';
     }
     if ($page_css) {
@@ -65,8 +65,8 @@ add_action('wp_enqueue_scripts', function () {
 
     /* -------- Swiper (só nas páginas com carrossel) -------- */
     $needs_swiper = is_front_page()
-        || is_page_template('template-a-nuvvo.php')
-        || is_page_template('template-catalogo.php');
+        || is_page('a-nuvvo')
+        || is_page('catalogo');
 
     if ($needs_swiper) {
         wp_enqueue_style('swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', [], '11');
