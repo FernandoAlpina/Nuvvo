@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-add_action('admin_init', function () {
+add_action('init', function () {
     if (get_option('nuvvo_pages_v1')) {
         return;
     }
