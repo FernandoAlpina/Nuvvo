@@ -5,6 +5,15 @@
  */
 if (!defined('ABSPATH')) { exit; }
 get_header();
+
+$pid = get_the_ID();
+$c_cta_msg = nuvvo_pgf('nuvvo_contato_cta_msg', 'Olá, gostaria de falar com um especialista da Nuvvo Design');
+$c_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($c_cta_msg) : 'https://wa.me/5554999485915';
+$c_hero_img_id = function_exists('rwmb_meta') ? rwmb_meta('nuvvo_contato_hero_img', [], $pid) : '';
+$c_hero_img = $c_hero_img_id ? wp_get_attachment_image_url((int) $c_hero_img_id, 'full') : (get_template_directory_uri() . '/assets/img/gallery-3.png');
+$c_studio_gal = function_exists('rwmb_meta') ? (array) rwmb_meta('nuvvo_contato_studio_galeria', ['size' => 'full'], $pid) : [];
+$c_map_embed = nuvvo_pgf('nuvvo_contato_map_embed', 'https://www.google.com/maps?q=Rua+Teresa+L%C3%ADvia+Rodigheri,+662,+Marau+-+RS&output=embed');
+$c_maps_link = nuvvo_pgf('nuvvo_contato_maps_link', 'https://maps.app.goo.gl/Xj9uriA4ccVWK1q89');
 ?>
 
     <!-- ============ 1. HERO ============ -->
@@ -12,12 +21,12 @@ get_header();
       <div class="wrap contact-hero__grid">
 
         <div class="contact-hero__content">
-          <span class="eyebrow">Contato</span>
-          <h1 class="contact-hero__title">Vamos transformar seu ambiente?</h1>
-          <p class="contact-hero__sub">Estamos à disposição para transformar o seu projeto de interiores com mobiliário de design autoral e acabamento impecável.</p>
+          <span class="eyebrow"><?php echo esc_html(nuvvo_pgf('nuvvo_contato_hero_eyebrow', 'Contato')); ?></span>
+          <h1 class="contact-hero__title"><?php echo esc_html(nuvvo_pgf('nuvvo_contato_hero_titulo', 'Vamos transformar seu ambiente?')); ?></h1>
+          <p class="contact-hero__sub"><?php echo esc_html(nuvvo_pgf('nuvvo_contato_hero_sub', 'Estamos à disposição para transformar o seu projeto de interiores com mobiliário de design autoral e acabamento impecável.')); ?></p>
 
           <div class="contact-hero__cta">
-            <a href="https://wa.me/5554999485915?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Nuvvo%20Design"
+            <a href="<?php echo esc_url($c_cta_url); ?>"
                class="btn btn--primary"
                target="_blank" rel="noopener noreferrer"
                aria-label="Iniciar conversa via WhatsApp com a Nuvvo Design">
@@ -28,8 +37,8 @@ get_header();
         </div>
 
         <div class="contact-hero__media">
-          <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-3.png"
-               alt="Ambiente Nuvvo Design — sofá modular em varanda com vegetação"
+          <img src="<?php echo esc_url($c_hero_img); ?>"
+               alt="Ambiente Nuvvo Design"
                loading="eager" fetchpriority="high"
                data-parallax="0.08"
                width="800" height="1000">
@@ -46,7 +55,7 @@ get_header();
         <h2 class="contact-cta__title reveal reveal--delay-1">Fale com nossos especialistas</h2>
         <p class="contact-cta__text reveal reveal--delay-2">Para orçamentos, dúvidas sobre medidas ou especificações técnicas, nossa equipe está pronta para atendê-lo com exclusividade via&nbsp;WhatsApp.</p>
 
-        <a href="https://wa.me/5554999485915?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Nuvvo%20Design"
+        <a href="<?php echo esc_url($c_cta_url); ?>"
            class="btn btn--cream reveal reveal--delay-3"
            target="_blank" rel="noopener noreferrer"
            aria-label="Iniciar conversa via WhatsApp com a Nuvvo Design">
@@ -110,8 +119,16 @@ get_header();
         <div class="studio-grid">
 
           <!-- Galeria placeholder (até fotos do showroom Marau chegarem) -->
-          <div class="studio-gallery reveal" aria-label="Galeria do Studio — em breve">
-
+          <div class="studio-gallery reveal" aria-label="Galeria do Studio">
+            <?php if ($c_studio_gal) :
+                foreach ($c_studio_gal as $img) :
+                    $gu = is_array($img) ? ($img['url'] ?? '') : '';
+                    if (!$gu) { continue; }
+                    ?>
+            <div class="studio-gallery__item">
+              <img src="<?php echo esc_url($gu); ?>" alt="Studio Nuvvo" loading="lazy">
+            </div>
+            <?php endforeach; else : ?>
             <div class="studio-gallery__item">
               <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <rect width="400" height="500" fill="#E8E3D6"/>
@@ -125,28 +142,26 @@ get_header();
               </svg>
               <span class="studio-gallery__item-label">[ Studio Nuvvo · em breve ]</span>
             </div>
-
             <div class="studio-gallery__item">
               <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <rect width="200" height="200" fill="#9F8D7A"/>
                 <g opacity="0.35" fill="#F0EDE4"><circle cx="100" cy="100" r="60"/></g>
               </svg>
             </div>
-
             <div class="studio-gallery__item">
               <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <rect width="200" height="200" fill="#C4B6A5"/>
                 <g opacity="0.55" fill="#1A1A1A"><rect x="40" y="100" width="120" height="40" rx="4"/></g>
               </svg>
             </div>
-
+            <?php endif; ?>
           </div>
 
           <!-- Endereço + ações -->
           <div class="studio-content reveal reveal--delay-1">
-            <span class="eyebrow">Studio Marau</span>
-            <h2 class="section-title">Visite nosso Studio</h2>
-            <p class="lede">Recebemos profissionais e clientes em nosso espaço em Marau/RS. Agende uma visita para conhecer de perto a qualidade de nossa matéria-prima e os detalhes da nossa produção artesanal.</p>
+            <span class="eyebrow"><?php echo esc_html(nuvvo_pgf('nuvvo_contato_studio_eyebrow', 'Studio Marau')); ?></span>
+            <h2 class="section-title"><?php echo esc_html(nuvvo_pgf('nuvvo_contato_studio_titulo', 'Visite nosso Studio')); ?></h2>
+            <p class="lede"><?php echo esc_html(nuvvo_pgf('nuvvo_contato_studio_lede', 'Recebemos profissionais e clientes em nosso espaço em Marau/RS. Agende uma visita para conhecer de perto a qualidade de nossa matéria-prima e os detalhes da nossa produção artesanal.')); ?></p>
 
             <div class="address-block" style="margin-top: var(--space-5);">
               <div class="address-block__line">
@@ -162,7 +177,7 @@ get_header();
               </div>
 
               <div class="address-block__actions">
-                <a href="https://maps.app.goo.gl/Xj9uriA4ccVWK1q89"
+                <a href="<?php echo esc_url($c_maps_link); ?>"
                    class="btn btn--primary"
                    target="_blank" rel="noopener noreferrer"
                    aria-label="Abrir endereço no Google Maps (nova aba)">
@@ -195,7 +210,7 @@ get_header();
         <!-- Mapa lazy load LGPD-friendly -->
         <div class="studio-section__map-wrapper reveal reveal--delay-2">
           <div class="map-block"
-               data-map-src="https://www.google.com/maps?q=Rua+Teresa+L%C3%ADvia+Rodigheri,+662,+Marau+-+RS&output=embed">
+               data-map-src="<?php echo esc_url($c_map_embed); ?>">
             <div class="map-block__placeholder" role="button" tabindex="0"
                  aria-label="Carregar mapa interativo do Studio Nuvvo (Google Maps)">
               <span class="map-block__placeholder-text">
@@ -217,8 +232,8 @@ get_header();
     <section class="section social-section" aria-label="Redes sociais">
       <div class="wrap">
         <span class="eyebrow" style="justify-content:center;">Acompanhe</span>
-        <h2 class="section-title section-title--center">Acompanhe nosso dia a dia</h2>
-        <p class="social-section__sub">Bastidores da nossa produção artesanal, novos lançamentos e ambientes assinados — direto no nosso Instagram.</p>
+        <h2 class="section-title section-title--center"><?php echo esc_html(nuvvo_pgf('nuvvo_contato_social_titulo', 'Acompanhe nosso dia a dia')); ?></h2>
+        <p class="social-section__sub"><?php echo esc_html(nuvvo_pgf('nuvvo_contato_social_sub', 'Bastidores da nossa produção artesanal, novos lançamentos e ambientes assinados — direto no nosso Instagram.')); ?></p>
 
         <nav class="social-big" aria-label="Redes sociais da Nuvvo Design">
 
