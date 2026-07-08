@@ -21,7 +21,7 @@ add_filter('got_rewrite', '__return_true');
 add_filter('got_url_rewrite', '__return_true');
 
 add_action('init', function () {
-    if (get_option('nuvvo_pages_v3')) {
+    if (get_option('nuvvo_pages_v4')) {
         return;
     }
 
@@ -37,6 +37,7 @@ add_action('init', function () {
 
     // 2) Páginas do site (cria se faltar; publica se estiver em rascunho).
     $pages = [
+        ['title' => 'Home',                    'slug' => 'home'],
         ['title' => 'A Nuvvo',                 'slug' => 'a-nuvvo'],
         ['title' => 'Catálogo',                'slug' => 'catalogo'],
         ['title' => 'Inspire-se',              'slug' => 'inspire-se'],
@@ -62,8 +63,15 @@ add_action('init', function () {
         ]);
     }
 
-    // 3) Regrava regras de rewrite (.htaccess).
+    // 3) Home como página inicial estática (para ter campos editáveis na própria página).
+    $home = get_page_by_path('home');
+    if ($home) {
+        update_option('show_on_front', 'page');
+        update_option('page_on_front', $home->ID);
+    }
+
+    // 4) Regrava regras de rewrite (.htaccess).
     flush_rewrite_rules(true);
 
-    update_option('nuvvo_pages_v3', 1);
+    update_option('nuvvo_pages_v4', 1);
 }, 20);

@@ -7,6 +7,23 @@
  */
 if (!defined('ABSPATH')) { exit; }
 get_header();
+
+$home_id = (int) get_option('page_on_front');
+$read = function ($id, $default = '') use ($home_id) {
+    if (!$home_id || !function_exists('rwmb_meta')) { return $default; }
+    $v = rwmb_meta($id, [], $home_id);
+    if (is_array($v)) { $v = reset($v); }
+    $v = is_string($v) ? trim($v) : '';
+    return $v !== '' ? $v : $default;
+};
+
+// Banner / hero
+$hero_slides = ($home_id && function_exists('rwmb_meta')) ? (array) rwmb_meta('nuvvo_home_hero_slides', [], $home_id) : [];
+$hero_titulo = $read('nuvvo_home_hero_titulo', 'Mobiliário personalizado de alta decoração');
+$hero_sub    = $read('nuvvo_home_hero_sub', 'Design autoral que traduz a harmonia entre o rigor da produção artesanal e a sofisticação do morar contemporâneo.');
+$hero_cta    = $read('nuvvo_home_hero_cta', 'Falar com especialista');
+$hero_cta_msg = $read('nuvvo_home_hero_cta_msg', 'Olá, gostaria de falar com um especialista da Nuvvo Design');
+$hero_cta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($hero_cta_msg) : 'https://wa.me/5554999485915?text=' . rawurlencode($hero_cta_msg);
 ?>
 
     <!-- ============ 1. HERO ============ -->
@@ -15,42 +32,40 @@ get_header();
         <!-- Carrossel de 3 fotos lifestyle. Quando vídeo institucional chegar, substituir por <video autoplay muted loop playsinline poster="..."> -->
         <div class="swiper hero__swiper">
           <div class="swiper-wrapper">
-
+            <?php if ($hero_slides) :
+                foreach ($hero_slides as $i => $slide) :
+                    $sid  = $slide['imagem'] ?? '';
+                    $surl = $sid ? wp_get_attachment_image_url((int) $sid, 'full') : '';
+                    if (!$surl) { continue; }
+                    ?>
             <div class="swiper-slide hero__slide">
-              <img src="<?php echo get_template_directory_uri(); ?>/assets/img/hero-1.png"
-                   alt="Sofá Pecan em ambiente residencial com plantas e mesa lateral de madeira"
-                   loading="eager" fetchpriority="high"
-                   width="1920" height="1080">
+              <img src="<?php echo esc_url($surl); ?>" alt="<?php echo esc_attr($slide['alt'] ?? ''); ?>" loading="<?php echo $i === 0 ? 'eager' : 'lazy'; ?>"<?php echo $i === 0 ? ' fetchpriority="high"' : ''; ?>>
             </div>
-
+            <?php endforeach; else : ?>
             <div class="swiper-slide hero__slide">
-              <img src="<?php echo get_template_directory_uri(); ?>/assets/img/hero-2.jpg"
-                   alt="Sofá Pecan em sala iluminada com escada de vidro e palmeira ao fundo"
-                   loading="lazy"
-                   width="1920" height="1280">
+              <img src="<?php echo get_template_directory_uri(); ?>/assets/img/hero-1.png" alt="Sofá Pecan em ambiente residencial com plantas e mesa lateral de madeira" loading="eager" fetchpriority="high" width="1920" height="1080">
             </div>
-
             <div class="swiper-slide hero__slide">
-              <img src="<?php echo get_template_directory_uri(); ?>/assets/img/hero-3.jpg"
-                   alt="Sofá modular branco com mesa de centro baixa e revistas, ambiente contemporâneo"
-                   loading="lazy"
-                   width="1920" height="1280">
+              <img src="<?php echo get_template_directory_uri(); ?>/assets/img/hero-2.jpg" alt="Sofá Pecan em sala iluminada com escada de vidro e palmeira ao fundo" loading="lazy" width="1920" height="1280">
             </div>
-
+            <div class="swiper-slide hero__slide">
+              <img src="<?php echo get_template_directory_uri(); ?>/assets/img/hero-3.jpg" alt="Sofá modular branco com mesa de centro baixa e revistas, ambiente contemporâneo" loading="lazy" width="1920" height="1280">
+            </div>
+            <?php endif; ?>
           </div>
         </div>
       </div>
 
       <div class="wrap hero__inner">
         <div>
-          <h1 class="hero__title">Mobiliário personalizado de alta decoração</h1>
-          <p class="hero__sub">Design autoral que traduz a harmonia entre o rigor da produção artesanal e a sofisticação do morar contemporâneo.</p>
+          <h1 class="hero__title"><?php echo esc_html($hero_titulo); ?></h1>
+          <p class="hero__sub"><?php echo esc_html($hero_sub); ?></p>
         </div>
         <div class="hero__cta">
-          <a href="https://wa.me/5554999485915?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Nuvvo%20Design"
+          <a href="<?php echo esc_url($hero_cta_url); ?>"
              class="btn btn--cream"
              target="_blank" rel="noopener">
-            Falar com especialista
+            <?php echo esc_html($hero_cta); ?>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6"/>
             </svg>
