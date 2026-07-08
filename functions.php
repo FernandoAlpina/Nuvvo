@@ -47,6 +47,11 @@ add_action('after_setup_theme', function () {
 require_once get_template_directory() . '/inc/framework.php';
 
 /**
+ * Opções globais (painel "Nuvvo") + helpers de contato/WhatsApp.
+ */
+require_once get_template_directory() . '/inc/settings.php';
+
+/**
  * Enfileiramento de CSS/JS (assets próprios do Nuvvo).
  */
 require_once get_template_directory() . '/inc/enqueue.php';

@@ -10,6 +10,14 @@ if (!defined('ABSPATH')) {
 }
 
 $nuvvo_uri = get_template_directory_uri();
+
+$nv_tagline = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_tagline', 'Mobiliário de alta decoração') : 'Mobiliário de alta decoração';
+$nv_tel     = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_telefone', '(54) 9 9948-5915') : '(54) 9 9948-5915';
+$nv_tel_d   = function_exists('nuvvo_wa_number') ? nuvvo_wa_number() : '5554999485915';
+$nv_end     = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_endereco', "Rua Teresa Lívia Rodigheri, 662\nLoteamento Villa Bella\nCEP 99150-000 — Marau, RS") : "Rua Teresa Lívia Rodigheri, 662\nLoteamento Villa Bella\nCEP 99150-000 — Marau, RS";
+$nv_insta   = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_instagram', 'https://www.instagram.com/nuvvo.design') : 'https://www.instagram.com/nuvvo.design';
+$nv_face    = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_facebook', 'https://www.facebook.com/nuvvodesign') : 'https://www.facebook.com/nuvvodesign';
+$nv_wa      = function_exists('nuvvo_wa_link') ? nuvvo_wa_link('Olá, gostaria de conhecer a Nuvvo Design') : 'https://wa.me/5554999485915';
 ?>
     </main><!-- #main -->
 
@@ -22,13 +30,9 @@ $nuvvo_uri = get_template_directory_uri();
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="header__logo" aria-label="Nuvvo Design — Página inicial" style="margin-bottom: var(--space-2); display: inline-block;">
                         <img src="<?php echo esc_url($nuvvo_uri); ?>/assets/img/logo-cream.png" alt="Nuvvo Design" class="logo-img" width="120">
                     </a>
-                    <p class="footer__brand-tag">Mobiliário de alta decoração</p>
-                    <a href="tel:+5554999485915" class="footer__phone">(54) 9 9948-5915</a>
-                    <address class="footer__address">
-                        Rua Teresa Lívia Rodigheri, 662<br>
-                        Loteamento Villa Bella<br>
-                        CEP 99150-000 — Marau, RS
-                    </address>
+                    <p class="footer__brand-tag"><?php echo esc_html($nv_tagline); ?></p>
+                    <a href="tel:+<?php echo esc_attr($nv_tel_d); ?>" class="footer__phone"><?php echo esc_html($nv_tel); ?></a>
+                    <address class="footer__address"><?php echo nl2br(esc_html($nv_end)); ?></address>
                 </div>
 
                 <div>
@@ -54,10 +58,10 @@ $nuvvo_uri = get_template_directory_uri();
                 <div>
                     <h4 class="footer__col-title">Redes sociais</h4>
                     <div class="footer__social">
-                        <a href="https://www.instagram.com/nuvvo.design" target="_blank" rel="noopener" aria-label="Instagram da Nuvvo Design">
+                        <a href="<?php echo esc_url($nv_insta); ?>" target="_blank" rel="noopener" aria-label="Instagram da Nuvvo Design">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
                         </a>
-                        <a href="https://www.facebook.com/nuvvodesign" target="_blank" rel="noopener" aria-label="Facebook da Nuvvo Design">
+                        <a href="<?php echo esc_url($nv_face); ?>" target="_blank" rel="noopener" aria-label="Facebook da Nuvvo Design">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                         </a>
                     </div>
@@ -74,7 +78,7 @@ $nuvvo_uri = get_template_directory_uri();
 
     <!-- ============ WHATSAPP FLUTUANTE ============ -->
     <a class="wa-float"
-       href="https://wa.me/5554999485915?text=Ol%C3%A1%2C%20gostaria%20de%20conhecer%20a%20Nuvvo%20Design"
+       href="<?php echo esc_url($nv_wa); ?>"
        target="_blank" rel="noopener"
        aria-label="Falar com a Nuvvo no WhatsApp">
         <svg class="wa-float__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
