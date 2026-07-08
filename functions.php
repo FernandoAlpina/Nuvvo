@@ -42,6 +42,11 @@ add_action('after_setup_theme', function () {
 });
 
 /**
+ * Framework Alpina V4 (subconjunto) + entidades do projeto (CPTs, taxonomias, campos).
+ */
+require_once get_template_directory() . '/inc/framework.php';
+
+/**
  * Enfileiramento de CSS/JS (assets próprios do Nuvvo).
  */
 require_once get_template_directory() . '/inc/enqueue.php';
