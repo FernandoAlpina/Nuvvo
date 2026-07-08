@@ -1,10 +1,12 @@
-name: Deploy via FTP
+name: Deploy via FTP (site estático — DESATIVADO)
 
-# Publica o site no servidor a cada push na branch main.
+# ATENÇÃO: gatilho automático DESATIVADO.
+# O ambiente nuvvo.alpdev.com.br passou a rodar WordPress em /public_html.
+# Este workflow publicava o SITE ESTÁTICO em /public_html (secrets.FTP_PATH) e,
+# se disparado, SOBRESCREVERIA o WordPress. Mantido apenas como execução manual
+# (workflow_dispatch) para eventual rollback do estático — use com cuidado.
 on:
-  push:
-    branches: [main]
-  workflow_dispatch:        # permite rodar manualmente pela aba Actions
+  workflow_dispatch:        # somente manual, pela aba Actions
 
 jobs:
   deploy:
