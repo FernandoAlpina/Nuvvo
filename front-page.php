@@ -61,41 +61,8 @@ get_header();
       <div class="hero__scroll-hint" aria-hidden="true">Scroll</div>
     </section>
 
-    <!-- ============ 2. BIG NUMBERS ============ -->
-    <section class="big-numbers noise-bg" aria-label="Nossos números">
-      <div class="wrap">
-        <div class="big-numbers__grid">
-          <div class="big-numbers__item reveal">
-            <div class="big-numbers__num">
-              <span class="prefix">+</span><span data-counter="25" data-duration="1600">0</span>
-              <span class="unit">anos</span>
-            </div>
-            <p class="big-numbers__label">de experiência técnica no mercado de mobiliário.</p>
-          </div>
-
-          <div class="big-numbers__item reveal reveal--delay-1">
-            <div class="big-numbers__num">
-              <span class="prefix">+</span><span data-counter="3000" data-duration="2000">0</span>
-            </div>
-            <p class="big-numbers__label">ambientes transformados com o nosso mobiliário.</p>
-          </div>
-
-          <div class="big-numbers__item reveal reveal--delay-2">
-            <div class="big-numbers__num">
-              <span data-counter="97.83" data-decimals="2" data-duration="2200">0</span><span class="unit">%</span>
-            </div>
-            <p class="big-numbers__label">de satisfação (NPS) que reflete nossa dedicação ao cliente.</p>
-          </div>
-
-          <div class="big-numbers__item reveal reveal--delay-3">
-            <div class="big-numbers__num">
-              <span class="prefix">+</span><span data-counter="3000" data-duration="2000">0</span>
-            </div>
-            <p class="big-numbers__label">opções de acabamentos em tecidos, texturas e cores para personalizar cada peça.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- ============ 2. BIG NUMBERS (editável no painel Nuvvo) ============ -->
+    <?php get_template_part('template-parts/big-numbers'); ?>
 
     <!-- ============ VÍDEO INSTITUCIONAL ============
          Para ocultar a seção inteira, troque data-video-available="true" → "false".

@@ -22,8 +22,9 @@ add_filter('mb_settings_pages', function ($pages) {
         'style'       => 'no-boxes',
         'columns'     => 1,
         'tabs'        => [
-            'geral' => 'Contato & Marca',
-            'redes' => 'Redes & Links',
+            'geral'   => 'Contato & Marca',
+            'redes'   => 'Redes & Links',
+            'numeros' => 'Big Numbers',
         ],
     ];
     return $pages;
@@ -51,6 +52,33 @@ add_filter('rwmb_meta_boxes', function ($mb) {
             ['name' => 'Instagram (URL)', 'id' => 'nuvvo_instagram', 'type' => 'url', 'placeholder' => 'https://www.instagram.com/nuvvo.design'],
             ['name' => 'Facebook (URL)', 'id' => 'nuvvo_facebook', 'type' => 'url', 'placeholder' => 'https://www.facebook.com/nuvvodesign'],
             ['name' => 'Link "Blocos 3D" (URL externa)', 'id' => 'nuvvo_blocos3d', 'type' => 'url'],
+        ],
+    ];
+    $mb[] = [
+        'id'             => 'nuvvo_opcoes_numeros',
+        'title'          => 'Big Numbers (Home e A Nuvvo)',
+        'settings_pages' => 'nuvvo_opcoes',
+        'tab'            => 'numeros',
+        'fields'         => [
+            [
+                'name'          => 'Números em destaque',
+                'id'            => 'nuvvo_big_numbers',
+                'type'          => 'group',
+                'clone'         => true,
+                'sort_clone'    => true,
+                'collapsible'   => true,
+                'default_state' => 'collapsed',
+                'group_title'   => '{label}',
+                'add_button'    => '+ Número',
+                'fields'        => [
+                    ['name' => 'Prefixo', 'id' => 'prefixo', 'type' => 'text', 'columns' => 2, 'placeholder' => '+'],
+                    ['name' => 'Valor', 'id' => 'valor', 'type' => 'text', 'columns' => 3, 'placeholder' => '3000'],
+                    ['name' => 'Sufixo / unidade', 'id' => 'sufixo', 'type' => 'text', 'columns' => 3, 'placeholder' => 'anos, %'],
+                    ['name' => 'Casas decimais', 'id' => 'decimais', 'type' => 'number', 'columns' => 2, 'std' => 0],
+                    ['name' => 'Duração (ms)', 'id' => 'duracao', 'type' => 'number', 'columns' => 2, 'std' => 1800],
+                    ['name' => 'Legenda', 'id' => 'label', 'type' => 'textarea', 'rows' => 2, 'columns' => 12],
+                ],
+            ],
         ],
     ];
     return $mb;
