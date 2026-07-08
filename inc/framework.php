@@ -44,3 +44,6 @@ $project = get_template_directory() . '/backend/project';
 require_once $project . '/entities/Nuvvo_Designer.php';
 require_once $project . '/entities/Nuvvo_Produto.php';
 require_once $project . '/entities/Nuvvo_Inspiracao.php';
+
+/* Campos editáveis por página (Meta Box condicionado por slug) */
+require_once get_template_directory() . '/inc/page-fields.php';

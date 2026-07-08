@@ -39,12 +39,17 @@ get_header();
 
         <article class="essence-text reveal reveal--delay-1">
           <span class="essence-text__quote-mark" aria-hidden="true">“</span>
-
+          <?php
+          $anv_ess = function_exists('rwmb_meta') ? rwmb_meta('nuvvo_anuvvo_essencia', [], get_the_ID()) : '';
+          if ($anv_ess) :
+              echo wp_kses_post($anv_ess);
+          else : ?>
           <p>A trajetória de mais de <strong>25 anos de história</strong>, iniciada pela Sofá News em 2000, é a base sólida que nos move. Construímos uma reputação através do <strong>trabalho artesanal na alta decoração</strong>, com cada peça cuidadosamente desenvolvida a partir de <strong>matéria-prima selecionada</strong> e processos rigorosos.</p>
 
           <p>Hoje, essa herança ganha novo capítulo: a Nuvvo Design apresenta um <strong>portfólio de mobiliário singular</strong>, com <em>design exclusivo</em> que traduz nossa visão contemporânea em peças autorais — pensadas para arquitetos e clientes que enxergam o ambiente como extensão da identidade.</p>
 
           <p>Nossa cultura é feita de <strong>evolução contínua</strong>, <strong>zelo absoluto</strong> em cada acabamento e o compromisso com um <strong>relacionamento próximo e humano</strong> — porque entendemos que o melhor design nasce da escuta atenta.</p>
+          <?php endif; ?>
         </article>
       </div>
     </section>
@@ -57,36 +62,31 @@ get_header();
           <h2 class="section-title section-title--center">Marcos de uma história em movimento</h2>
         </header>
 
-        <ol class="timeline" role="list" aria-label="Marcos da história">
-
-          <li class="timeline__item reveal" tabindex="0" aria-label="Ano 2000: Fundação">
+        <?php
+        $anv_tl = function_exists('rwmb_meta') ? (array) rwmb_meta('nuvvo_anuvvo_timeline', [], get_the_ID()) : [];
+        if (!$anv_tl) {
+            $anv_tl = [
+                ['ano' => '2000', 'titulo' => 'Fundação', 'desc' => 'O início de tudo, em um espaço de 80 m², movidos pela paixão e trabalho manual.', 'destaque' => ''],
+                ['ano' => '2009', 'titulo' => 'Primeira Ampliação', 'desc' => 'O crescimento consistente nos levou a uma estrutura de 200 m².', 'destaque' => ''],
+                ['ano' => '2024', 'titulo' => 'Expansão Estratégica', 'desc' => 'Consolidamos nosso parque fabril com 650 m², ampliando nossa capacidade produtiva.', 'destaque' => ''],
+                ['ano' => '2026', 'titulo' => 'O Nascimento da Nuvvo Design', 'desc' => 'O lançamento de uma marca focada no design autoral e no atendimento exclusivo ao mercado de alta decoração.', 'destaque' => '1'],
+            ];
+        }
+        // >4 marcos: adiciona classe p/ virar carrossel (init futuro em carousels.js)
+        $tl_extra = count($anv_tl) > 4 ? ' timeline--overflow' : '';
+        ?>
+        <ol class="timeline<?php echo $tl_extra; ?>" role="list" aria-label="Marcos da história">
+          <?php foreach ($anv_tl as $i => $m) :
+            $feat  = !empty($m['destaque']) ? ' timeline__item--featured' : '';
+            $delay = $i > 0 ? ' reveal--delay-' . min($i, 4) : '';
+          ?>
+          <li class="timeline__item<?php echo $feat; ?> reveal<?php echo $delay; ?>" tabindex="0" aria-label="Ano <?php echo esc_attr($m['ano'] ?? ''); ?>: <?php echo esc_attr($m['titulo'] ?? ''); ?>">
             <span class="timeline__dot" aria-hidden="true"></span>
-            <p class="timeline__year">2000</p>
-            <p class="timeline__title">Fundação</p>
-            <p class="timeline__desc">O início de tudo, em um espaço de 80 m², movidos pela paixão e trabalho manual.</p>
+            <p class="timeline__year"><?php echo esc_html($m['ano'] ?? ''); ?></p>
+            <p class="timeline__title"><?php echo esc_html($m['titulo'] ?? ''); ?></p>
+            <p class="timeline__desc"><?php echo esc_html($m['desc'] ?? ''); ?></p>
           </li>
-
-          <li class="timeline__item reveal reveal--delay-1" tabindex="0" aria-label="Ano 2009: Primeira ampliação">
-            <span class="timeline__dot" aria-hidden="true"></span>
-            <p class="timeline__year">2009</p>
-            <p class="timeline__title">Primeira Ampliação</p>
-            <p class="timeline__desc">O crescimento consistente nos levou a uma estrutura de 200 m².</p>
-          </li>
-
-          <li class="timeline__item reveal reveal--delay-2" tabindex="0" aria-label="Ano 2024: Expansão estratégica">
-            <span class="timeline__dot" aria-hidden="true"></span>
-            <p class="timeline__year">2024</p>
-            <p class="timeline__title">Expansão Estratégica</p>
-            <p class="timeline__desc">Consolidamos nosso parque fabril com 650 m², ampliando nossa capacidade produtiva.</p>
-          </li>
-
-          <li class="timeline__item timeline__item--featured reveal reveal--delay-3" tabindex="0" aria-label="Ano 2026: O nascimento da Nuvvo Design">
-            <span class="timeline__dot" aria-hidden="true"></span>
-            <p class="timeline__year">2026</p>
-            <p class="timeline__title">O Nascimento da Nuvvo Design</p>
-            <p class="timeline__desc">O lançamento de uma marca focada no design autoral e no atendimento exclusivo ao mercado de alta decoração.</p>
-          </li>
-
+          <?php endforeach; ?>
         </ol>
       </div>
     </section>
@@ -252,7 +252,7 @@ get_header();
               <path d="M16 5v6M16 21v6M5 16h6M21 16h6"/>
             </svg>
             <h3 class="mvv-block__title">Missão</h3>
-            <p class="mvv-block__text">Inspirar design que conecta pessoas e harmoniza ambientes exclusivos.</p>
+            <p class="mvv-block__text"><?php echo esc_html(nuvvo_pgf('nuvvo_anuvvo_missao', 'Inspirar design que conecta pessoas e harmoniza ambientes exclusivos.')); ?></p>
           </article>
 
           <article class="mvv-block reveal reveal--delay-1">
@@ -262,7 +262,7 @@ get_header();
               <circle cx="16" cy="16" r="4"/>
             </svg>
             <h3 class="mvv-block__title">Visão</h3>
-            <p class="mvv-block__text">Ser referência em design de mobiliário residencial de alta decoração.</p>
+            <p class="mvv-block__text"><?php echo esc_html(nuvvo_pgf('nuvvo_anuvvo_visao', 'Ser referência em design de mobiliário residencial de alta decoração.')); ?></p>
           </article>
 
           <article class="mvv-block reveal reveal--delay-2">
@@ -273,11 +273,14 @@ get_header();
             </svg>
             <h3 class="mvv-block__title">Valores</h3>
             <ul class="mvv-list" role="list">
-              <li class="mvv-list__chip">Zelo</li>
-              <li class="mvv-list__chip">Comprometimento</li>
-              <li class="mvv-list__chip">Espírito de Equipe</li>
-              <li class="mvv-list__chip">Prestatividade</li>
-              <li class="mvv-list__chip">Confiança</li>
+              <?php
+              $anv_val = function_exists('rwmb_meta') ? array_filter((array) rwmb_meta('nuvvo_anuvvo_valores', [], get_the_ID())) : [];
+              if (!$anv_val) {
+                  $anv_val = ['Zelo', 'Comprometimento', 'Espírito de Equipe', 'Prestatividade', 'Confiança'];
+              }
+              foreach ($anv_val as $val) : ?>
+                <li class="mvv-list__chip"><?php echo esc_html($val); ?></li>
+              <?php endforeach; ?>
             </ul>
           </article>
 
