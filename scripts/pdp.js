@@ -56,33 +56,37 @@
     }
   });
 
-  /* ---------- DIMENSIONS SELECTOR (módulos) ---------- */
-  const modules = {
-    '190': { width: 190, cushions: 6 },
-    '210': { width: 210, cushions: 7 },
-    '230': { width: 230, cushions: 8 },
-    '250': { width: 250, cushions: 9 },
-  };
+  /* ---------- DIMENSIONS SELECTOR (módulos) — dados do PHP (NUVVO_PDP) ---------- */
+  const modules = (window.NUVVO_PDP && Array.isArray(window.NUVVO_PDP.modules)) ? window.NUVVO_PDP.modules : [];
 
   const modChips = document.querySelectorAll('[data-module-chip]');
   const modPanel = document.querySelector('[data-module-panel]');
+  const modImage = document.querySelector('[data-module-image]');
 
-  const renderModule = (key) => {
-    if (!modules[key] || !modPanel) return;
-    const m = modules[key];
-    modPanel.innerHTML = `
-      <strong>${m.width} cm</strong>
-      ${m.cushions} almofadas 45 × 45 cm · profundidade 100 cm · altura 80 cm
-    `;
-    modChips.forEach(c => c.setAttribute('aria-pressed', c.dataset.moduleChip === key ? 'true' : 'false'));
+  const renderModule = (idx) => {
+    const m = modules[idx];
+    if (!m || !modPanel) return;
+    const larguraTxt = m.largura ? `<strong>${m.largura} cm</strong> ` : '';
+    modPanel.innerHTML = larguraTxt + (m.descricao || '');
+    if (modImage) {
+      if (m.imagem) {
+        modImage.src = m.imagem;
+        modImage.alt = m.label || '';
+        modImage.hidden = false;
+      } else {
+        modImage.hidden = true;
+        modImage.removeAttribute('src');
+      }
+    }
+    modChips.forEach((c, i) => c.setAttribute('aria-pressed', i === idx ? 'true' : 'false'));
   };
 
-  modChips.forEach((chip) => {
-    chip.addEventListener('click', () => renderModule(chip.dataset.moduleChip));
+  modChips.forEach((chip, i) => {
+    chip.addEventListener('click', () => renderModule(i));
   });
 
   // Init com primeiro módulo
-  if (modChips.length) renderModule('190');
+  if (modChips.length && modules.length) renderModule(0);
 
   /* ---------- TECH DRAWING animation on scroll ---------- */
   const dimSection = document.querySelector('.dim-section');

@@ -85,6 +85,11 @@ add_action('wp_enqueue_scripts', function () {
         wp_enqueue_script('nuvvo-carousels', $uri . '/scripts/carousels.js', ['swiper', 'nuvvo-main'], $ver('/scripts/carousels.js'), true);
     }
 
+    /* -------- JS por template -------- */
+    if (is_singular('produto')) {
+        wp_enqueue_script('nuvvo-pdp', $uri . '/scripts/pdp.js', ['nuvvo-main'], $ver('/scripts/pdp.js'), true);
+    }
+
     /* -------- Dados PHP -> JS -------- */
     wp_localize_script('nuvvo-main', 'NUVVO', [
         'homeUrl'  => home_url('/'),
@@ -97,7 +102,7 @@ add_action('wp_enqueue_scripts', function () {
  * Carrega os scripts com defer (mantém o comportamento do site estático).
  */
 add_filter('script_loader_tag', function ($tag, $handle) {
-    $defer = ['lenis', 'swiper', 'nuvvo-main', 'nuvvo-animations', 'nuvvo-cookies', 'nuvvo-carousels'];
+    $defer = ['lenis', 'swiper', 'nuvvo-main', 'nuvvo-animations', 'nuvvo-cookies', 'nuvvo-carousels', 'nuvvo-pdp'];
     if (in_array($handle, $defer, true) && strpos($tag, ' defer') === false) {
         $tag = str_replace(' src=', ' defer src=', $tag);
     }

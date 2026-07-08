@@ -21,7 +21,7 @@ add_filter('got_rewrite', '__return_true');
 add_filter('got_url_rewrite', '__return_true');
 
 add_action('init', function () {
-    if (get_option('nuvvo_pages_v2')) {
+    if (get_option('nuvvo_pages_v3')) {
         return;
     }
 
@@ -65,5 +65,5 @@ add_action('init', function () {
     // 3) Regrava regras de rewrite (.htaccess).
     flush_rewrite_rules(true);
 
-    update_option('nuvvo_pages_v2', 1);
+    update_option('nuvvo_pages_v3', 1);
 }, 20);
