@@ -160,3 +160,8 @@
 .breadcrumb__sep { opacity: 0.5; }
 .breadcrumb__current { color: var(--color-cream); opacity: 1; }
 @media (max-width: 767px) { .breadcrumb { display: none; } }
+
+/* Trajetória em modo carrossel (quando >4 marcos) */
+.timeline__swiper { padding-bottom: 2.5rem; }
+.timeline__swiper .timeline__item { height: auto; margin: 0; }
+.timeline__swiper .timeline__pagination { text-align: center; }

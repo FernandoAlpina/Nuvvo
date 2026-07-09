@@ -49,7 +49,7 @@ class Nuvvo_Produto
             ->add_metabox_field_switch('Selo "Nuvvo Signature"', 'signature', 6)
             ->add_metabox_field_textarea('Lede (resumo do topo)', 'lede', 12, ['rows' => 3])
             ->add_metabox_field_text('Chips (destaques)', 'chips', 12, ['clone' => true, 'sort_clone' => true, 'desc' => 'Um por item. Ex.: "4 medidas disponíveis".'])
-            ->add_metabox_field_image('Imagens do topo (hero)', 'hero_imagens', 6, 12)
+            ->add_metabox_field_image('Imagens do topo (hero)', 'hero_imagens', 6, 12, 'Recomendado: 1200×1500px (retrato) ou 1600×1200px (paisagem), JPG.')
             ->add_metabox_field_switch('Produto "em breve" (card sem PDP)', 'em_breve', 6)
             ->add_metabox_field_switch('Destacar na Home', 'destaque_home', 6)
 
@@ -60,7 +60,7 @@ class Nuvvo_Produto
             /* ---- Galeria editorial (proporção por item) ---- */
             ->add_metabox_box('', 'GALERIA EDITORIAL')
             ->add_metabox_group('Imagens', 'galeria', 'Imagem {#}', -1, 12, ['default_state' => 'expanded'])
-            ->add_metabox_field_image('Imagem', 'imagem', 1, 6)
+            ->add_metabox_field_image('Imagem', 'imagem', 1, 6, 'Recomendado: 1200×1500px. A proporção real vem do arquivo; escolha a posição no grid ao lado.')
             ->add_metabox_field_select('Proporção', 'proporcao', [
                 ''      => 'Padrão (1x1)',
                 'first' => 'Destaque grande (2x2)',
@@ -71,7 +71,7 @@ class Nuvvo_Produto
 
             /* ---- Dimensões e configurador de módulos ---- */
             ->add_metabox_box('', 'DIMENSÕES E CONFIGURADOR')
-            ->add_metabox_field_image('Desenho técnico (imagem/SVG)', 'desenho', 1, 12)
+            ->add_metabox_field_image('Desenho técnico (imagem/SVG)', 'desenho', 1, 12, 'Recomendado: PNG/SVG com fundo transparente, ~1000×750px.')
             ->add_metabox_group('Dimensões gerais', 'dimensoes', '{rotulo}', -1, 12)
             ->add_metabox_field_text('Rótulo', 'rotulo', 6)
             ->add_metabox_field_text('Valor', 'valor', 6)
@@ -79,7 +79,7 @@ class Nuvvo_Produto
             ->add_metabox_group('Módulos (configurador)', 'modulos', '{label}', -1, 12)
             ->add_metabox_field_text('Rótulo (ex.: 190 cm)', 'label', 4)
             ->add_metabox_field_number('Largura (cm)', 'largura', 4, 0, 9999, 1)
-            ->add_metabox_field_image('Imagem', 'imagem', 1, 4)
+            ->add_metabox_field_image('Imagem', 'imagem', 1, 4, 'Recomendado: 1200×900px.')
             ->add_metabox_field_textarea('Descrição', 'descricao', 12, ['rows' => 2])
             ->close_metabox_group()
             ->add_metabox_field_biu('Extras (ex.: mesa lateral opcional)', 'extras', 12)
@@ -98,7 +98,7 @@ class Nuvvo_Produto
         // Imagem por categoria (term meta) — usada nos cards de categoria.
         self::$entity->create_taxonomy_metaboxes('categoria_produto')
             ->add_metabox_box('', 'IMAGEM DA CATEGORIA')
-            ->add_metabox_field_image('Imagem', 'imagem', 1, 12)
+            ->add_metabox_field_image('Imagem', 'imagem', 1, 12, 'Recomendado: 800×600px. Aparece nos cards de categoria (Home e Catálogo).')
             ->render();
     }
 

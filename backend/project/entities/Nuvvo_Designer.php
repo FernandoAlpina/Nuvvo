@@ -36,7 +36,7 @@ class Nuvvo_Designer
         self::$entity->create_metaboxes()
             ->add_metabox_box('', 'DADOS DO DESIGNER')
             ->add_metabox_field_text('Cargo', 'cargo', 6, ['desc' => 'Ex.: Designer de Mobiliário'])
-            ->add_metabox_field_image('Foto (proporção 4:5)', 'foto', 1, 6)
+            ->add_metabox_field_image('Foto (proporção 4:5)', 'foto', 1, 6, 'Recomendado: 600×750px (4:5).')
             ->add_metabox_field_biu('Bio curta (usada na página do produto)', 'bio_curta', 12)
             ->add_metabox_field_biu('Bio longa (usada em "A Nuvvo")', 'bio_longa', 12)
             ->render();

@@ -52,6 +52,11 @@ require_once get_template_directory() . '/inc/framework.php';
 require_once get_template_directory() . '/inc/settings.php';
 
 /**
+ * SEO baseline (meta/OG/canonical/Schema) — desativa se houver plugin de SEO.
+ */
+require_once get_template_directory() . '/inc/seo.php';
+
+/**
  * Enfileiramento de CSS/JS (assets próprios do Nuvvo).
  */
 require_once get_template_directory() . '/inc/enqueue.php';

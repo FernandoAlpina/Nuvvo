@@ -134,6 +134,29 @@
     });
   }
 
+  /* ---------- TIMELINE (trajetória — carrossel quando >4 marcos) ---------- */
+  const timelineEl = document.querySelector('.timeline__swiper');
+  if (timelineEl) {
+    new Swiper(timelineEl, {
+      slidesPerView: 1.15,
+      spaceBetween: 16,
+      grabCursor: true,
+      speed: 600,
+      breakpoints: {
+        640:  { slidesPerView: 2, spaceBetween: 20 },
+        1024: { slidesPerView: 4, spaceBetween: 24 },
+      },
+      pagination: {
+        el: '.timeline__pagination',
+        clickable: true,
+      },
+      a11y: {
+        prevSlideMessage: 'Marco anterior',
+        nextSlideMessage: 'Próximo marco',
+      },
+    });
+  }
+
   /* ---------- DEPOIMENTOS: "Ver mais" para textos longos ----------
      A citação é limitada a 6 linhas via CSS (-webkit-line-clamp). Aqui
      medimos cada card: se o texto estoura, injetamos um botão "Ver mais"

@@ -28,7 +28,7 @@ add_filter('rwmb_meta_boxes', function ($mb) {
                 'group_title'   => 'Slide {#}',
                 'add_button'    => '+ Slide',
                 'fields'        => [
-                    ['name' => 'Imagem', 'id' => 'imagem', 'type' => 'single_image', 'columns' => 6],
+                    ['name' => 'Imagem', 'id' => 'imagem', 'type' => 'single_image', 'columns' => 6, 'desc' => 'Recomendado: 1920×1080px (paisagem), JPG.'],
                     ['name' => 'Texto alternativo', 'id' => 'alt', 'type' => 'text', 'columns' => 6],
                 ],
             ],

@@ -52,7 +52,7 @@ add_filter('rwmb_meta_boxes', function ($mb) {
         'post_types' => ['page'],
         'include'    => ['relation' => 'OR', 'slug' => ['a-nuvvo']],
         'fields'     => [
-            ['name' => 'Imagem de fundo', 'id' => 'nuvvo_anuvvo_hero_img', 'type' => 'single_image'],
+            ['name' => 'Imagem de fundo', 'id' => 'nuvvo_anuvvo_hero_img', 'type' => 'single_image', 'desc' => 'Recomendado: 1920×1280px (paisagem).'],
             ['name' => 'Eyebrow (rótulo)', 'id' => 'nuvvo_anuvvo_hero_eyebrow', 'type' => 'text', 'placeholder' => 'Ex.: Sobre nós'],
             ['name' => 'Título', 'id' => 'nuvvo_anuvvo_hero_titulo', 'type' => 'text'],
             ['name' => 'Subtítulo', 'id' => 'nuvvo_anuvvo_hero_sub', 'type' => 'textarea', 'rows' => 3],
@@ -109,7 +109,7 @@ add_filter('rwmb_meta_boxes', function ($mb) {
         'fields'     => [
             ['name' => 'Nome', 'id' => 'nuvvo_anuvvo_designer_nome', 'type' => 'text', 'columns' => 6],
             ['name' => 'Cargo / rótulo', 'id' => 'nuvvo_anuvvo_designer_cargo', 'type' => 'text', 'columns' => 6, 'placeholder' => 'Designer assinado'],
-            ['name' => 'Foto', 'id' => 'nuvvo_anuvvo_designer_foto', 'type' => 'single_image'],
+            ['name' => 'Foto', 'id' => 'nuvvo_anuvvo_designer_foto', 'type' => 'single_image', 'desc' => 'Recomendado: 600×750px (4:5).'],
             [
                 'name'    => 'Bio',
                 'id'      => 'nuvvo_anuvvo_designer_bio',

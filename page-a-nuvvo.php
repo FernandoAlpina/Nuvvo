@@ -84,10 +84,27 @@ get_header();
                 ['ano' => '2026', 'titulo' => 'O Nascimento da Nuvvo Design', 'desc' => 'O lançamento de uma marca focada no design autoral e no atendimento exclusivo ao mercado de alta decoração.', 'destaque' => '1'],
             ];
         }
-        // >4 marcos: adiciona classe p/ virar carrossel (init futuro em carousels.js)
-        $tl_extra = count($anv_tl) > 4 ? ' timeline--overflow' : '';
+        // Trajetória: grid até 4 marcos; carrossel (Swiper) quando >4.
+        $tl_carousel = count($anv_tl) > 4;
         ?>
-        <ol class="timeline<?php echo $tl_extra; ?>" role="list" aria-label="Marcos da história">
+        <?php if ($tl_carousel) : ?>
+        <div class="swiper timeline__swiper" aria-label="Marcos da história">
+          <div class="swiper-wrapper">
+            <?php foreach ($anv_tl as $m) :
+              $feat = !empty($m['destaque']) ? ' timeline__item--featured' : '';
+            ?>
+            <div class="swiper-slide timeline__item<?php echo $feat; ?>" tabindex="0" aria-label="Ano <?php echo esc_attr($m['ano'] ?? ''); ?>: <?php echo esc_attr($m['titulo'] ?? ''); ?>">
+              <span class="timeline__dot" aria-hidden="true"></span>
+              <p class="timeline__year"><?php echo esc_html($m['ano'] ?? ''); ?></p>
+              <p class="timeline__title"><?php echo esc_html($m['titulo'] ?? ''); ?></p>
+              <p class="timeline__desc"><?php echo esc_html($m['desc'] ?? ''); ?></p>
+            </div>
+            <?php endforeach; ?>
+          </div>
+          <div class="timeline__pagination swiper-pagination"></div>
+        </div>
+        <?php else : ?>
+        <ol class="timeline" role="list" aria-label="Marcos da história">
           <?php foreach ($anv_tl as $i => $m) :
             $feat  = !empty($m['destaque']) ? ' timeline__item--featured' : '';
             $delay = $i > 0 ? ' reveal--delay-' . min($i, 4) : '';
@@ -100,6 +117,7 @@ get_header();
           </li>
           <?php endforeach; ?>
         </ol>
+        <?php endif; ?>
       </div>
     </section>
 

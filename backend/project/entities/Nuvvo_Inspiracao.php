@@ -41,8 +41,8 @@ class Nuvvo_Inspiracao
     {
         self::$entity->create_metaboxes()
             ->add_metabox_box('', 'IMAGEM')
-            ->add_metabox_field_image('Imagem', 'imagem', 1, 6)
-            ->add_metabox_field_image('Imagem grande (lightbox, opcional)', 'imagem_full', 1, 6)
+            ->add_metabox_field_image('Imagem', 'imagem', 1, 6, 'Recomendado: 900×1200px (retrato) ou 1200×900px (paisagem).')
+            ->add_metabox_field_image('Imagem grande (lightbox, opcional)', 'imagem_full', 1, 6, 'Versão em alta para o zoom (ex.: 1600px no maior lado).')
             ->add_metabox_field_text('Texto alternativo (alt)', 'alt', 12, ['desc' => 'Descrição da imagem para acessibilidade.'])
             ->add_metabox_field_select('Posição no grid', 'proporcao', [
                 ''     => 'Padrão (1 coluna)',
