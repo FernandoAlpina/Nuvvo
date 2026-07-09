@@ -151,33 +151,8 @@
     const open = () => item.setAttribute('aria-expanded', 'true');
     const close = () => item.setAttribute('aria-expanded', 'false');
 
-    // Mega-menu: transforma os links do dropdown em cards de categoria (reusa os
-    // href já corretos por página). Imagens com prefixo derivado do href do hub.
-    const submenu = item.querySelector('.dropdown');
-    const hubHref = trigger.getAttribute('href');
-    if (submenu && !submenu.classList.contains('dropdown--mega')) {
-      const prefix = (hubHref && hubHref.startsWith('../')) ? '../' : '';
-      const ARROW = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M10 7h7v7"/></svg>';
-      const MEDIA = {
-        sofas:     `<img src="${prefix}assets/img/cat-sofas.png" alt="" loading="lazy">`,
-        bancos:    `<img src="${prefix}assets/img/cat-bancos.jpg" alt="" loading="lazy">`,
-        poltronas: '<svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="500" fill="#7A6B5C"/><g opacity="0.4" fill="#F0EDE4"><rect x="120" y="180" width="160" height="220" rx="20"/><rect x="120" y="280" width="160" height="100" rx="8"/><rect x="100" y="260" width="30" height="160" rx="4"/><rect x="270" y="260" width="30" height="160" rx="4"/></g></svg>',
-        camas:     '<svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="500" fill="#50071A"/><g opacity="0.35" fill="#F0EDE4"><rect x="40" y="200" width="320" height="80" rx="8"/><rect x="40" y="290" width="320" height="220" rx="6"/></g></svg>',
-      };
-      const cards = [...submenu.querySelectorAll('.dropdown__link')].map((a) => {
-        const href = a.getAttribute('href') || '';
-        const name = a.textContent.trim();
-        const m = href.match(/(sofas|poltronas|bancos|camas)\.html/);
-        const media = (m && MEDIA[m[1]]) || '';
-        return `<li role="none"><a href="${href}" class="card-cat" role="menuitem"><div class="card-cat__media">${media}</div><div class="card-cat__label"><span class="card-cat__name">${name}</span><span class="card-cat__arrow" aria-hidden="true">${ARROW}</span></div></a></li>`;
-      }).join('');
-      // "Ver catálogo" — só aparece no acordeão mobile (CSS), pra acessar o hub
-      const verCatalogo = hubHref
-        ? `<li class="dropdown__item--all" role="none"><a class="dropdown__link dropdown__link--all" href="${hubHref}" role="menuitem">Ver catálogo</a></li>`
-        : '';
-      submenu.classList.add('dropdown--mega');
-      submenu.innerHTML = cards + verCatalogo;
-    }
+    // O mega-menu (cards de categoria com imagem por termo) é renderizado no
+    // servidor pelo header.php. Aqui cuidamos só de abrir/fechar.
 
     // hover só no desktop
     item.addEventListener('mouseenter', () => { if (mqDesktop.matches) open(); });

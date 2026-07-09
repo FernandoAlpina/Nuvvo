@@ -175,11 +175,11 @@
   background: var(--color-cream-warm);
   padding-left: calc(var(--space-3) + 6px);
 }
-/* "Ver catálogo" (link injetado via JS) — só aparece no acordeão mobile */
+/* "Ver catálogo" — só aparece no acordeão mobile */
 .dropdown__item--all { display: none; }
 .dropdown__link--all { color: var(--color-burgundy); font-weight: 600; }
 
-/* ===== Mega-menu de Catálogo (cards de categoria, montado via JS) ===== */
+/* ===== Mega-menu de Catálogo (cards de categoria, renderizado no servidor) ===== */
 .dropdown--mega {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
