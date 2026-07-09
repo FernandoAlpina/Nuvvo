@@ -241,29 +241,25 @@ get_header();
       </div>
     </section>
 
-    <!-- ============ 7. VÍDEO INSTITUCIONAL ============
-         Para ocultar a seção inteira, troque data-video-available="true" → "false"
-         Para ativar o vídeo, defina data-video-src no .video-block (ver README) -->
-    <section class="section video-section" data-video-available="true" aria-label="Vídeo institucional">
-      <div class="wrap">
-        <header class="reveal" style="text-align:center; margin-bottom: var(--space-5);">
-          <span class="eyebrow" style="justify-content:center;">Conheça por dentro</span>
-          <h2 class="section-title section-title--center">Bastidores e processo</h2>
-        </header>
-
-        <button
-          type="button"
-          class="video-block reveal reveal--delay-1"
-          data-video-src=""
-          data-video-type="iframe"
-          data-video-poster="<?php echo get_template_directory_uri(); ?>/assets/img/hero-1.png"
-          aria-label="Assistir vídeo institucional da Nuvvo Design">
-          <img class="video-block__poster" src="<?php echo get_template_directory_uri(); ?>/assets/img/hero-1.png" alt="" aria-hidden="true">
-          <span class="video-block__play" aria-hidden="true"></span>
-          <span class="video-block__label">Vídeo institucional em breve</span>
-        </button>
-      </div>
-    </section>
+    <!-- ============ 7. VÍDEO INSTITUCIONAL (editável) ============ -->
+    <?php
+    $anv_id = (int) get_the_ID();
+    $anv_video = function_exists('nuvvo_video_source')
+        ? nuvvo_video_source('nuvvo_anuvvo_video_url', 'nuvvo_anuvvo_video_mp4', $anv_id)
+        : ['src' => '', 'type' => ''];
+    $anv_video_poster_id = function_exists('rwmb_meta') ? rwmb_meta('nuvvo_anuvvo_video_poster', [], $anv_id) : '';
+    if (is_array($anv_video_poster_id)) { $anv_video_poster_id = reset($anv_video_poster_id); }
+    $anv_video_poster = $anv_video_poster_id ? wp_get_attachment_image_url((int) $anv_video_poster_id, 'full') : '';
+    $anv_video_exibir = nuvvo_pgf('nuvvo_anuvvo_video_exibir', '1');
+    get_template_part('template-parts/video-institucional', null, [
+        'exibir'  => ($anv_video_exibir !== '0' && $anv_video_exibir !== ''),
+        'eyebrow' => nuvvo_pgf('nuvvo_anuvvo_video_eyebrow', 'Conheça por dentro'),
+        'titulo'  => nuvvo_pgf('nuvvo_anuvvo_video_titulo', 'Bastidores e processo'),
+        'src'     => $anv_video['src'],
+        'type'    => $anv_video['type'] !== '' ? $anv_video['type'] : 'iframe',
+        'poster'  => $anv_video_poster,
+    ]);
+    ?>
 
     <!-- ============ 8. MISSÃO / VISÃO / VALORES ============ -->
     <section class="section mvv-section" aria-label="Missão, visão e valores">

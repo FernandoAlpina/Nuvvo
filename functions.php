@@ -57,6 +57,11 @@ require_once get_template_directory() . '/inc/settings.php';
 require_once get_template_directory() . '/inc/seo.php';
 
 /**
+ * Vídeo institucional (helpers de embed YouTube/Vimeo + resolução da fonte).
+ */
+require_once get_template_directory() . '/inc/video.php';
+
+/**
  * Enfileiramento de CSS/JS (assets próprios do Nuvvo).
  */
 require_once get_template_directory() . '/inc/enqueue.php';

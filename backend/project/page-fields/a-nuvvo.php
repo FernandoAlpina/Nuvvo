@@ -119,6 +119,22 @@ add_filter('rwmb_meta_boxes', function ($mb) {
         ],
     ];
 
+    /* ---------- Vídeo institucional ---------- */
+    $mb[] = [
+        'id'         => 'nuvvo_pg_anuvvo_video',
+        'title'      => 'Vídeo institucional',
+        'post_types' => ['page'],
+        'include'    => ['relation' => 'OR', 'slug' => ['a-nuvvo']],
+        'fields'     => [
+            ['name' => 'Exibir a seção de vídeo', 'id' => 'nuvvo_anuvvo_video_exibir', 'type' => 'switch', 'std' => 1, 'desc' => 'Desligue para ocultar a seção inteira nesta página.'],
+            ['name' => 'Eyebrow (rótulo)', 'id' => 'nuvvo_anuvvo_video_eyebrow', 'type' => 'text', 'columns' => 6, 'placeholder' => 'Conheça por dentro'],
+            ['name' => 'Título', 'id' => 'nuvvo_anuvvo_video_titulo', 'type' => 'text', 'columns' => 6, 'placeholder' => 'Bastidores e processo'],
+            ['name' => 'Link do vídeo (YouTube ou Vimeo)', 'id' => 'nuvvo_anuvvo_video_url', 'type' => 'url', 'desc' => 'Cole o link normal do YouTube ou Vimeo. Tem prioridade sobre o arquivo abaixo. Deixe vazio para manter o estado "em breve".'],
+            ['name' => 'Ou envie um arquivo de vídeo (MP4)', 'id' => 'nuvvo_anuvvo_video_mp4', 'type' => 'video', 'max_file_uploads' => 1, 'desc' => 'Use apenas se não tiver link do YouTube/Vimeo. Arquivos grandes deixam o carregamento mais lento.'],
+            ['name' => 'Imagem de capa (poster)', 'id' => 'nuvvo_anuvvo_video_poster', 'type' => 'single_image', 'desc' => 'Recomendado: 1600×900px (16:9). Se vazio, usa uma imagem padrão do tema.'],
+        ],
+    ];
+
     /* ---------- Chamada final (CTA) ---------- */
     $mb[] = [
         'id'         => 'nuvvo_pg_anuvvo_cta',

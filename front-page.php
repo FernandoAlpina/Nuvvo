@@ -121,29 +121,24 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
     <!-- ============ 2. BIG NUMBERS (editável no painel Nuvvo) ============ -->
     <?php get_template_part('template-parts/big-numbers'); ?>
 
-    <!-- ============ VÍDEO INSTITUCIONAL ============
-         Para ocultar a seção inteira, troque data-video-available="true" → "false".
-         Para ativar o vídeo, defina data-video-src no .video-block. -->
-    <section class="section video-section" data-video-available="true" aria-label="Vídeo institucional">
-      <div class="wrap">
-        <header class="reveal" style="text-align:center; margin-bottom: var(--space-5);">
-          <span class="eyebrow" style="justify-content:center;">Conheça por dentro</span>
-          <h2 class="section-title section-title--center">Bastidores e processo</h2>
-        </header>
-
-        <button
-          type="button"
-          class="video-block reveal reveal--delay-1"
-          data-video-src=""
-          data-video-type="iframe"
-          data-video-poster="<?php echo get_template_directory_uri(); ?>/assets/img/hero-1.png"
-          aria-label="Assistir vídeo institucional da Nuvvo Design">
-          <img class="video-block__poster" src="<?php echo get_template_directory_uri(); ?>/assets/img/hero-1.png" alt="" aria-hidden="true">
-          <span class="video-block__play" aria-hidden="true"></span>
-          <span class="video-block__label">Vídeo institucional em breve</span>
-        </button>
-      </div>
-    </section>
+    <!-- ============ VÍDEO INSTITUCIONAL (editável na Home) ============ -->
+    <?php
+    $home_video = function_exists('nuvvo_video_source')
+        ? nuvvo_video_source('nuvvo_home_video_url', 'nuvvo_home_video_mp4', $home_id)
+        : ['src' => '', 'type' => ''];
+    $home_video_poster_id = ($home_id && function_exists('rwmb_meta')) ? rwmb_meta('nuvvo_home_video_poster', [], $home_id) : '';
+    if (is_array($home_video_poster_id)) { $home_video_poster_id = reset($home_video_poster_id); }
+    $home_video_poster = $home_video_poster_id ? wp_get_attachment_image_url((int) $home_video_poster_id, 'full') : '';
+    $home_video_exibir = $read('nuvvo_home_video_exibir', '1');
+    get_template_part('template-parts/video-institucional', null, [
+        'exibir'  => ($home_video_exibir !== '0' && $home_video_exibir !== ''),
+        'eyebrow' => $read('nuvvo_home_video_eyebrow', 'Conheça por dentro'),
+        'titulo'  => $read('nuvvo_home_video_titulo', 'Bastidores e processo'),
+        'src'     => $home_video['src'],
+        'type'    => $home_video['type'] !== '' ? $home_video['type'] : 'iframe',
+        'poster'  => $home_video_poster,
+    ]);
+    ?>
 
     <!-- ============ 3. CATÁLOGO ============ -->
     <section class="section" id="catalog" aria-label="Catálogo">
