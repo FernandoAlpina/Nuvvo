@@ -52,6 +52,13 @@ function nuvvo_seo_image(): string
     return get_template_directory_uri() . '/assets/img/logo-cream.png';
 }
 
+/** Evita canonical duplicado (o core emite o seu; usamos o nosso). */
+add_action('wp', function () {
+    if (!nuvvo_seo_plugin_ativo()) {
+        remove_action('wp_head', 'rel_canonical');
+    }
+});
+
 /** Imprime as meta tags no <head>. */
 add_action('wp_head', function () {
     if (nuvvo_seo_plugin_ativo()) {
