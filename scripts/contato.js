@@ -31,16 +31,16 @@
 
   let gmapsPromise = null;
 
-  /* Carrega o script da Google Maps JS API uma única vez. */
+  /* Carrega o script da Google Maps JS API uma única vez.
+     Usa o callback oficial → garante que google.maps esteja pronto. */
   function loadGoogleMaps(key) {
     if (window.google && window.google.maps) return Promise.resolve();
     if (gmapsPromise) return gmapsPromise;
     gmapsPromise = new Promise((resolve, reject) => {
+      window.__nuvvoGmapsReady = () => resolve();
       const s = document.createElement('script');
-      s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(key) + '&loading=async';
+      s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(key) + '&loading=async&callback=__nuvvoGmapsReady';
       s.async = true;
-      s.defer = true;
-      s.onload = resolve;
       s.onerror = reject;
       document.head.appendChild(s);
     });
