@@ -10,7 +10,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$nums = function_exists('rwmb_meta') ? (array) rwmb_meta('nuvvo_big_numbers', ['object_type' => 'setting'], 'nuvvo_opcoes') : [];
+$nuvvo_home_id = (int) get_option('page_on_front');
+$nums = ($nuvvo_home_id && function_exists('rwmb_meta')) ? (array) rwmb_meta('nuvvo_home_big_numbers', [], $nuvvo_home_id) : [];
 
 if (!$nums) {
     $nums = [
