@@ -14,6 +14,9 @@ $c_hero_img = $c_hero_img_id ? wp_get_attachment_image_url((int) $c_hero_img_id,
 $c_studio_gal = function_exists('rwmb_meta') ? (array) rwmb_meta('nuvvo_contato_studio_galeria', ['size' => 'full'], $pid) : [];
 $c_map_embed = nuvvo_pgf('nuvvo_contato_map_embed', 'https://www.google.com/maps?q=Rua+Teresa+L%C3%ADvia+Rodigheri,+662,+Marau+-+RS&output=embed');
 $c_maps_link = nuvvo_pgf('nuvvo_contato_maps_link', 'https://maps.app.goo.gl/Xj9uriA4ccVWK1q89');
+$c_map_lat   = nuvvo_pgf('nuvvo_contato_map_lat', '-28.4503');
+$c_map_lng   = nuvvo_pgf('nuvvo_contato_map_lng', '-52.1989');
+$c_gmaps_key = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_gmaps_key', '') : '';
 ?>
 
     <!-- ============ 1. HERO ============ -->
@@ -210,7 +213,10 @@ $c_maps_link = nuvvo_pgf('nuvvo_contato_maps_link', 'https://maps.app.goo.gl/Xj9
         <!-- Mapa lazy load LGPD-friendly -->
         <div class="studio-section__map-wrapper reveal reveal--delay-2">
           <div class="map-block"
-               data-map-src="<?php echo esc_url($c_map_embed); ?>">
+               data-map-src="<?php echo esc_url($c_map_embed); ?>"<?php if ($c_gmaps_key) : ?>
+               data-map-key="<?php echo esc_attr($c_gmaps_key); ?>"
+               data-map-lat="<?php echo esc_attr($c_map_lat); ?>"
+               data-map-lng="<?php echo esc_attr($c_map_lng); ?>"<?php endif; ?>>
             <div class="map-block__placeholder" role="button" tabindex="0"
                  aria-label="Carregar mapa interativo do Studio Nuvvo (Google Maps)">
               <span class="map-block__placeholder-text">

@@ -42,6 +42,7 @@ add_filter('rwmb_meta_boxes', function ($mb) {
             ['name' => 'Endereço', 'id' => 'nuvvo_endereco', 'type' => 'textarea', 'rows' => 3],
             ['name' => 'Descrição do site (SEO)', 'id' => 'nuvvo_seo_desc', 'type' => 'textarea', 'rows' => 2, 'desc' => 'Usada como meta description padrão e no compartilhamento.'],
             ['name' => 'Imagem de compartilhamento (Open Graph)', 'id' => 'nuvvo_og_image', 'type' => 'single_image', 'desc' => 'Recomendado: 1200×630px. Aparece ao compartilhar o site.'],
+            ['name' => 'Google Maps — chave da API (JavaScript)', 'id' => 'nuvvo_gmaps_key', 'type' => 'text', 'desc' => 'Com a chave, o mapa da página Contato usa as cores da marca. Sem ela, usa o mapa padrão do Google (embed). Ative a "Maps JavaScript API" no Google Cloud e restrinja a chave ao domínio.'],
         ],
     ];
     $mb[] = [
