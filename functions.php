@@ -62,6 +62,11 @@ require_once get_template_directory() . '/inc/seo.php';
 require_once get_template_directory() . '/inc/video.php';
 
 /**
+ * Helpers de exibição do produto (selo/badge).
+ */
+require_once get_template_directory() . '/inc/produto.php';
+
+/**
  * Enfileiramento de CSS/JS (assets próprios do Nuvvo).
  */
 require_once get_template_directory() . '/inc/enqueue.php';

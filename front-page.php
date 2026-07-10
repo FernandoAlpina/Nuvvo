@@ -325,7 +325,7 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
             <article class="swiper-slide">
               <a href="<?php echo esc_url(get_permalink($prod_id)); ?>" class="card-prod">
                 <div class="card-prod__media">
-                  <?php if ($prod_sig) : ?><span class="card-prod__tag">Nuvvo Signature</span><?php endif; ?>
+                  <?php $prod_selo = function_exists('nuvvo_produto_selo') ? nuvvo_produto_selo($prod_id) : ($prod_sig ? 'Nuvvo Signature' : ''); if ($prod_selo) : ?><span class="card-prod__tag"><?php echo esc_html($prod_selo); ?></span><?php endif; ?>
                   <?php if ($prod_img) : ?>
                   <img src="<?php echo esc_url($prod_img); ?>" alt="<?php echo esc_attr(get_the_title($prod_id)); ?>" loading="lazy" width="600" height="450">
                   <?php endif; ?>

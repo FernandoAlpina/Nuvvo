@@ -120,7 +120,7 @@ $q = new WP_Query([
                 ?>
                 <a href="<?php echo esc_url($link); ?>" class="card-prod" data-subcategory="<?php echo esc_attr($data_sub); ?>" data-name="<?php echo esc_attr(mb_strtolower(get_the_title())); ?>">
                     <div class="product-card-btn-wrap">
-                        <?php if ($signature) : ?><span class="card-prod__tag">Nuvvo Signature</span><?php endif; ?>
+                        <?php $selo = function_exists('nuvvo_produto_selo') ? nuvvo_produto_selo($ppid) : ($signature ? 'Nuvvo Signature' : ''); if ($selo) : ?><span class="card-prod__tag"><?php echo esc_html($selo); ?></span><?php endif; ?>
                         <?php if ($img) : ?>
                             <img src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy">
                         <?php endif; ?>

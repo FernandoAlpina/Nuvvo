@@ -47,6 +47,11 @@ class Nuvvo_Produto
             ->add_metabox_box('', 'DADOS DO PRODUTO')
             ->add_metabox_field_cpt('Designer', 'designer', 'designer', 1, 6, ['desc' => 'Vazio = exibe a versão "Nuvvo Signature".'])
             ->add_metabox_field_switch('Selo "Nuvvo Signature"', 'signature', 6)
+            ->add_metabox_field_switch('Selo designer', 'selo_designer', 6)
+            ->add_metabox_field_text('Texto do selo designer', 'selo_tag', 6, [
+                'desc'        => 'Rótulo do badge quando o "Selo designer" está ligado (o nome ainda pode mudar). Se vazio, usa "Designer".',
+                'placeholder' => 'Ex.: Assinado, Autoral…',
+            ])
             ->add_metabox_field_textarea('Lede (resumo do topo)', 'lede', 12, ['rows' => 3])
             ->add_metabox_field_text('Chips (destaques)', 'chips', 12, ['clone' => true, 'sort_clone' => true, 'desc' => 'Um por item. Ex.: "4 medidas disponíveis".'])
             ->add_metabox_field_image('Imagens do topo (hero)', 'hero_imagens', 6, 12, 'Recomendado: 1200×1500px (retrato) ou 1600×1200px (paisagem), JPG.')
