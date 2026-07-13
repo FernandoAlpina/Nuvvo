@@ -16,8 +16,30 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Um valor de campo é "vazio" se for '', null, false, array vazio OU um array
+ * cujos leaves são todos vazios (ex.: linha de clone em branco salva pelo editor).
+ */
+if (!function_exists('nuvvo_meta_is_empty')) {
+    function nuvvo_meta_is_empty($v): bool
+    {
+        if ($v === '' || $v === null || $v === false) {
+            return true;
+        }
+        if (is_array($v)) {
+            foreach ($v as $item) {
+                if (!nuvvo_meta_is_empty($item)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return trim((string) $v) === '';
+    }
+}
+
 add_action('init', function () {
-    $flag = 'nuvvo_seed_content_v1';
+    $flag = 'nuvvo_seed_content_v2';
     if (get_option($flag)) {
         return;
     }
@@ -35,8 +57,7 @@ add_action('init', function () {
 
     // Grava um meta de página só se estiver vazio.
     $set_meta = function (int $pid, string $key, $val) use (&$count) {
-        $cur = get_post_meta($pid, $key, true);
-        if ($cur === '' || $cur === null || $cur === [] || $cur === false) {
+        if (nuvvo_meta_is_empty(get_post_meta($pid, $key, true))) {
             update_post_meta($pid, $key, $val);
             $count++;
         }
@@ -56,7 +77,7 @@ add_action('init', function () {
     $opts = get_option('nuvvo_opcoes', []);
     if (!is_array($opts)) { $opts = []; }
     foreach ($settings as $k => $v) {
-        if (empty($opts[$k])) {
+        if (nuvvo_meta_is_empty($opts[$k] ?? '')) {
             $opts[$k] = $v;
             $count++;
         }
