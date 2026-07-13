@@ -42,6 +42,17 @@ add_action('after_setup_theme', function () {
 });
 
 /**
+ * Blog: usa o editor clássico (TinyMCE, com "Adicionar mídia") nos posts,
+ * no lugar do editor de blocos (Gutenberg) — como no padrão pedido.
+ */
+add_filter('use_block_editor_for_post_type', function ($use_block_editor, $post_type) {
+    if ($post_type === 'post') {
+        return false;
+    }
+    return $use_block_editor;
+}, 10, 2);
+
+/**
  * Framework Alpina V4 (subconjunto) + entidades do projeto (CPTs, taxonomias, campos).
  */
 require_once get_template_directory() . '/inc/framework.php';
