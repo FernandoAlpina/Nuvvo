@@ -39,7 +39,7 @@ if (!function_exists('nuvvo_meta_is_empty')) {
 }
 
 add_action('init', function () {
-    $flag = 'nuvvo_seed_content_v2';
+    $flag = 'nuvvo_seed_content_v3';
     if (get_option($flag)) {
         return;
     }
@@ -108,12 +108,28 @@ add_action('init', function () {
         ['numero' => '03', 'titulo' => 'Acompanhamento Próximo',        'texto' => 'Atuamos lado a lado com o arquiteto em todas as etapas, da especificação técnica à entrega final.'],
     ]);
 
-    $set_meta($home_id, 'nuvvo_home_big_numbers', [
+    // Big numbers: a linha de clone em branco salva pelo editor traz os defaults
+    // (decimais/duracao), então checamos "vazio" pela ausência de qualquer 'valor'.
+    $bn_val = [
         ['prefixo' => '+', 'valor' => '25',    'sufixo' => 'anos', 'decimais' => '0', 'duracao' => '1600', 'label' => 'de experiência técnica no mercado de mobiliário.'],
         ['prefixo' => '+', 'valor' => '3000',  'sufixo' => '',     'decimais' => '0', 'duracao' => '2000', 'label' => 'ambientes transformados com o nosso mobiliário.'],
         ['prefixo' => '',  'valor' => '97.83', 'sufixo' => '%',    'decimais' => '2', 'duracao' => '2200', 'label' => 'de satisfação (NPS) que reflete nossa dedicação ao cliente.'],
         ['prefixo' => '+', 'valor' => '3000',  'sufixo' => '',     'decimais' => '0', 'duracao' => '2000', 'label' => 'opções de acabamentos em tecidos, texturas e cores para personalizar cada peça.'],
-    ]);
+    ];
+    $bn_cur = get_post_meta($home_id, 'nuvvo_home_big_numbers', true);
+    $bn_has = false;
+    if (is_array($bn_cur)) {
+        foreach ($bn_cur as $bn_row) {
+            if (is_array($bn_row) && isset($bn_row['valor']) && trim((string) $bn_row['valor']) !== '') {
+                $bn_has = true;
+                break;
+            }
+        }
+    }
+    if (!$bn_has) {
+        update_post_meta($home_id, 'nuvvo_home_big_numbers', $bn_val);
+        $count++;
+    }
 
     /* ---------------- A NUVVO ---------------- */
     $essencia = <<<'HTML'
