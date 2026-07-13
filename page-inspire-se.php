@@ -17,16 +17,31 @@ get_header();
     </section>
 
     <!-- ============ 2. FILTER BAR (sticky) ============ -->
+    <?php
+    // Chips dinâmicos: categorias reais da taxonomia (só as que têm conteúdo).
+    $insp_count = (int) wp_count_posts('inspiracao')->publish;
+    $insp_terms = get_terms(['taxonomy' => 'categoria_inspiracao', 'hide_empty' => true]);
+    if (is_wp_error($insp_terms)) { $insp_terms = []; }
+    $insp_results_txt = $insp_count > 0
+        ? $insp_count . ' ' . ($insp_count === 1 ? 'ambiente' : 'ambientes')
+        : '20 ambientes';
+    ?>
     <div class="filter-bar" role="region" aria-label="Filtros de categoria">
       <div class="wrap filter-bar__inner">
         <div class="filter-chips" data-filter-chips role="group" aria-label="Filtrar por categoria">
-          <button type="button" class="filter-chip" data-filter="todos"               aria-pressed="true">Todos</button>
-          <button type="button" class="filter-chip" data-filter="living"              aria-pressed="false">Living</button>
-          <button type="button" class="filter-chip" data-filter="area-social"         aria-pressed="false">Área Social</button>
-          <button type="button" class="filter-chip" data-filter="detalhes"            aria-pressed="false">Detalhes &amp; Texturas</button>
-          <button type="button" class="filter-chip" data-filter="suites"              aria-pressed="false">Suítes</button>
+          <button type="button" class="filter-chip" data-filter="todos" aria-pressed="true">Todos</button>
+          <?php if ($insp_terms) : ?>
+            <?php foreach ($insp_terms as $it) : ?>
+          <button type="button" class="filter-chip" data-filter="<?php echo esc_attr($it->slug); ?>" aria-pressed="false"><?php echo esc_html($it->name); ?></button>
+            <?php endforeach; ?>
+          <?php else : ?>
+          <button type="button" class="filter-chip" data-filter="living" aria-pressed="false">Living</button>
+          <button type="button" class="filter-chip" data-filter="area-social" aria-pressed="false">Área Social</button>
+          <button type="button" class="filter-chip" data-filter="detalhes" aria-pressed="false">Detalhes &amp; Texturas</button>
+          <button type="button" class="filter-chip" data-filter="suites" aria-pressed="false">Suítes</button>
+          <?php endif; ?>
         </div>
-        <span class="filter-results" data-filter-results aria-live="polite">20 ambientes</span>
+        <span class="filter-results" data-filter-results aria-live="polite"><?php echo esc_html($insp_results_txt); ?></span>
       </div>
     </div>
 
