@@ -26,7 +26,10 @@ function nuvvo_seo_description(): string
     if (is_singular('produto')) {
         $desc = (string) rwmb_meta('produto_lede', [], get_the_ID());
     } elseif (is_singular('post')) {
-        $desc = get_the_excerpt();
+        $desc = (string) rwmb_meta('nuvvo_post_seo_desc', [], get_the_ID());
+        if (trim($desc) === '') {
+            $desc = get_the_excerpt();
+        }
     } elseif (is_singular()) {
         $desc = get_the_excerpt();
     }
@@ -110,3 +113,38 @@ add_action('wp_head', function () {
 
     echo '<script type="application/ld+json">' . wp_json_encode($org, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>' . "\n";
 }, 20);
+
+/**
+ * Campos de SEO por post (Título SEO + Meta descrição), editáveis no editor do
+ * post. Só registra se NÃO houver um plugin de SEO cuidando disso.
+ */
+add_filter('rwmb_meta_boxes', function ($mb) {
+    if (nuvvo_seo_plugin_ativo()) {
+        return $mb;
+    }
+    $mb[] = [
+        'id'         => 'nuvvo_post_seo',
+        'title'      => 'SEO (Google e compartilhamento)',
+        'post_types' => ['post'],
+        'context'    => 'normal',
+        'priority'   => 'low',
+        'fields'     => [
+            ['name' => 'Título SEO', 'id' => 'nuvvo_post_seo_title', 'type' => 'text', 'desc' => 'Aparece na aba do navegador e no Google. Se vazio, usa o título do post.'],
+            ['name' => 'Meta descrição', 'id' => 'nuvvo_post_seo_desc', 'type' => 'textarea', 'rows' => 2, 'desc' => 'Resumo que aparece no Google e no compartilhamento. Se vazio, usa o resumo do post. Ideal: até ~155 caracteres.'],
+        ],
+    ];
+    return $mb;
+}, 20);
+
+/**
+ * Usa o "Título SEO" do post (quando preenchido) no <title> e no og:title.
+ */
+add_filter('document_title_parts', function ($parts) {
+    if (is_singular('post') && !nuvvo_seo_plugin_ativo() && function_exists('rwmb_meta')) {
+        $t = trim((string) rwmb_meta('nuvvo_post_seo_title', [], get_the_ID()));
+        if ($t !== '') {
+            $parts['title'] = $t;
+        }
+    }
+    return $parts;
+});
