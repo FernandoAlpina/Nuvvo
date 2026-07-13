@@ -95,6 +95,15 @@ add_action('wp_enqueue_scripts', function () {
     if (is_page('contato')) {
         wp_enqueue_script('nuvvo-contato', $uri . '/scripts/contato.js', ['nuvvo-main'], $ver('/scripts/contato.js'), true);
     }
+    if (is_page('inspire-se')) {
+        wp_enqueue_script('nuvvo-inspire-se', $uri . '/scripts/inspire-se.js', ['nuvvo-main'], $ver('/scripts/inspire-se.js'), true);
+    }
+    if (is_page('catalogo')) {
+        wp_enqueue_script('nuvvo-catalogo-hub', $uri . '/scripts/catalogo-hub.js', ['swiper', 'nuvvo-main'], $ver('/scripts/catalogo-hub.js'), true);
+    }
+    if (is_page('blog') || is_home()) {
+        wp_enqueue_script('nuvvo-blog-listagem', $uri . '/scripts/blog-listagem.js', ['nuvvo-main'], $ver('/scripts/blog-listagem.js'), true);
+    }
 
     /* -------- Dados PHP -> JS -------- */
     wp_localize_script('nuvvo-main', 'NUVVO', [
@@ -108,7 +117,7 @@ add_action('wp_enqueue_scripts', function () {
  * Carrega os scripts com defer (mantém o comportamento do site estático).
  */
 add_filter('script_loader_tag', function ($tag, $handle) {
-    $defer = ['lenis', 'swiper', 'nuvvo-main', 'nuvvo-animations', 'nuvvo-cookies', 'nuvvo-carousels', 'nuvvo-pdp', 'nuvvo-catalogo-listagem', 'nuvvo-contato'];
+    $defer = ['lenis', 'swiper', 'nuvvo-main', 'nuvvo-animations', 'nuvvo-cookies', 'nuvvo-carousels', 'nuvvo-pdp', 'nuvvo-catalogo-listagem', 'nuvvo-contato', 'nuvvo-inspire-se', 'nuvvo-catalogo-hub', 'nuvvo-blog-listagem'];
     if (in_array($handle, $defer, true) && strpos($tag, ' defer') === false) {
         $tag = str_replace(' src=', ' defer src=', $tag);
     }
