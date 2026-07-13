@@ -14,6 +14,13 @@ $blog_q = new WP_Query([
   'ignore_sticky_posts' => true,
 ]);
 $blog_has_posts = $blog_q->have_posts();
+
+/* Categorias do blog (exclui a categoria padrão "Sem categoria"). */
+$blog_cats = get_categories([
+  'hide_empty' => false,
+  'exclude'    => [(int) get_option('default_category')],
+]);
+if (is_wp_error($blog_cats)) { $blog_cats = []; }
 ?>
 
     <!-- ============ 1. HERO ============ -->
@@ -29,10 +36,10 @@ $blog_has_posts = $blog_q->have_posts();
     <div class="filter-bar" role="region" aria-label="Filtros de categoria do blog">
       <div class="wrap filter-bar__inner">
         <div class="filter-chips" data-filter-chips role="group" aria-label="Filtrar por categoria">
-          <button type="button" class="filter-chip" data-filter="todos"               aria-pressed="true">Todos</button>
-          <button type="button" class="filter-chip" data-filter="cuidados-materiais"  aria-pressed="false">Cuidados e Materiais</button>
-          <button type="button" class="filter-chip" data-filter="dicas-decoracao"     aria-pressed="false">Dicas de Decoração</button>
-          <button type="button" class="filter-chip" data-filter="tendencias"          aria-pressed="false">Tendências</button>
+          <button type="button" class="filter-chip" data-filter="todos" aria-pressed="true">Todos</button>
+          <?php foreach ($blog_cats as $bc) : ?>
+          <button type="button" class="filter-chip" data-filter="<?php echo esc_attr($bc->slug); ?>" aria-pressed="false"><?php echo esc_html($bc->name); ?></button>
+          <?php endforeach; ?>
         </div>
         <span class="filter-results" data-filter-results aria-live="polite"><?php
           if ($blog_has_posts) {
@@ -50,21 +57,17 @@ $blog_has_posts = $blog_q->have_posts();
       <div class="wrap">
         <div class="category-banner" data-category-banner>
           <div data-banner-cat="todos">
-            <h2 class="category-banner__title">Todos</h2>
-            <p class="category-banner__text">Uma curadoria completa sobre o universo Nuvvo. Explore nossas tendências, guias técnicos e reflexões sobre o design contemporâneo que transforma o morar.</p>
+            <h2 class="category-banner__title"><?php echo esc_html(nuvvo_pgf('nuvvo_blog_todos_titulo', 'Todos')); ?></h2>
+            <p class="category-banner__text"><?php echo esc_html(nuvvo_pgf('nuvvo_blog_todos_texto', 'Uma curadoria completa sobre o universo Nuvvo. Explore nossas tendências, guias técnicos e reflexões sobre o design contemporâneo que transforma o morar.')); ?></p>
           </div>
-          <div data-banner-cat="cuidados-materiais" hidden>
-            <h2 class="category-banner__title">Cuidados e Materiais</h2>
-            <p class="category-banner__text">A sofisticação começa na estrutura. Conheça a ciência por trás do nosso conforto: do rigor técnico das espumas certificadas à durabilidade da madeira e a estética impecável de nossa curadoria de tecidos.</p>
+          <?php foreach ($blog_cats as $bc) : ?>
+          <div data-banner-cat="<?php echo esc_attr($bc->slug); ?>" hidden>
+            <h2 class="category-banner__title"><?php echo esc_html($bc->name); ?></h2>
+            <?php if (trim((string) $bc->description) !== '') : ?>
+            <p class="category-banner__text"><?php echo esc_html($bc->description); ?></p>
+            <?php endif; ?>
           </div>
-          <div data-banner-cat="dicas-decoracao" hidden>
-            <h2 class="category-banner__title">Dicas de Decoração</h2>
-            <p class="category-banner__text">Onde o design encontra a vida cotidiana. Dicas sobre proporção, respiro e o uso consciente do espaço, para que seu ambiente seja, acima de tudo, um reflexo do seu bem-estar.</p>
-          </div>
-          <div data-banner-cat="tendencias" hidden>
-            <h2 class="category-banner__title">Tendências</h2>
-            <p class="category-banner__text">Um olhar atento sobre o viver contemporâneo. Acompanhe as reflexões de Deivid de Almeida sobre a evolução do mobiliário, a ergonomia tátil e a nova cultura do morar&nbsp;bem.</p>
-          </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </section>

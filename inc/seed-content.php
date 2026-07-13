@@ -39,7 +39,7 @@ if (!function_exists('nuvvo_meta_is_empty')) {
 }
 
 add_action('init', function () {
-    $flag = 'nuvvo_seed_content_v4';
+    $flag = 'nuvvo_seed_content_v5';
     if (get_option($flag)) {
         return;
     }
@@ -48,12 +48,14 @@ add_action('init', function () {
     $anuvvo_pg   = get_page_by_path('a-nuvvo');
     $contato_pg  = get_page_by_path('contato');
     $catalogo_pg = get_page_by_path('catalogo');
-    if (!$home_id || !$anuvvo_pg || !$contato_pg || !$catalogo_pg) {
+    $blog_pg     = get_page_by_path('blog');
+    if (!$home_id || !$anuvvo_pg || !$contato_pg || !$catalogo_pg || !$blog_pg) {
         return; // páginas ainda não provisionadas; tenta no próximo carregamento
     }
     $anuvvo_id   = (int) $anuvvo_pg->ID;
     $contato_id  = (int) $contato_pg->ID;
     $catalogo_id = (int) $catalogo_pg->ID;
+    $blog_id     = (int) $blog_pg->ID;
 
     $count = 0;
 
@@ -239,6 +241,26 @@ HTML;
         ['titulo' => 'Consultoria dedicada',     'texto' => 'Atendimento humano e próximo para especificações personalizadas.',    'link' => '', 'link_label' => ''],
     ]);
 
+    /* ---------------- BLOG (categorias + banner "Todos") ---------------- */
+    $blog_cats_seed = [
+        ['name' => 'Cuidados e Materiais', 'slug' => 'cuidados-materiais', 'desc' => 'A sofisticação começa na estrutura. Conheça a ciência por trás do nosso conforto: do rigor técnico das espumas certificadas à durabilidade da madeira e a estética impecável de nossa curadoria de tecidos.'],
+        ['name' => 'Dicas de Decoração', 'slug' => 'dicas-decoracao', 'desc' => 'Onde o design encontra a vida cotidiana. Dicas sobre proporção, respiro e o uso consciente do espaço, para que seu ambiente seja, acima de tudo, um reflexo do seu bem-estar.'],
+        ['name' => 'Tendências', 'slug' => 'tendencias', 'desc' => 'Um olhar atento sobre o viver contemporâneo. Acompanhe as reflexões de Deivid de Almeida sobre a evolução do mobiliário, a ergonomia tátil e a nova cultura do morar bem.'],
+    ];
+    foreach ($blog_cats_seed as $bc) {
+        $term = get_term_by('slug', $bc['slug'], 'category');
+        if (!$term) {
+            $res = wp_insert_term($bc['name'], 'category', ['slug' => $bc['slug'], 'description' => $bc['desc']]);
+            if (!is_wp_error($res)) { $count++; }
+        } elseif (trim((string) $term->description) === '') {
+            wp_update_term((int) $term->term_id, 'category', ['description' => $bc['desc']]);
+            $count++;
+        }
+    }
+
+    $set_meta($blog_id, 'nuvvo_blog_todos_titulo', 'Todos');
+    $set_meta($blog_id, 'nuvvo_blog_todos_texto', 'Uma curadoria completa sobre o universo Nuvvo. Explore nossas tendências, guias técnicos e reflexões sobre o design contemporâneo que transforma o morar.');
+
     update_option($flag, current_time('mysql'));
-    error_log('[Nuvvo seed] conteúdo aplicado (' . $count . ' campos vazios preenchidos). Home=' . $home_id . ' ANuvvo=' . $anuvvo_id . ' Contato=' . $contato_id . ' Catalogo=' . $catalogo_id);
+    error_log('[Nuvvo seed] conteúdo aplicado (' . $count . ' campos vazios preenchidos). Home=' . $home_id . ' ANuvvo=' . $anuvvo_id . ' Contato=' . $contato_id . ' Catalogo=' . $catalogo_id . ' Blog=' . $blog_id);
 }, 99);
