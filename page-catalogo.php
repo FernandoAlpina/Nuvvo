@@ -81,8 +81,8 @@ if (is_wp_error($cat_terms)) {
       <div class="wrap">
         <header class="catalog-features__head reveal">
           <div>
-            <span class="eyebrow">Diferenciais</span>
-            <h2 class="section-title">A assinatura técnica da Nuvvo</h2>
+            <span class="eyebrow"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_dif_eyebrow', 'Diferenciais')); ?></span>
+            <h2 class="section-title"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_dif_titulo', 'A assinatura técnica da Nuvvo')); ?></h2>
           </div>
           <div class="featured__nav" role="group" aria-label="Navegar diferenciais">
             <button class="swiper-btn cat-features__prev" type="button" aria-label="Diferencial anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
@@ -144,15 +144,19 @@ if (is_wp_error($cat_terms)) {
     </section>
 
     <!-- ============ 4. CTA CURADORIA ESPECIALIZADA ============ -->
+    <?php
+    $pers_msg = nuvvo_pgf('nuvvo_catalogo_pers_msg', 'Olá, gostaria de falar com um consultor Nuvvo');
+    $pers_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($pers_msg) : 'https://wa.me/5554999485915?text=' . rawurlencode($pers_msg);
+    ?>
     <section class="cta-banner" aria-label="Curadoria especializada">
       <div class="cta-banner__inner reveal">
-        <span class="cta-banner__eyebrow">Personalização</span>
-        <h2 class="cta-banner__title">Curadoria especializada</h2>
-        <p class="cta-banner__text">Cada peça de nossa coleção foi pensada para ser personalizada. Com diversas texturas e várias possibilidades em medidas, estamos prontos para adaptar o mobiliário Nuvvo à singularidade do seu ambiente.</p>
-        <a href="https://wa.me/5554999485915?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20consultor%20Nuvvo"
+        <span class="cta-banner__eyebrow"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_pers_eyebrow', 'Personalização')); ?></span>
+        <h2 class="cta-banner__title"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_pers_titulo', 'Curadoria especializada')); ?></h2>
+        <p class="cta-banner__text"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_pers_texto', 'Cada peça de nossa coleção foi pensada para ser personalizada. Com diversas texturas e várias possibilidades em medidas, estamos prontos para adaptar o mobiliário Nuvvo à singularidade do seu ambiente.')); ?></p>
+        <a href="<?php echo esc_url($pers_url); ?>"
            class="btn btn--primary"
            target="_blank" rel="noopener noreferrer">
-          Falar com consultor Nuvvo
+          <?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_pers_btn', 'Falar com consultor Nuvvo')); ?>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
@@ -163,8 +167,8 @@ if (is_wp_error($cat_terms)) {
       <div class="wrap">
         <header class="catalog-inspire__head">
           <div class="reveal">
-            <span class="eyebrow">Inspire-se</span>
-            <h2 class="section-title">Ambientes assinados</h2>
+            <span class="eyebrow"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_insp_eyebrow', 'Inspire-se')); ?></span>
+            <h2 class="section-title"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_insp_titulo', 'Ambientes assinados')); ?></h2>
           </div>
           <div class="reveal reveal--delay-1" style="display:flex; gap: var(--space-3); align-items:center;">
             <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="link-underline">Ver mais inspirações</a>
@@ -177,69 +181,113 @@ if (is_wp_error($cat_terms)) {
 
         <div class="swiper gallery__swiper cat-inspire__swiper reveal">
           <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-1.png" alt="Detalhe do braço do sofá Pecan com mesa lateral de madeira" loading="lazy"></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-3.png" alt="Sofá modular em varanda com vegetação" loading="lazy"></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-2.jpg" alt="Sofá com cachorrinho branco em ambiente claro" loading="lazy"></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-4.jpg" alt="Vista superior das almofadas e mesa" loading="lazy"></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-5.jpg" alt="Close lateral do sofá Pecan com luz natural" loading="lazy"></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-6.png" alt="Detalhe das almofadas e braço" loading="lazy"></div>
+            <?php
+            // Imagens dinâmicas das Inspirações (mais recentes); fallback estático.
+            $insp_slides = [];
+            $catinsp_q = new WP_Query([
+                'post_type'      => 'inspiracao',
+                'posts_per_page' => 8,
+                'orderby'        => ['menu_order' => 'ASC', 'date' => 'DESC'],
+            ]);
+            if ($catinsp_q->have_posts()) {
+                while ($catinsp_q->have_posts()) {
+                    $catinsp_q->the_post();
+                    $iid = get_the_ID();
+                    $u = '';
+                    $alt = '';
+                    $imgs = rwmb_meta('inspiracao_imagem', ['size' => 'large'], $iid);
+                    if (is_array($imgs) && $imgs) {
+                        $f = reset($imgs);
+                        if (is_array($f)) { $u = $f['url'] ?? ''; $alt = $f['alt'] ?? ''; }
+                        else { $u = wp_get_attachment_image_url((int) $f, 'large') ?: ''; }
+                    }
+                    $a2 = rwmb_meta('inspiracao_alt', [], $iid);
+                    if (is_string($a2) && trim($a2) !== '') { $alt = $a2; }
+                    if ($alt === '') { $alt = get_the_title($iid); }
+                    if ($u) { $insp_slides[] = ['url' => $u, 'alt' => $alt]; }
+                }
+                wp_reset_postdata();
+            }
+            if (!$insp_slides) {
+                $b = get_template_directory_uri() . '/assets/img/';
+                $insp_slides = [
+                    ['url' => $b . 'gallery-1.png', 'alt' => 'Detalhe do braço do sofá Pecan com mesa lateral de madeira'],
+                    ['url' => $b . 'gallery-3.png', 'alt' => 'Sofá modular em varanda com vegetação'],
+                    ['url' => $b . 'gallery-2.jpg', 'alt' => 'Sofá com cachorrinho branco em ambiente claro'],
+                    ['url' => $b . 'gallery-4.jpg', 'alt' => 'Vista superior das almofadas e mesa'],
+                    ['url' => $b . 'gallery-5.jpg', 'alt' => 'Close lateral do sofá Pecan com luz natural'],
+                    ['url' => $b . 'gallery-6.png', 'alt' => 'Detalhe das almofadas e braço'],
+                ];
+            }
+            foreach ($insp_slides as $s) : ?>
+            <div class="swiper-slide"><img src="<?php echo esc_url($s['url']); ?>" alt="<?php echo esc_attr($s['alt']); ?>" loading="lazy"></div>
+            <?php endforeach; ?>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ============ 6. SUPORTE AO ARQUITETO ============ -->
+    <?php
+    // Ícones fixos do tema (por ordem dos itens).
+    $sup_icons = [
+        '<svg class="support-item__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M16 3 4 9v14l12 6 12-6V9z"/><path d="M4 9l12 6 12-6M16 15v14"/></svg>',
+        '<svg class="support-item__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M9 3h10l6 6v20H9z"/><path d="M19 3v6h6"/><path d="M13 16h10M13 21h10M13 11h4"/></svg>',
+        '<svg class="support-item__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M27 5H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6l5 5 5-5h6a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/><path d="M9 12h14M9 17h10"/></svg>',
+    ];
+    $sup_fallback = [
+        ['titulo' => 'Blocos 3D / 3D Warehouse', 'texto' => 'Modelos 3D prontos para integrar ao seu projeto de arquitetura.', 'link' => 'https://3dwarehouse.sketchup.com/user/61f45a49-50d6-41a1-8202-89e4f458c8ea', 'link_label' => 'Ver no 3D Warehouse'],
+        ['titulo' => 'Fichas técnicas', 'texto' => 'Especificações detalhadas em PDF para download imediato.', 'link' => '', 'link_label' => ''],
+        ['titulo' => 'Consultoria dedicada', 'texto' => 'Atendimento humano e próximo para especificações personalizadas.', 'link' => '', 'link_label' => ''],
+    ];
+    $sup_items = [];
+    foreach ((array) (function_exists('rwmb_meta') ? rwmb_meta('nuvvo_catalogo_sup_items', [], $pid) : []) as $g) {
+        $gt = isset($g['titulo']) ? trim((string) $g['titulo']) : '';
+        $gx = isset($g['texto']) ? trim((string) $g['texto']) : '';
+        if ($gt === '' && $gx === '') { continue; }
+        $sup_items[] = [
+            'titulo'     => $gt,
+            'texto'      => $gx,
+            'link'       => isset($g['link']) ? trim((string) $g['link']) : '',
+            'link_label' => isset($g['link_label']) ? trim((string) $g['link_label']) : '',
+        ];
+    }
+    if (!$sup_items) { $sup_items = $sup_fallback; }
+    $sup_msg = nuvvo_pgf('nuvvo_catalogo_sup_msg', 'Olá, sou arquiteto/designer e gostaria de receber materiais técnicos da Nuvvo');
+    $sup_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($sup_msg) : 'https://wa.me/5554999485915?text=' . rawurlencode($sup_msg);
+    ?>
     <section class="catalog-support" aria-label="Suporte ao Arquiteto">
       <div class="wrap">
         <header class="catalog-support__head reveal">
-          <span class="eyebrow" style="justify-content:center;">Para profissionais</span>
-          <h2 class="section-title section-title--center">Suporte técnico para o seu projeto</h2>
-          <p class="catalog-support__lede">A precisão é um dos pilares do nosso design. Oferecemos suporte completo para profissionais da arquitetura e design de interiores, disponibilizando blocos 3D, fichas técnicas detalhadas e consultoria personalizada para a especificação de cada peça.</p>
+          <span class="eyebrow" style="justify-content:center;"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_sup_eyebrow', 'Para profissionais')); ?></span>
+          <h2 class="section-title section-title--center"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_sup_titulo', 'Suporte técnico para o seu projeto')); ?></h2>
+          <p class="catalog-support__lede"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_sup_lede', 'A precisão é um dos pilares do nosso design. Oferecemos suporte completo para profissionais da arquitetura e design de interiores, disponibilizando blocos 3D, fichas técnicas detalhadas e consultoria personalizada para a especificação de cada peça.')); ?></p>
         </header>
 
         <div class="support-grid">
-
-          <article class="support-item reveal">
-            <svg class="support-item__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-              <path d="M16 3 4 9v14l12 6 12-6V9z"/>
-              <path d="M4 9l12 6 12-6M16 15v14"/>
-            </svg>
-            <h3 class="support-item__title">Blocos 3D / 3D Warehouse</h3>
-            <p class="support-item__body">Modelos 3D prontos para integrar ao seu projeto de arquitetura.</p>
-            <a class="link-underline support-item__link"
-               href="https://3dwarehouse.sketchup.com/user/61f45a49-50d6-41a1-8202-89e4f458c8ea"
-               target="_blank" rel="noopener noreferrer">
-              Ver no 3D Warehouse
+          <?php foreach ($sup_items as $si => $item) :
+              $icon  = $sup_icons[$si % count($sup_icons)];
+              $delay = $si > 0 ? ' reveal--delay-' . min($si, 3) : '';
+              ?>
+          <article class="support-item reveal<?php echo $delay; ?>">
+            <?php echo $icon; // SVG fixo do tema ?>
+            <h3 class="support-item__title"><?php echo esc_html($item['titulo']); ?></h3>
+            <p class="support-item__body"><?php echo esc_html($item['texto']); ?></p>
+            <?php if ($item['link'] !== '') : ?>
+            <a class="link-underline support-item__link" href="<?php echo esc_url($item['link']); ?>" target="_blank" rel="noopener noreferrer">
+              <?php echo esc_html($item['link_label'] !== '' ? $item['link_label'] : 'Saiba mais'); ?>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
+            <?php endif; ?>
           </article>
-
-          <article class="support-item reveal reveal--delay-1">
-            <svg class="support-item__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-              <path d="M9 3h10l6 6v20H9z"/>
-              <path d="M19 3v6h6"/>
-              <path d="M13 16h10M13 21h10M13 11h4"/>
-            </svg>
-            <h3 class="support-item__title">Fichas técnicas</h3>
-            <p class="support-item__body">Especificações detalhadas em PDF para download imediato.</p>
-          </article>
-
-          <article class="support-item reveal reveal--delay-2">
-            <svg class="support-item__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-              <path d="M27 5H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6l5 5 5-5h6a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/>
-              <path d="M9 12h14M9 17h10"/>
-            </svg>
-            <h3 class="support-item__title">Consultoria dedicada</h3>
-            <p class="support-item__body">Atendimento humano e próximo para especificações personalizadas.</p>
-          </article>
-
+          <?php endforeach; ?>
         </div>
 
         <div style="text-align:center; margin-top: var(--space-5);" class="reveal reveal--delay-3">
-          <a href="https://wa.me/5554999485915?text=Ol%C3%A1%2C%20sou%20arquiteto%2Fdesigner%20e%20gostaria%20de%20receber%20materiais%20t%C3%A9cnicos%20da%20Nuvvo"
+          <a href="<?php echo esc_url($sup_url); ?>"
              class="btn btn--secondary"
              target="_blank" rel="noopener noreferrer">
-            Sou arquiteto · quero acesso aos materiais técnicos
+            <?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_sup_btn', 'Sou arquiteto · quero acesso aos materiais técnicos')); ?>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
         </div>
@@ -247,11 +295,15 @@ if (is_wp_error($cat_terms)) {
     </section>
 
     <!-- ============ 7. CTA FINAL ============ -->
+    <?php
+    $ccta_msg = nuvvo_pgf('nuvvo_catalogo_cta_msg', 'Olá, gostaria de falar com um especialista da Nuvvo sobre um projeto');
+    $ccta_url = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($ccta_msg) : 'https://wa.me/5554999485915?text=' . rawurlencode($ccta_msg);
+    ?>
     <section class="cta-final" aria-label="Vamos conversar">
       <div class="wrap cta-final__inner reveal">
         <h2 class="cta-final__title"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_cta_titulo', 'Vamos transformar seu próximo projeto?')); ?></h2>
         <p class="cta-final__lede"><?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_cta_lede', 'Compartilhe seu projeto conosco e nossa equipe traduzirá sua visão.')); ?></p>
-        <a href="https://wa.me/5554999485915?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Nuvvo%20sobre%20um%20projeto"
+        <a href="<?php echo esc_url($ccta_url); ?>"
            class="btn btn--cream"
            target="_blank" rel="noopener">
           <?php echo esc_html(nuvvo_pgf('nuvvo_catalogo_cta_label', 'Falar com especialista')); ?>

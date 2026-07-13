@@ -39,19 +39,21 @@ if (!function_exists('nuvvo_meta_is_empty')) {
 }
 
 add_action('init', function () {
-    $flag = 'nuvvo_seed_content_v3';
+    $flag = 'nuvvo_seed_content_v4';
     if (get_option($flag)) {
         return;
     }
 
-    $home_id    = (int) get_option('page_on_front');
-    $anuvvo_pg  = get_page_by_path('a-nuvvo');
-    $contato_pg = get_page_by_path('contato');
-    if (!$home_id || !$anuvvo_pg || !$contato_pg) {
+    $home_id     = (int) get_option('page_on_front');
+    $anuvvo_pg   = get_page_by_path('a-nuvvo');
+    $contato_pg  = get_page_by_path('contato');
+    $catalogo_pg = get_page_by_path('catalogo');
+    if (!$home_id || !$anuvvo_pg || !$contato_pg || !$catalogo_pg) {
         return; // páginas ainda não provisionadas; tenta no próximo carregamento
     }
-    $anuvvo_id  = (int) $anuvvo_pg->ID;
-    $contato_id = (int) $contato_pg->ID;
+    $anuvvo_id   = (int) $anuvvo_pg->ID;
+    $contato_id  = (int) $contato_pg->ID;
+    $catalogo_id = (int) $catalogo_pg->ID;
 
     $count = 0;
 
@@ -197,6 +199,46 @@ HTML;
     ];
     foreach ($contato_fields as $k => $v) { $set_meta($contato_id, $k, $v); }
 
+    /* ---------------- CATÁLOGO (hub) ---------------- */
+    $catalogo_fields = [
+        'nuvvo_catalogo_hero_eyebrow' => 'Catálogo',
+        'nuvvo_catalogo_hero_titulo'  => 'Coleção',
+        'nuvvo_catalogo_hero_sub'     => 'Mobiliário autoral concebido para projetos que pedem singularidade.',
+        'nuvvo_catalogo_dif_eyebrow'  => 'Diferenciais',
+        'nuvvo_catalogo_dif_titulo'   => 'A assinatura técnica da Nuvvo',
+        'nuvvo_catalogo_pers_eyebrow' => 'Personalização',
+        'nuvvo_catalogo_pers_titulo'  => 'Curadoria especializada',
+        'nuvvo_catalogo_pers_texto'   => 'Cada peça de nossa coleção foi pensada para ser personalizada. Com diversas texturas e várias possibilidades em medidas, estamos prontos para adaptar o mobiliário Nuvvo à singularidade do seu ambiente.',
+        'nuvvo_catalogo_pers_btn'     => 'Falar com consultor Nuvvo',
+        'nuvvo_catalogo_pers_msg'     => 'Olá, gostaria de falar com um consultor Nuvvo',
+        'nuvvo_catalogo_insp_eyebrow' => 'Inspire-se',
+        'nuvvo_catalogo_insp_titulo'  => 'Ambientes assinados',
+        'nuvvo_catalogo_sup_eyebrow'  => 'Para profissionais',
+        'nuvvo_catalogo_sup_titulo'   => 'Suporte técnico para o seu projeto',
+        'nuvvo_catalogo_sup_lede'     => 'A precisão é um dos pilares do nosso design. Oferecemos suporte completo para profissionais da arquitetura e design de interiores, disponibilizando blocos 3D, fichas técnicas detalhadas e consultoria personalizada para a especificação de cada peça.',
+        'nuvvo_catalogo_sup_btn'      => 'Sou arquiteto · quero acesso aos materiais técnicos',
+        'nuvvo_catalogo_sup_msg'      => 'Olá, sou arquiteto/designer e gostaria de receber materiais técnicos da Nuvvo',
+        'nuvvo_catalogo_cta_titulo'   => 'Vamos transformar seu próximo projeto?',
+        'nuvvo_catalogo_cta_lede'     => 'Compartilhe seu projeto conosco e nossa equipe traduzirá sua visão.',
+        'nuvvo_catalogo_cta_label'    => 'Falar com especialista',
+        'nuvvo_catalogo_cta_msg'      => 'Olá, gostaria de falar com um especialista da Nuvvo sobre um projeto',
+    ];
+    foreach ($catalogo_fields as $k => $v) { $set_meta($catalogo_id, $k, $v); }
+
+    $set_meta($catalogo_id, 'nuvvo_catalogo_diferenciais', [
+        ['titulo' => 'Design Exclusivo',         'texto' => 'Peças com identidade própria, criadas para projetos que recusam o genérico.'],
+        ['titulo' => 'Curadoria de Acabamentos', 'texto' => 'Mais de 3.000 opções entre tecidos, texturas e cores, selecionadas com critério técnico e estético.'],
+        ['titulo' => 'Qualidade Certificada',    'texto' => 'Espumas certificadas, madeiras nobres e processos rigorosamente controlados.'],
+        ['titulo' => 'Excelência Artesanal',     'texto' => 'Cada peça é produzida com cuidado manual e atenção a cada detalhe do acabamento.'],
+        ['titulo' => 'Suporte ao Arquiteto',     'texto' => 'Acompanhamento técnico próximo, com blocos 3D e fichas detalhadas para especificação precisa.'],
+    ]);
+
+    $set_meta($catalogo_id, 'nuvvo_catalogo_sup_items', [
+        ['titulo' => 'Blocos 3D / 3D Warehouse', 'texto' => 'Modelos 3D prontos para integrar ao seu projeto de arquitetura.', 'link' => 'https://3dwarehouse.sketchup.com/user/61f45a49-50d6-41a1-8202-89e4f458c8ea', 'link_label' => 'Ver no 3D Warehouse'],
+        ['titulo' => 'Fichas técnicas',          'texto' => 'Especificações detalhadas em PDF para download imediato.',           'link' => '', 'link_label' => ''],
+        ['titulo' => 'Consultoria dedicada',     'texto' => 'Atendimento humano e próximo para especificações personalizadas.',    'link' => '', 'link_label' => ''],
+    ]);
+
     update_option($flag, current_time('mysql'));
-    error_log('[Nuvvo seed] conteúdo aplicado (' . $count . ' campos vazios preenchidos). Home=' . $home_id . ' ANuvvo=' . $anuvvo_id . ' Contato=' . $contato_id);
+    error_log('[Nuvvo seed] conteúdo aplicado (' . $count . ' campos vazios preenchidos). Home=' . $home_id . ' ANuvvo=' . $anuvvo_id . ' Contato=' . $contato_id . ' Catalogo=' . $catalogo_id);
 }, 99);
