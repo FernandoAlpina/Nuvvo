@@ -10,8 +10,13 @@ if (!defined('ABSPATH')) {
 }
 
 $nuvvo_uri = get_template_directory_uri();
-// Home: header transparente sobre o hero. Demais páginas: header fixo (claro).
-$nuvvo_static_header = !is_front_page();
+// Header transparente sobre o hero (como na Home) nas páginas com hero;
+// header fixo/claro nas demais (post, produto, política, 404...).
+$nuvvo_static_header = !(
+    is_front_page()
+    || is_home()
+    || is_page(['a-nuvvo', 'catalogo', 'inspire-se', 'contato', 'blog'])
+);
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>

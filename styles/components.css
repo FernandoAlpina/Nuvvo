@@ -22,6 +22,17 @@
   box-shadow: var(--shadow-header);
   padding-block: var(--space-2);
 }
+/* Header transparente (topo): scrim sutil garante logo/menu creme legíveis
+   sobre qualquer hero, inclusive os de fundo claro (Catálogo/Blog/Inspire-se). */
+.site-header:not(.is-scrolled)::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 260%;
+  background: linear-gradient(to bottom, rgba(42, 34, 28, 0.55), rgba(42, 34, 28, 0));
+  pointer-events: none;
+  z-index: -1;
+}
 
 .header__inner {
   display: flex;
