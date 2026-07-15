@@ -33,6 +33,11 @@
   width: 100%; height: 100%;
   object-fit: cover;
 }
+.hero__media > .hero__video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
 .hero__media::after {
   content: '';
   position: absolute;

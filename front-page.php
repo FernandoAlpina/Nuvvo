@@ -19,6 +19,11 @@ $read = function ($id, $default = '') use ($home_id) {
 
 // Banner / hero
 $hero_slides = ($home_id && function_exists('rwmb_meta')) ? (array) rwmb_meta('nuvvo_home_hero_slides', [], $home_id) : [];
+// Vídeo de fundo do hero (opcional): se houver, substitui os slides.
+$hero_video_url = (function_exists('nuvvo_attachment_url_from_meta') && $home_id) ? nuvvo_attachment_url_from_meta(rwmb_meta('nuvvo_home_hero_video', [], $home_id)) : '';
+$hero_video_poster_id = ($home_id && function_exists('rwmb_meta')) ? rwmb_meta('nuvvo_home_hero_video_poster', [], $home_id) : '';
+if (is_array($hero_video_poster_id)) { $hero_video_poster_id = reset($hero_video_poster_id); }
+$hero_video_poster = $hero_video_poster_id ? wp_get_attachment_image_url((int) $hero_video_poster_id, 'full') : '';
 $hero_titulo = $read('nuvvo_home_hero_titulo', 'Mobiliário personalizado de alta decoração');
 $hero_sub    = $read('nuvvo_home_hero_sub', 'Design autoral que traduz a harmonia entre o rigor da produção artesanal e a sofisticação do morar contemporâneo.');
 $hero_cta    = $read('nuvvo_home_hero_cta', 'Falar com especialista');
@@ -71,7 +76,12 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
     <!-- ============ 1. HERO ============ -->
     <section class="hero" id="hero" aria-label="Apresentação">
       <div class="hero__media" data-parallax="0.15">
-        <!-- Carrossel de 3 fotos lifestyle. Quando vídeo institucional chegar, substituir por <video autoplay muted loop playsinline poster="..."> -->
+        <?php if ($hero_video_url) : ?>
+        <video class="hero__video" autoplay muted loop playsinline preload="metadata"<?php echo $hero_video_poster ? ' poster="' . esc_url($hero_video_poster) . '"' : ''; ?>>
+          <source src="<?php echo esc_url($hero_video_url); ?>" type="video/mp4">
+        </video>
+        <?php else : ?>
+        <!-- Carrossel de fotos lifestyle (usado quando não há vídeo de fundo). -->
         <div class="swiper hero__swiper">
           <div class="swiper-wrapper">
             <?php if ($hero_slides) :
@@ -96,6 +106,7 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
             <?php endif; ?>
           </div>
         </div>
+        <?php endif; ?>
       </div>
 
       <div class="wrap hero__inner">

@@ -32,6 +32,8 @@ add_filter('rwmb_meta_boxes', function ($mb) {
                     ['name' => 'Texto alternativo', 'id' => 'alt', 'type' => 'text', 'columns' => 6],
                 ],
             ],
+            ['name' => 'Vídeo de fundo (MP4) — opcional', 'id' => 'nuvvo_home_hero_video', 'type' => 'video', 'max_file_uploads' => 1, 'desc' => 'Se preenchido, o banner mostra este vídeo no lugar dos slides. Use MP4 leve; toca em loop, mudo.'],
+            ['name' => 'Imagem de capa do vídeo (poster)', 'id' => 'nuvvo_home_hero_video_poster', 'type' => 'single_image', 'desc' => 'Aparece enquanto o vídeo carrega. Recomendado: 1920×1080px.'],
             ['name' => 'Título', 'id' => 'nuvvo_home_hero_titulo', 'type' => 'text'],
             ['name' => 'Subtítulo', 'id' => 'nuvvo_home_hero_sub', 'type' => 'textarea', 'rows' => 2],
             ['name' => 'Texto do botão (CTA)', 'id' => 'nuvvo_home_hero_cta', 'type' => 'text', 'columns' => 6],

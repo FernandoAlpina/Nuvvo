@@ -72,7 +72,7 @@ $c_gmaps_key = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_gmaps_key', '') :
         <div class="contact-cards reveal reveal--delay-4">
 
           <a class="contact-card"
-             href="https://wa.me/5554999485915"
+             href="<?php echo esc_url($c_cta_url); ?>"
              target="_blank" rel="noopener noreferrer"
              aria-label="WhatsApp: (54) 9 9948-5915">
             <svg class="contact-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
