@@ -135,3 +135,20 @@ add_filter('rwmb_meta_boxes', function ($mb) {
 
     return $mb;
 });
+
+/**
+ * Ordena os painéis (Meta Box) da Home na MESMA sequência das seções da página:
+ * Hero → Big Numbers → Vídeo → Seções (Catálogo/Destaque/Pilares/News/Depoimentos/CTA).
+ * Aplica só na edição da página "home" e sobrepõe qualquer ordem salva por arrastar.
+ */
+add_filter('get_user_option_meta-box-order_page', function ($order) {
+    $post_id = isset($_GET['post']) ? (int) $_GET['post'] : (isset($_POST['post_ID']) ? (int) $_POST['post_ID'] : 0);
+    if (!$post_id || get_post_field('post_name', $post_id) !== 'home') {
+        return $order;
+    }
+    if (!is_array($order)) {
+        $order = [];
+    }
+    $order['normal'] = 'nuvvo_pg_home_hero,nuvvo_pg_home_numeros,nuvvo_pg_home_video,nuvvo_pg_home_secoes';
+    return $order;
+});
