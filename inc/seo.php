@@ -35,7 +35,7 @@ function nuvvo_seo_description(): string
     }
     $desc = trim(wp_strip_all_tags((string) $desc));
     if ($desc === '') {
-        $desc = nuvvo_opt('nuvvo_seo_desc', 'Mobiliário de alta decoração — sofás, poltronas, bancos e camas com design autoral, personalização e produção artesanal.');
+        $desc = nuvvo_opt('nuvvo_seo_desc', 'Mobiliário de alta decoração sofás, poltronas, bancos e camas com design autoral, personalização e produção artesanal.');
     }
     return wp_trim_words($desc, 40, '…');
 }
@@ -99,7 +99,7 @@ add_action('wp_head', function () {
         'name'        => get_bloginfo('name'),
         'url'         => home_url('/'),
         'logo'        => get_template_directory_uri() . '/assets/img/logo-cream.png',
-        'description' => nuvvo_opt('nuvvo_seo_desc', 'Mobiliário de alta decoração — design autoral.'),
+        'description' => nuvvo_opt('nuvvo_seo_desc', 'Mobiliário de alta decoração design autoral.'),
     ];
     $tel = nuvvo_wa_number();
     if ($tel) { $org['telephone'] = '+' . $tel; }

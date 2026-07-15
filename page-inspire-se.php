@@ -115,28 +115,28 @@ get_header();
 
           <!-- ====== LIVING (7) ====== -->
 
-          <button type="button" class="gallery-item gallery-item--wide" data-category="living" aria-label="Ambiente Living — Pecan com escada de vidro e palmeira">
+          <button type="button" class="gallery-item gallery-item--wide" data-category="living" aria-label="Ambiente Living Pecan com escada de vidro e palmeira">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/hero-2.jpg" alt="Sofá Pecan em sala iluminada com escada de vidro e palmeira" loading="lazy">
             <span class="gallery-item__zoom" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
             </span>
           </button>
 
-          <button type="button" class="gallery-item" data-category="living" aria-label="Ambiente Living — Sofá modular com mesa baixa">
+          <button type="button" class="gallery-item" data-category="living" aria-label="Ambiente Living Sofá modular com mesa baixa">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/hero-3.jpg" alt="Sofá modular com mesa baixa e revistas, ambiente contemporâneo" loading="lazy">
             <span class="gallery-item__zoom" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
             </span>
           </button>
 
-          <button type="button" class="gallery-item" data-category="living" aria-label="Ambiente Living — Close lateral do Pecan">
+          <button type="button" class="gallery-item" data-category="living" aria-label="Ambiente Living Close lateral do Pecan">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-5.jpg" alt="Close lateral do sofá Pecan com luz natural" loading="lazy">
             <span class="gallery-item__zoom" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
             </span>
           </button>
 
-          <button type="button" class="gallery-item" data-category="living" aria-label="Living — Ambiente em breve">
+          <button type="button" class="gallery-item" data-category="living" aria-label="Living Ambiente em breve">
             <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect width="400" height="320" fill="#E8E3D6"/>
               <g fill="#9F8D7A" opacity="0.45"><rect x="40" y="180" width="320" height="100" rx="6"/><rect x="40" y="100" width="320" height="80" rx="6"/></g>
@@ -144,7 +144,7 @@ get_header();
             </svg>
           </button>
 
-          <button type="button" class="gallery-item gallery-item--tall" data-category="living" aria-label="Living — Ambiente em breve">
+          <button type="button" class="gallery-item gallery-item--tall" data-category="living" aria-label="Living Ambiente em breve">
             <svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect width="400" height="600" fill="#9F8D7A"/>
               <g opacity="0.35" fill="#F0EDE4"><rect x="60" y="180" width="280" height="320" rx="6"/></g>
@@ -153,7 +153,7 @@ get_header();
             </svg>
           </button>
 
-          <button type="button" class="gallery-item" data-category="living" aria-label="Living — Ambiente em breve">
+          <button type="button" class="gallery-item" data-category="living" aria-label="Living Ambiente em breve">
             <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect width="400" height="320" fill="#7A6B5C"/>
               <g opacity="0.3" fill="#F0EDE4"><circle cx="200" cy="160" r="100"/></g>
@@ -161,7 +161,7 @@ get_header();
             </svg>
           </button>
 
-          <button type="button" class="gallery-item" data-category="living" aria-label="Living — Ambiente em breve">
+          <button type="button" class="gallery-item" data-category="living" aria-label="Living Ambiente em breve">
             <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect width="400" height="320" fill="#C4B6A5"/>
               <g opacity="0.5" fill="#1A1A1A"><rect x="60" y="180" width="280" height="80" rx="4"/></g>
@@ -171,21 +171,21 @@ get_header();
 
           <!-- ====== ÁREA SOCIAL (4) ====== -->
 
-          <button type="button" class="gallery-item gallery-item--wide" data-category="area-social" aria-label="Área Social — Varanda com sofá modular e cachorrinho">
+          <button type="button" class="gallery-item gallery-item--wide" data-category="area-social" aria-label="Área Social Varanda com sofá modular e cachorrinho">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-3.png" alt="Sofá modular em varanda com vegetação e cachorrinho" loading="lazy">
             <span class="gallery-item__zoom" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
             </span>
           </button>
 
-          <button type="button" class="gallery-item gallery-item--tall" data-category="area-social" aria-label="Área Social — Sofá modular com cachorrinho">
+          <button type="button" class="gallery-item gallery-item--tall" data-category="area-social" aria-label="Área Social Sofá modular com cachorrinho">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-2.jpg" alt="Sofá modular com cachorrinho branco, janela ao fundo" loading="lazy">
             <span class="gallery-item__zoom" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
             </span>
           </button>
 
-          <button type="button" class="gallery-item" data-category="area-social" aria-label="Área Social — Ambiente em breve">
+          <button type="button" class="gallery-item" data-category="area-social" aria-label="Área Social Ambiente em breve">
             <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect width="400" height="320" fill="#9F8D7A"/>
               <g opacity="0.35" fill="#F0EDE4"><rect x="0" y="220" width="400" height="100"/></g>
@@ -194,7 +194,7 @@ get_header();
             </svg>
           </button>
 
-          <button type="button" class="gallery-item" data-category="area-social" aria-label="Área Social — Ambiente em breve">
+          <button type="button" class="gallery-item" data-category="area-social" aria-label="Área Social Ambiente em breve">
             <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect width="400" height="320" fill="#50071A"/>
               <g opacity="0.25" fill="#F0EDE4"><rect x="80" y="100" width="240" height="160" rx="6"/></g>
@@ -204,35 +204,35 @@ get_header();
 
           <!-- ====== DETALHES & TEXTURAS (5) ====== -->
 
-          <button type="button" class="gallery-item gallery-item--tall" data-category="detalhes" aria-label="Detalhes — Close vertical do braço Pecan com mesa de madeira">
+          <button type="button" class="gallery-item gallery-item--tall" data-category="detalhes" aria-label="Detalhes Close vertical do braço Pecan com mesa de madeira">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-1.png" alt="Detalhe do braço do sofá Pecan com mesa lateral de madeira" loading="lazy">
             <span class="gallery-item__zoom" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
             </span>
           </button>
 
-          <button type="button" class="gallery-item" data-category="detalhes" aria-label="Detalhes — Vista superior das almofadas do Pecan">
+          <button type="button" class="gallery-item" data-category="detalhes" aria-label="Detalhes Vista superior das almofadas do Pecan">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-4.jpg" alt="Vista superior das almofadas e mesa de madeira do Pecan" loading="lazy">
             <span class="gallery-item__zoom" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
             </span>
           </button>
 
-          <button type="button" class="gallery-item gallery-item--tall" data-category="detalhes" aria-label="Detalhes — Almofadas e braço do Pecan">
+          <button type="button" class="gallery-item gallery-item--tall" data-category="detalhes" aria-label="Detalhes Almofadas e braço do Pecan">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-6.png" alt="Detalhe das almofadas e braço do sofá Pecan" loading="lazy">
             <span class="gallery-item__zoom" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
             </span>
           </button>
 
-          <button type="button" class="gallery-item" data-category="detalhes" aria-label="Detalhes — Close de banco/daybed">
+          <button type="button" class="gallery-item" data-category="detalhes" aria-label="Detalhes Close de banco/daybed">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/cat-bancos.jpg" alt="Close vertical do banco/daybed com almofada cilíndrica" loading="lazy">
             <span class="gallery-item__zoom" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
             </span>
           </button>
 
-          <button type="button" class="gallery-item" data-category="detalhes" aria-label="Detalhes — Em breve">
+          <button type="button" class="gallery-item" data-category="detalhes" aria-label="Detalhes Em breve">
             <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect width="400" height="320" fill="#E8E3D6"/>
               <g fill="#7A6B5C" opacity="0.5">
@@ -249,9 +249,9 @@ get_header();
             </svg>
           </button>
 
-          <!-- ====== SUÍTES (4) — todos placeholders ====== -->
+          <!-- ====== SUÍTES (4) todos placeholders ====== -->
 
-          <button type="button" class="gallery-item gallery-item--wide" data-category="suites" aria-label="Suíte — Em breve">
+          <button type="button" class="gallery-item gallery-item--wide" data-category="suites" aria-label="Suíte Em breve">
             <svg viewBox="0 0 800 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect width="800" height="320" fill="#7A6B5C"/>
               <g opacity="0.35" fill="#F0EDE4"><rect x="100" y="120" width="600" height="60" rx="6"/><rect x="100" y="180" width="600" height="100" rx="4"/></g>
@@ -259,7 +259,7 @@ get_header();
             </svg>
           </button>
 
-          <button type="button" class="gallery-item gallery-item--tall" data-category="suites" aria-label="Suíte — Em breve">
+          <button type="button" class="gallery-item gallery-item--tall" data-category="suites" aria-label="Suíte Em breve">
             <svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect width="400" height="600" fill="#50071A"/>
               <g opacity="0.25" fill="#F0EDE4"><rect x="60" y="220" width="280" height="80" rx="6"/><rect x="60" y="310" width="280" height="220" rx="4"/></g>
@@ -267,7 +267,7 @@ get_header();
             </svg>
           </button>
 
-          <button type="button" class="gallery-item" data-category="suites" aria-label="Suíte — Em breve">
+          <button type="button" class="gallery-item" data-category="suites" aria-label="Suíte Em breve">
             <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect width="400" height="320" fill="#C4B6A5"/>
               <g opacity="0.55" fill="#1A1A1A"><rect x="80" y="140" width="240" height="40" rx="4"/><rect x="80" y="180" width="240" height="100" rx="4"/></g>
@@ -275,7 +275,7 @@ get_header();
             </svg>
           </button>
 
-          <button type="button" class="gallery-item" data-category="suites" aria-label="Suíte — Em breve">
+          <button type="button" class="gallery-item" data-category="suites" aria-label="Suíte Em breve">
             <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect width="400" height="320" fill="#E8E3D6"/>
               <g fill="#9F8D7A"><rect x="40" y="140" width="320" height="40" rx="4"/><rect x="40" y="180" width="320" height="100" rx="4"/></g>

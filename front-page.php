@@ -355,12 +355,12 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
                 wp_reset_postdata();
             else : ?>
 
-            <!-- Sofá Pecan — lançamento Nuvvo Signature -->
+            <!-- Sofá Pecan lançamento Nuvvo Signature -->
             <article class="swiper-slide">
               <a href="<?php echo esc_url(home_url('/produto/pecan/')); ?>" class="card-prod">
                 <div class="card-prod__media">
                   <span class="card-prod__tag">Nuvvo Signature</span>
-                  <img src="<?php echo get_template_directory_uri(); ?>/assets/img/prod-pecan.jpg" alt="Sofá Pecan — Nuvvo Signature" loading="lazy" width="600" height="450">
+                  <img src="<?php echo get_template_directory_uri(); ?>/assets/img/prod-pecan.jpg" alt="Sofá Pecan Nuvvo Signature" loading="lazy" width="600" height="450">
                 </div>
                 <h3 class="card-prod__title">Sofá Pecan</h3>
                 <p class="card-prod__designer">Designer Deivid de Almeida</p>
@@ -369,7 +369,7 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
             </article>
 
             <article class="swiper-slide">
-              <a href="#" class="card-prod" aria-label="Coleção 02 — em definição">
+              <a href="#" class="card-prod" aria-label="Coleção 02 em definição">
                 <div class="card-prod__media">
                   <svg viewBox="0 0 600 450" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <rect width="600" height="450" fill="#E8E3D6"/>
@@ -388,7 +388,7 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
             </article>
 
             <article class="swiper-slide">
-              <a href="#" class="card-prod" aria-label="Coleção 03 — em definição">
+              <a href="#" class="card-prod" aria-label="Coleção 03 em definição">
                 <div class="card-prod__media">
                   <svg viewBox="0 0 600 450" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <rect width="600" height="450" fill="#9F8D7A"/>
@@ -408,7 +408,7 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
             </article>
 
             <article class="swiper-slide">
-              <a href="#" class="card-prod" aria-label="Coleção 04 — em definição">
+              <a href="#" class="card-prod" aria-label="Coleção 04 em definição">
                 <div class="card-prod__media">
                   <svg viewBox="0 0 600 450" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <rect width="600" height="450" fill="#C4B6A5"/>
@@ -428,7 +428,7 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
             </article>
 
             <article class="swiper-slide">
-              <a href="#" class="card-prod" aria-label="Coleção 05 — em definição">
+              <a href="#" class="card-prod" aria-label="Coleção 05 em definição">
                 <div class="card-prod__media">
                   <svg viewBox="0 0 600 450" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <rect width="600" height="450" fill="#7A6B5C"/>
@@ -487,7 +487,7 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
       </div>
     </section>
 
-    <!-- ============ 6. GALERIA — INSPIRE-SE ============ -->
+    <!-- ============ 6. GALERIA INSPIRE-SE ============ -->
     <section class="section gallery" id="gallery" aria-label="Inspire-se">
       <div class="wrap">
         <header class="gallery__head">
@@ -537,7 +537,7 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
                     $insp_alt = is_string($insp_alt) ? trim($insp_alt) : '';
                     if ($insp_alt === '') { $insp_alt = $insp_meta_alt !== '' ? $insp_meta_alt : get_the_title($insp_id); }
                     ?>
-            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria — <?php echo esc_attr($insp_alt); ?>">
+            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria <?php echo esc_attr($insp_alt); ?>">
               <img src="<?php echo esc_url($insp_url); ?>" alt="<?php echo esc_attr($insp_alt); ?>" loading="lazy" width="800" height="1000">
               <span class="gallery__slide-zoom" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
@@ -548,37 +548,37 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
                 wp_reset_postdata();
             else : ?>
 
-            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria — detalhe do braço do sofá Pecan">
+            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria detalhe do braço do sofá Pecan">
               <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-1.png" alt="Detalhe do braço do sofá Pecan com mesa lateral de madeira" loading="lazy" width="800" height="1000">
               <span class="gallery__slide-zoom" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
               </span>
             </a>
-            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria — sofá modular com cachorrinho">
+            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria sofá modular com cachorrinho">
               <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-2.jpg" alt="Sofá modular com cachorrinho branco, janela ao fundo" loading="lazy" width="800" height="1000">
               <span class="gallery__slide-zoom" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
               </span>
             </a>
-            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria — sofá modular em varanda">
+            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria sofá modular em varanda">
               <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-3.png" alt="Sofá modular em varanda com vegetação e cachorrinho" loading="lazy" width="800" height="1000">
               <span class="gallery__slide-zoom" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
               </span>
             </a>
-            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria — vista superior do sofá Pecan">
+            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria vista superior do sofá Pecan">
               <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-4.jpg" alt="Vista superior do sofá Pecan com almofadas e mesa de madeira" loading="lazy" width="800" height="1000">
               <span class="gallery__slide-zoom" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
               </span>
             </a>
-            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria — close lateral do sofá Pecan">
+            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria close lateral do sofá Pecan">
               <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-5.jpg" alt="Close lateral do sofá Pecan com luz natural" loading="lazy" width="800" height="1000">
               <span class="gallery__slide-zoom" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
               </span>
             </a>
-            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria — detalhe das almofadas">
+            <a href="<?php echo esc_url(home_url('/inspire-se/')); ?>" class="swiper-slide" aria-label="Ver galeria detalhe das almofadas">
               <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-6.png" alt="Detalhe das almofadas e braço do sofá Pecan" loading="lazy" width="800" height="1000">
               <span class="gallery__slide-zoom" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM21 21l-5.4-5.4M11 8v6M8 11h6"/></svg>
@@ -592,7 +592,7 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
       </div>
     </section>
 
-    <!-- ============ 7. BLOG — NUVVO NEWS ============ -->
+    <!-- ============ 7. BLOG NUVVO NEWS ============ -->
     <section class="section" aria-label="Nuvvo News">
       <div class="wrap">
         <header class="news__head">
@@ -774,20 +774,20 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
                 <span class="testi__avatar" aria-hidden="true">M</span>
                 <div>
                   <div class="testi__name">[Arq. Mariana Lopes]</div>
-                  <div class="testi__role">Arquiteta — São Paulo</div>
+                  <div class="testi__role">Arquiteta São Paulo</div>
                 </div>
               </figcaption>
             </figure>
 
             <figure class="swiper-slide testi__item">
               <blockquote class="testi__quote">
-                A personalização é real: tecido, medida, acabamento — tudo conversado, tudo entregue exatamente como especifiquei. É raro encontrar esse nível de execução no Brasil.
+                A personalização é real: tecido, medida, acabamento tudo conversado, tudo entregue exatamente como especifiquei. É raro encontrar esse nível de execução no Brasil.
               </blockquote>
               <figcaption class="testi__author">
                 <span class="testi__avatar" aria-hidden="true">R</span>
                 <div>
                   <div class="testi__name">[Arq. Rafael Andrade]</div>
-                  <div class="testi__role">Arquiteto — Porto Alegre</div>
+                  <div class="testi__role">Arquiteto Porto Alegre</div>
                 </div>
               </figcaption>
             </figure>
@@ -800,7 +800,7 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
                 <span class="testi__avatar" aria-hidden="true">C</span>
                 <div>
                   <div class="testi__name">[Arq. Camila Ribeiro]</div>
-                  <div class="testi__role">Arquiteta — Florianópolis</div>
+                  <div class="testi__role">Arquiteta Florianópolis</div>
                 </div>
               </figcaption>
             </figure>
@@ -813,20 +813,20 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
                 <span class="testi__avatar" aria-hidden="true">P</span>
                 <div>
                   <div class="testi__name">[Arq. Paulo Henrique]</div>
-                  <div class="testi__role">Arquiteto — Curitiba</div>
+                  <div class="testi__role">Arquiteto Curitiba</div>
                 </div>
               </figcaption>
             </figure>
 
             <figure class="swiper-slide testi__item">
               <blockquote class="testi__quote">
-                O sofá ficou exatamente como imaginei. A entrega no prazo e o cuidado na montagem mostraram o nível da equipe — desde o consultor até o entregador.
+                O sofá ficou exatamente como imaginei. A entrega no prazo e o cuidado na montagem mostraram o nível da equipe desde o consultor até o entregador.
               </blockquote>
               <figcaption class="testi__author">
                 <span class="testi__avatar" aria-hidden="true">L</span>
                 <div>
                   <div class="testi__name">[Letícia Vasconcelos]</div>
-                  <div class="testi__role">Cliente — Belo Horizonte</div>
+                  <div class="testi__role">Cliente Belo Horizonte</div>
                 </div>
               </figcaption>
             </figure>
@@ -839,7 +839,7 @@ $cta_url    = function_exists('nuvvo_wa_link') ? nuvvo_wa_link($cta_msg) : 'http
                 <span class="testi__avatar" aria-hidden="true">F</span>
                 <div>
                   <div class="testi__name">[Arq. Fernanda Tavares]</div>
-                  <div class="testi__role">Arquiteta — Vitória</div>
+                  <div class="testi__role">Arquiteta Vitória</div>
                 </div>
               </figcaption>
             </figure>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Seção "Big Numbers" — lê os números do painel Nuvvo (reusado na Home e em A Nuvvo).
+ * Seção "Big Numbers" lê os números do painel Nuvvo (reusado na Home e em A Nuvvo).
  * Fallback: valores originais do site estático.
  *
  * @package Nuvvo (Alpina V4)

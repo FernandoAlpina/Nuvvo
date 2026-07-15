@@ -69,7 +69,7 @@ get_header();
 
           <section id="introducao">
             <h2><span class="policy-body__num">01</span>Introdução</h2>
-            <p>A Nuvvo Design, marca da empresa <strong>Sofa News Indústria e Comércio Ltda</strong>, com sede na Rua Teresa Lívia Rodigheri, 662, Loteamento Villa Bella, CEP 99150-000, Marau/RS, valoriza a privacidade de seus visitantes e clientes. Esta Política de Privacidade descreve como coletamos, utilizamos, armazenamos e protegemos suas informações pessoais, em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018).</p>
+            <p>A Nuvvo Design, marca da empresa <strong>Sofa News Indústria e Comércio Ltda</strong>, com sede na Rua Teresa Lívia Rodigheri, 662, Loteamento Villa Bella, CEP 99150-000, Marau/RS, valoriza a privacidade de seus visitantes e clientes. Esta Política de Privacidade descreve como coletamos, utilizamos, armazenamos e protegemos suas informações pessoais, em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD Lei nº 13.709/2018).</p>
             <p>Ao acessar nosso site <strong>nuvvodesign.com.br</strong> ou entrar em contato conosco por qualquer canal, você concorda com as práticas descritas neste documento.</p>
           </section>
 
@@ -156,7 +156,7 @@ get_header();
               <li>Obter informação sobre com quem compartilhamos seus dados</li>
               <li>Revogar seu consentimento a qualquer momento</li>
             </ul>
-            <p>Para exercer qualquer um destes direitos, entre em contato pelo e-mail <span class="tbd">[E-MAIL — A DEFINIR]</span> ou pelo WhatsApp (54) 9 9948-5915.</p>
+            <p>Para exercer qualquer um destes direitos, entre em contato pelo e-mail <span class="tbd">[E-MAIL A DEFINIR]</span> ou pelo WhatsApp (54) 9 9948-5915.</p>
           </section>
 
           <section id="seguranca">
@@ -176,9 +176,9 @@ get_header();
             <p>Nosso Encarregado pelo Tratamento de Dados Pessoais (DPO) é o canal oficial para receber comunicações sobre proteção de dados.</p>
             <dl class="policy-body__dl">
               <dt>Nome</dt>
-              <dd><span class="tbd">[NOME — A DEFINIR]</span></dd>
+              <dd><span class="tbd">[NOME A DEFINIR]</span></dd>
               <dt>E-mail</dt>
-              <dd><span class="tbd">[E-MAIL — A DEFINIR]</span></dd>
+              <dd><span class="tbd">[E-MAIL A DEFINIR]</span></dd>
               <dt>Telefone</dt>
               <dd>(54) 9 9948-5915</dd>
             </dl>
@@ -195,7 +195,7 @@ get_header();
             <p>Para qualquer dúvida sobre esta Política de Privacidade ou sobre o tratamento de seus dados pessoais, entre em contato:</p>
             <ul>
               <li><strong>WhatsApp</strong>: (54) 9 9948-5915</li>
-              <li><strong>E-mail</strong>: <span class="tbd">[E-MAIL — A DEFINIR]</span></li>
+              <li><strong>E-mail</strong>: <span class="tbd">[E-MAIL A DEFINIR]</span></li>
               <li><strong>Endereço</strong>: Rua Teresa Lívia Rodigheri, 662, Loteamento Villa Bella, Marau/RS, CEP 99150-000</li>
             </ul>
           </section>

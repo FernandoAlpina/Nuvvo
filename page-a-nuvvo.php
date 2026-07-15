@@ -9,7 +9,7 @@ get_header();
 
     <!-- ============ 1. HERO INSTITUCIONAL ============ -->
     <?php
-    // Hero editável (imagem via single_image; textos via campos da página) — fallback no conteúdo atual.
+    // Hero editável (imagem via single_image; textos via campos da página) fallback no conteúdo atual.
     $anv_hero_img_id = function_exists('rwmb_meta') ? rwmb_meta('nuvvo_anuvvo_hero_img', [], get_the_ID()) : '';
     if (is_array($anv_hero_img_id)) { $anv_hero_img_id = reset($anv_hero_img_id); }
     $anv_hero_img = $anv_hero_img_id ? wp_get_attachment_image_url((int) $anv_hero_img_id, 'full') : '';
@@ -58,9 +58,9 @@ get_header();
           else : ?>
           <p>A trajetória de mais de <strong>25 anos de história</strong>, iniciada pela Sofá News em 2000, é a base sólida que nos move. Construímos uma reputação através do <strong>trabalho artesanal na alta decoração</strong>, com cada peça cuidadosamente desenvolvida a partir de <strong>matéria-prima selecionada</strong> e processos rigorosos.</p>
 
-          <p>Hoje, essa herança ganha novo capítulo: a Nuvvo Design apresenta um <strong>portfólio de mobiliário singular</strong>, com <em>design exclusivo</em> que traduz nossa visão contemporânea em peças autorais — pensadas para arquitetos e clientes que enxergam o ambiente como extensão da identidade.</p>
+          <p>Hoje, essa herança ganha novo capítulo: a Nuvvo Design apresenta um <strong>portfólio de mobiliário singular</strong>, com <em>design exclusivo</em> que traduz nossa visão contemporânea em peças autorais pensadas para arquitetos e clientes que enxergam o ambiente como extensão da identidade.</p>
 
-          <p>Nossa cultura é feita de <strong>evolução contínua</strong>, <strong>zelo absoluto</strong> em cada acabamento e o compromisso com um <strong>relacionamento próximo e humano</strong> — porque entendemos que o melhor design nasce da escuta atenta.</p>
+          <p>Nossa cultura é feita de <strong>evolução contínua</strong>, <strong>zelo absoluto</strong> em cada acabamento e o compromisso com um <strong>relacionamento próximo e humano</strong> porque entendemos que o melhor design nasce da escuta atenta.</p>
           <?php endif; ?>
         </article>
       </div>
@@ -143,7 +143,7 @@ get_header();
         </header>
 
         <?php
-        // Diferenciais editáveis (grupo clonável) — fallback nos 5 cards atuais.
+        // Diferenciais editáveis (grupo clonável) fallback nos 5 cards atuais.
         // Ícones pré-definidos (chave => markup interno do SVG) reusando os SVGs originais.
         $anv_dif_icons = [
             'star'    => '<path d="M16 2l3.7 9.5L29 13l-7 6.5L24 29l-8-5-8 5 2-9.5L3 13l9.3-1.5z"/>',
@@ -155,11 +155,11 @@ get_header();
         $anv_dif = function_exists('rwmb_meta') ? array_filter((array) rwmb_meta('nuvvo_anuvvo_diferenciais', [], get_the_ID())) : [];
         if (!$anv_dif) {
             $anv_dif = [
-                ['icone' => 'star',    'titulo' => 'Design Exclusivo',                'texto' => 'Peças com identidade única, pensadas para expressar autenticidade em cada ambiente.',                                                          'link' => 'https://wa.me/5554999485915?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20Design%20Exclusivo%20da%20Nuvvo.',                    'target' => '1', 'aria' => 'Design Exclusivo — falar no WhatsApp'],
-                ['icone' => 'sliders', 'titulo' => 'Personalização de acabamentos',   'texto' => 'Diversas opções de tecidos e medidas pré-definidas para adequar cada peça ao seu projeto.',                                                     'link' => 'https://wa.me/5554999485915?text=Ol%C3%A1%21%20Tenho%20interesse%20na%20personaliza%C3%A7%C3%A3o%20%28medidas%20e%20acabamentos%29%20da%20Nuvvo.', 'target' => '1', 'aria' => 'Personalização de acabamentos — falar no WhatsApp'],
-                ['icone' => 'people',  'titulo' => 'Parceria com o arquiteto',        'texto' => 'Acompanhamento humano e próximo, garantindo suporte em todas as etapas: da especificação à entrega.',                                          'link' => 'https://wa.me/5554999485915?text=Ol%C3%A1%21%20Sou%20arquiteto%28a%29%20e%20gostaria%20de%20falar%20com%20a%20equipe%20da%20Nuvvo.',              'target' => '1', 'aria' => 'Parceria com o arquiteto — falar no WhatsApp'],
-                ['icone' => 'doc',     'titulo' => 'Praticidade na especificação',    'texto' => 'Disponibilizamos blocos 3D e fichas técnicas detalhadas para integrar nosso design ao seu projeto com precisão e agilidade.',                    'link' => 'https://3dwarehouse.sketchup.com/user/61f45a49-50d6-41a1-8202-89e4f458c8ea',                                                             'target' => '1', 'aria' => 'Praticidade na especificação — biblioteca de blocos 3D no 3D Warehouse'],
-                ['icone' => 'craft',   'titulo' => 'Zelo e Produção Artesanal',       'texto' => 'Nossos estofados unem a precisão da engenharia de ponta ao cuidado rigoroso do trabalho manual, assegurando um acabamento impecável em cada processo.', 'link' => 'https://wa.me/5554999485915?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20a%20produ%C3%A7%C3%A3o%20artesanal%20da%20Nuvvo.',        'target' => '1', 'aria' => 'Zelo e Produção Artesanal — falar no WhatsApp'],
+                ['icone' => 'star',    'titulo' => 'Design Exclusivo',                'texto' => 'Peças com identidade única, pensadas para expressar autenticidade em cada ambiente.',                                                          'link' => 'https://wa.me/5554999485915?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20Design%20Exclusivo%20da%20Nuvvo.',                    'target' => '1', 'aria' => 'Design Exclusivo falar no WhatsApp'],
+                ['icone' => 'sliders', 'titulo' => 'Personalização de acabamentos',   'texto' => 'Diversas opções de tecidos e medidas pré-definidas para adequar cada peça ao seu projeto.',                                                     'link' => 'https://wa.me/5554999485915?text=Ol%C3%A1%21%20Tenho%20interesse%20na%20personaliza%C3%A7%C3%A3o%20%28medidas%20e%20acabamentos%29%20da%20Nuvvo.', 'target' => '1', 'aria' => 'Personalização de acabamentos falar no WhatsApp'],
+                ['icone' => 'people',  'titulo' => 'Parceria com o arquiteto',        'texto' => 'Acompanhamento humano e próximo, garantindo suporte em todas as etapas: da especificação à entrega.',                                          'link' => 'https://wa.me/5554999485915?text=Ol%C3%A1%21%20Sou%20arquiteto%28a%29%20e%20gostaria%20de%20falar%20com%20a%20equipe%20da%20Nuvvo.',              'target' => '1', 'aria' => 'Parceria com o arquiteto falar no WhatsApp'],
+                ['icone' => 'doc',     'titulo' => 'Praticidade na especificação',    'texto' => 'Disponibilizamos blocos 3D e fichas técnicas detalhadas para integrar nosso design ao seu projeto com precisão e agilidade.',                    'link' => 'https://3dwarehouse.sketchup.com/user/61f45a49-50d6-41a1-8202-89e4f458c8ea',                                                             'target' => '1', 'aria' => 'Praticidade na especificação biblioteca de blocos 3D no 3D Warehouse'],
+                ['icone' => 'craft',   'titulo' => 'Zelo e Produção Artesanal',       'texto' => 'Nossos estofados unem a precisão da engenharia de ponta ao cuidado rigoroso do trabalho manual, assegurando um acabamento impecável em cada processo.', 'link' => 'https://wa.me/5554999485915?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20a%20produ%C3%A7%C3%A3o%20artesanal%20da%20Nuvvo.',        'target' => '1', 'aria' => 'Zelo e Produção Artesanal falar no WhatsApp'],
             ];
         }
         ?>
@@ -197,7 +197,7 @@ get_header();
 
     <!-- ============ 6. DESIGNER ============ -->
     <?php
-    // Designer editável — fallback nos dados atuais.
+    // Designer editável fallback nos dados atuais.
     $anv_designer_nome  = nuvvo_pgf('nuvvo_anuvvo_designer_nome', 'Deivid de Almeida');
     $anv_designer_cargo = nuvvo_pgf('nuvvo_anuvvo_designer_cargo', 'Designer assinado');
 
@@ -230,7 +230,7 @@ get_header();
               else : ?>
               <p>Atuante na <em>indústria moveleira desde os anos 2000</em>, Deivid de Almeida construiu uma <strong>expertise técnica lapidada em um processo constante de evolução e refinamento</strong>. Cada peça que assina carrega o repertório de mais de duas décadas de prática.</p>
 
-              <p>Seu trabalho parte de uma obsessão silenciosa: <strong>traduzir comportamento humano em mobiliário</strong>. <em>Ergonomia</em>, <em>conforto tátil</em> e <em>perfeição técnica</em> deixam de ser exigências para se tornarem ponto de partida — porque é assim que o design se torna invisível e essencial ao mesmo tempo.</p>
+              <p>Seu trabalho parte de uma obsessão silenciosa: <strong>traduzir comportamento humano em mobiliário</strong>. <em>Ergonomia</em>, <em>conforto tátil</em> e <em>perfeição técnica</em> deixam de ser exigências para se tornarem ponto de partida porque é assim que o design se torna invisível e essencial ao mesmo tempo.</p>
               <?php endif; ?>
             </div>
 
@@ -318,7 +318,7 @@ get_header();
 
     <!-- ============ 9. CTA FINAL (reusado da Home) ============ -->
     <?php
-    // CTA final editável — fallback no conteúdo atual.
+    // CTA final editável fallback no conteúdo atual.
     $anv_cta_titulo = nuvvo_pgf('nuvvo_anuvvo_cta_titulo', 'Vamos construir juntos espaços que inspiram?');
     $anv_cta_lede   = nuvvo_pgf('nuvvo_anuvvo_cta_lede', 'Deixe-se inspirar pela harmonia e conforto que o nosso design pode oferecer. Nossa equipe está pronta para te orientar.');
     $anv_cta_btn    = nuvvo_pgf('nuvvo_anuvvo_cta_btn', 'Falar com consultor');

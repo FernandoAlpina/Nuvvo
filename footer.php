@@ -14,7 +14,7 @@ $nuvvo_uri = get_template_directory_uri();
 $nv_tagline = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_tagline', 'Mobiliário de alta decoração') : 'Mobiliário de alta decoração';
 $nv_tel     = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_telefone', '(54) 9 9948-5915') : '(54) 9 9948-5915';
 $nv_tel_d   = function_exists('nuvvo_wa_number') ? nuvvo_wa_number() : '5554999485915';
-$nv_end     = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_endereco', "Rua Teresa Lívia Rodigheri, 662\nLoteamento Villa Bella\nCEP 99150-000 — Marau, RS") : "Rua Teresa Lívia Rodigheri, 662\nLoteamento Villa Bella\nCEP 99150-000 — Marau, RS";
+$nv_end     = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_endereco', "Rua Teresa Lívia Rodigheri, 662\nLoteamento Villa Bella\nCEP 99150-000 Marau, RS") : "Rua Teresa Lívia Rodigheri, 662\nLoteamento Villa Bella\nCEP 99150-000 Marau, RS";
 $nv_insta   = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_instagram', 'https://www.instagram.com/nuvvo.design') : 'https://www.instagram.com/nuvvo.design';
 $nv_face    = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_facebook', 'https://www.facebook.com/nuvvodesign') : 'https://www.facebook.com/nuvvodesign';
 $nv_wa      = function_exists('nuvvo_wa_link') ? nuvvo_wa_link('Olá, gostaria de conhecer a Nuvvo Design') : 'https://wa.me/5554999485915';
@@ -27,7 +27,7 @@ $nv_wa      = function_exists('nuvvo_wa_link') ? nuvvo_wa_link('Olá, gostaria d
             <div class="footer__grid">
 
                 <div>
-                    <a href="<?php echo esc_url(home_url('/')); ?>" class="header__logo" aria-label="Nuvvo Design — Página inicial" style="margin-bottom: var(--space-2); display: inline-block;">
+                    <a href="<?php echo esc_url(home_url('/')); ?>" class="header__logo" aria-label="Nuvvo Design Página inicial" style="margin-bottom: var(--space-2); display: inline-block;">
                         <img src="<?php echo esc_url($nuvvo_uri); ?>/assets/img/logo-cream.png" alt="Nuvvo Design" class="logo-img" width="120">
                     </a>
                     <p class="footer__brand-tag"><?php echo esc_html($nv_tagline); ?></p>

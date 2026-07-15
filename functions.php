@@ -96,3 +96,8 @@ require_once get_template_directory() . '/inc/seed-content.php';
  * Seed do produto "Sofá Pecan" + designer (uma vez; imagens vêm da Biblioteca).
  */
 require_once get_template_directory() . '/inc/seed-produtos.php';
+
+/**
+ * Migração única: remove travessões do conteúdo já gravado no banco.
+ */
+require_once get_template_directory() . '/inc/cleanup-travessoes.php';

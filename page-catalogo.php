@@ -103,7 +103,7 @@ if (is_wp_error($cat_terms)) {
                 '<svg class="card-feature__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><rect x="5" y="3" width="22" height="26" rx="2"/><path d="M10 11h12M10 16h12M10 21h7"/><path d="M19 24l3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
             ];
 
-            // Conteúdo padrão (fallback) — replica os diferenciais atuais.
+            // Conteúdo padrão (fallback) replica os diferenciais atuais.
             $dif_fallback = [
                 ['titulo' => 'Design Exclusivo',          'texto' => 'Peças com identidade própria, criadas para projetos que recusam o genérico.'],
                 ['titulo' => 'Curadoria de Acabamentos',  'texto' => 'Mais de 3.000 opções entre tecidos, texturas e cores, selecionadas com critério técnico e estético.'],

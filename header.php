@@ -34,7 +34,7 @@ $nuvvo_static_header = !is_front_page();
     <!-- ============ HEADER ============ -->
     <header class="site-header" role="banner"<?php echo $nuvvo_static_header ? ' data-static-header' : ''; ?>>
         <div class="wrap header__inner">
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="header__logo" aria-label="Nuvvo Design — Página inicial">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="header__logo" aria-label="Nuvvo Design Página inicial">
                 <img src="<?php echo esc_url($nuvvo_uri); ?>/assets/img/logo-cream.png" alt="Nuvvo Design" class="logo-img" width="120">
                 <span class="logo-text logo-text--scrolled" aria-hidden="true">nuvvo<span class="dot">.</span></span>
             </a>

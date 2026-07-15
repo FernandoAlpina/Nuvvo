@@ -175,7 +175,7 @@ $c_gmaps_key = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_gmaps_key', '') :
                 <address style="font-style: normal;">
                   Rua Teresa Lívia Rodigheri, 662<br>
                   Loteamento Villa Bella<br>
-                  CEP 99150-000 — Marau, RS
+                  CEP 99150-000 Marau, RS
                 </address>
               </div>
 
@@ -190,7 +190,7 @@ $c_gmaps_key = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_gmaps_key', '') :
 
                 <button type="button"
                         class="btn btn--secondary address-block__copy-btn"
-                        data-copy-address="Rua Teresa Lívia Rodigheri, 662, Loteamento Villa Bella, Marau – RS, CEP 99150-000">
+                        data-copy-address="Rua Teresa Lívia Rodigheri, 662, Loteamento Villa Bella, Marau RS, CEP 99150-000">
                   Copiar endereço
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                     <rect x="9" y="9" width="12" height="12" rx="2"/>
@@ -239,7 +239,7 @@ $c_gmaps_key = function_exists('nuvvo_opt') ? nuvvo_opt('nuvvo_gmaps_key', '') :
       <div class="wrap">
         <span class="eyebrow" style="justify-content:center;">Acompanhe</span>
         <h2 class="section-title section-title--center"><?php echo esc_html(nuvvo_pgf('nuvvo_contato_social_titulo', 'Acompanhe nosso dia a dia')); ?></h2>
-        <p class="social-section__sub"><?php echo esc_html(nuvvo_pgf('nuvvo_contato_social_sub', 'Bastidores da nossa produção artesanal, novos lançamentos e ambientes assinados — direto no nosso Instagram.')); ?></p>
+        <p class="social-section__sub"><?php echo esc_html(nuvvo_pgf('nuvvo_contato_social_sub', 'Bastidores da nossa produção artesanal, novos lançamentos e ambientes assinados direto no nosso Instagram.')); ?></p>
 
         <nav class="social-big" aria-label="Redes sociais da Nuvvo Design">
 

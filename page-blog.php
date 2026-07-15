@@ -92,7 +92,7 @@ if (is_wp_error($blog_cats)) { $blog_cats = []; }
             $bp_date_iso = get_the_date('Y-m-d');
             $bp_date_disp = mb_strtolower(get_the_date('d M Y'));
             ?>
-            <?php if ($blog_i === 0) : /* Primeiro post — variante destaque */ ?>
+            <?php if ($blog_i === 0) : /* Primeiro post variante destaque */ ?>
               <a href="<?php echo esc_url(get_permalink()); ?>"
                  class="post-card post-card--featured blog-grid__featured"
                  data-category="<?php echo esc_attr($bp_cat_slug); ?>"
@@ -153,13 +153,13 @@ if (is_wp_error($blog_cats)) { $blog_cats = []; }
           </div><!-- /.blog-grid__rest -->
         <?php wp_reset_postdata(); else : /* Fallback estático (sem posts nativos) */ ?>
 
-          <!-- Post 1 — FEATURED double-width -->
+          <!-- Post 1 FEATURED double-width -->
           <a href="<?php echo esc_url(home_url('/blog/tendencias-em-design-contemporaneo/')); ?>"
              class="post-card post-card--featured blog-grid__featured"
              data-category="tendencias"
-             aria-label="Leia: O novo morar — a ergonomia tátil e a era dos estofados Puffy">
+             aria-label="Leia: O novo morar a ergonomia tátil e a era dos estofados Puffy">
             <div class="post-card__media">
-              <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-4.jpg" alt="Vista superior das almofadas com volume e dobras — estética puffy" loading="lazy">
+              <img src="<?php echo get_template_directory_uri(); ?>/assets/img/gallery-4.jpg" alt="Vista superior das almofadas com volume e dobras estética puffy" loading="lazy">
             </div>
             <div class="post-card__content">
               <span class="post-card__tag">Tendências</span>
@@ -178,7 +178,7 @@ if (is_wp_error($blog_cats)) { $blog_cats = []; }
 
           <div class="blog-grid__rest">
 
-            <!-- Post 2 — Cuidados e Materiais -->
+            <!-- Post 2 Cuidados e Materiais -->
             <a href="<?php echo esc_url(home_url('/blog/guia-de-tecidos-para-estofados-de-alta-decoracao/')); ?>"
                class="post-card"
                data-category="cuidados-materiais"
@@ -196,7 +196,7 @@ if (is_wp_error($blog_cats)) { $blog_cats = []; }
               <span class="post-card__cta">Leia mais</span>
             </a>
 
-            <!-- Post 3 — Dicas de Decoração -->
+            <!-- Post 3 Dicas de Decoração -->
             <a href="<?php echo esc_url(home_url('/blog/proporcao-e-respiro-na-sala-de-estar/')); ?>"
                class="post-card"
                data-category="dicas-decoracao"
@@ -214,7 +214,7 @@ if (is_wp_error($blog_cats)) { $blog_cats = []; }
               <span class="post-card__cta">Leia mais</span>
             </a>
 
-            <!-- Post 4 — Tendências -->
+            <!-- Post 4 Tendências -->
             <a href="<?php echo esc_url(home_url('/blog/cores-e-texturas-2026-paleta-do-morar-contemporaneo/')); ?>"
                class="post-card"
                data-category="tendencias"
@@ -232,7 +232,7 @@ if (is_wp_error($blog_cats)) { $blog_cats = []; }
               <span class="post-card__cta">Leia mais</span>
             </a>
 
-            <!-- Post 5 — Cuidados e Materiais -->
+            <!-- Post 5 Cuidados e Materiais -->
             <a href="<?php echo esc_url(home_url('/blog/como-conservar-seu-estofado-de-alta-decoracao/')); ?>"
                class="post-card"
                data-category="cuidados-materiais"

@@ -72,11 +72,11 @@ add_action('init', function () {
         'nuvvo_tagline'   => 'Mobiliário de alta decoração',
         'nuvvo_whatsapp'  => '5554999485915',
         'nuvvo_telefone'  => '(54) 9 9948-5915',
-        'nuvvo_endereco'  => "Rua Teresa Lívia Rodigheri, 662\nLoteamento Villa Bella\nCEP 99150-000 — Marau, RS",
+        'nuvvo_endereco'  => "Rua Teresa Lívia Rodigheri, 662\nLoteamento Villa Bella\nCEP 99150-000 Marau, RS",
         'nuvvo_instagram' => 'https://www.instagram.com/nuvvo.design',
         'nuvvo_facebook'  => 'https://www.facebook.com/nuvvodesign',
         'nuvvo_blocos3d'  => 'https://3dwarehouse.sketchup.com/user/61f45a49-50d6-41a1-8202-89e4f458c8ea',
-        'nuvvo_seo_desc'  => 'Mobiliário de alta decoração — sofás, poltronas, bancos e camas com design autoral, personalização e produção artesanal.',
+        'nuvvo_seo_desc'  => 'Mobiliário de alta decoração sofás, poltronas, bancos e camas com design autoral, personalização e produção artesanal.',
     ];
     $opts = get_option('nuvvo_opcoes', []);
     if (!is_array($opts)) { $opts = []; }
@@ -139,15 +139,15 @@ add_action('init', function () {
     $essencia = <<<'HTML'
 <p>A trajetória de mais de <strong>25 anos de história</strong>, iniciada pela Sofá News em 2000, é a base sólida que nos move. Construímos uma reputação através do <strong>trabalho artesanal na alta decoração</strong>, com cada peça cuidadosamente desenvolvida a partir de <strong>matéria-prima selecionada</strong> e processos rigorosos.</p>
 
-<p>Hoje, essa herança ganha novo capítulo: a Nuvvo Design apresenta um <strong>portfólio de mobiliário singular</strong>, com <em>design exclusivo</em> que traduz nossa visão contemporânea em peças autorais — pensadas para arquitetos e clientes que enxergam o ambiente como extensão da identidade.</p>
+<p>Hoje, essa herança ganha novo capítulo: a Nuvvo Design apresenta um <strong>portfólio de mobiliário singular</strong>, com <em>design exclusivo</em> que traduz nossa visão contemporânea em peças autorais pensadas para arquitetos e clientes que enxergam o ambiente como extensão da identidade.</p>
 
-<p>Nossa cultura é feita de <strong>evolução contínua</strong>, <strong>zelo absoluto</strong> em cada acabamento e o compromisso com um <strong>relacionamento próximo e humano</strong> — porque entendemos que o melhor design nasce da escuta atenta.</p>
+<p>Nossa cultura é feita de <strong>evolução contínua</strong>, <strong>zelo absoluto</strong> em cada acabamento e o compromisso com um <strong>relacionamento próximo e humano</strong> porque entendemos que o melhor design nasce da escuta atenta.</p>
 HTML;
 
     $designer_bio = <<<'HTML'
 <p>Atuante na <em>indústria moveleira desde os anos 2000</em>, Deivid de Almeida construiu uma <strong>expertise técnica lapidada em um processo constante de evolução e refinamento</strong>. Cada peça que assina carrega o repertório de mais de duas décadas de prática.</p>
 
-<p>Seu trabalho parte de uma obsessão silenciosa: <strong>traduzir comportamento humano em mobiliário</strong>. <em>Ergonomia</em>, <em>conforto tátil</em> e <em>perfeição técnica</em> deixam de ser exigências para se tornarem ponto de partida — porque é assim que o design se torna invisível e essencial ao mesmo tempo.</p>
+<p>Seu trabalho parte de uma obsessão silenciosa: <strong>traduzir comportamento humano em mobiliário</strong>. <em>Ergonomia</em>, <em>conforto tátil</em> e <em>perfeição técnica</em> deixam de ser exigências para se tornarem ponto de partida porque é assim que o design se torna invisível e essencial ao mesmo tempo.</p>
 HTML;
 
     $anuvvo_fields = [
@@ -197,7 +197,7 @@ HTML;
         'nuvvo_contato_map_lat'        => '-28.4503',
         'nuvvo_contato_map_lng'        => '-52.1989',
         'nuvvo_contato_social_titulo'  => 'Acompanhe nosso dia a dia',
-        'nuvvo_contato_social_sub'     => 'Bastidores da nossa produção artesanal, novos lançamentos e ambientes assinados — direto no nosso Instagram.',
+        'nuvvo_contato_social_sub'     => 'Bastidores da nossa produção artesanal, novos lançamentos e ambientes assinados direto no nosso Instagram.',
     ];
     foreach ($contato_fields as $k => $v) { $set_meta($contato_id, $k, $v); }
 
