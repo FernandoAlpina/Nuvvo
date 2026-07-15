@@ -91,3 +91,8 @@ require_once get_template_directory() . '/inc/setup-pages.php';
  * Seed de conteúdo aprovado nos campos das páginas (uma vez, só campos vazios).
  */
 require_once get_template_directory() . '/inc/seed-content.php';
+
+/**
+ * Seed do produto "Sofá Pecan" + designer (uma vez; imagens vêm da Biblioteca).
+ */
+require_once get_template_directory() . '/inc/seed-produtos.php';
