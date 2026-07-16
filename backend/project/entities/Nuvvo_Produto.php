@@ -46,8 +46,8 @@ class Nuvvo_Produto
             /* ---- Hero / dados principais ---- */
             ->add_metabox_box('', 'DADOS DO PRODUTO')
             ->add_metabox_field_cpt('Designer', 'designer', 'designer', 1, 6, ['desc' => 'Vazio = exibe a versão "Nuvvo Signature".'])
-            ->add_metabox_field_switch('Selo "Nuvvo Signature"', 'signature', 6)
-            ->add_metabox_field_switch('Selo designer', 'selo_designer', 6)
+            ->add_metabox_field_switch('Selo "Nuvvo Signature"', 'signature', 6, 'Sim', 'Não', ['desc' => 'Categoria do selo: exibe o badge "Nuvvo Signature" no card do produto.'])
+            ->add_metabox_field_switch('Selo designer', 'selo_designer', 6, 'Sim', 'Não', ['desc' => 'Categoria do selo: exibe o badge de designer no card do produto.'])
             ->add_metabox_field_text('Texto do selo designer', 'selo_tag', 6, [
                 'desc'        => 'Rótulo do badge quando o "Selo designer" está ligado (o nome ainda pode mudar). Se vazio, usa "Designer".',
                 'placeholder' => 'Ex.: Assinado, Autoral…',
