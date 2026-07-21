@@ -92,7 +92,7 @@ class Nuvvo_Produto
             /* ---- Downloads ---- */
             ->add_metabox_box('', 'DOWNLOADS')
             ->add_metabox_field_file('Ficha técnica (PDF)', 'ficha_pdf', 1, 6)
-            ->add_metabox_field_file('Bloco SketchUp (.skp)', 'bloco_skp', 1, 6, 'Se vazio, o botão fica como "em breve".')
+            ->add_metabox_field('Bloco SketchUp (link)', 'bloco_skp', 'url', 6, ['desc' => 'Cole o link do bloco .skp (ex.: 3D Warehouse, Google Drive). Se vazio, o botão fica como "em breve".'])
 
             /* ---- Relacionados ---- */
             ->add_metabox_box('', 'PRODUTOS RELACIONADOS')

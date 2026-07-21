@@ -29,7 +29,7 @@ while (have_posts()) :
     $modulos   = (array) rwmb_meta('produto_modulos', [], $pid);
     $extras    = rwmb_meta('produto_extras', [], $pid);
     $ficha     = (array) rwmb_meta('produto_ficha_pdf', [], $pid);
-    $skp       = (array) rwmb_meta('produto_bloco_skp', [], $pid);
+    $skp_url   = trim((string) rwmb_meta('produto_bloco_skp', [], $pid)); // agora é um link (URL)
     $relacion  = (array) rwmb_meta('produto_relacionados', [], $pid);
     $designer  = (array) rwmb_meta('produto_designer', [], $pid);
     $designer_id = $designer ? (int) reset($designer) : 0;
@@ -254,7 +254,7 @@ while (have_posts()) :
     </section>
     <?php endif; ?>
 
-    <?php if ($ficha || $skp) : ?>
+    <?php if ($ficha || $skp_url) : ?>
     <!-- ============ DOWNLOADS ============ -->
     <section class="section downloads-section" id="downloads" aria-label="Downloads">
         <div class="wrap">
@@ -271,11 +271,10 @@ while (have_posts()) :
                 </a>
                 <?php endif; ?>
 
-                <?php $skp_f = $skp ? reset($skp) : null; ?>
-                <a href="<?php echo $skp_f ? esc_url($skp_f['url']) : '#'; ?>" class="download-card reveal reveal--delay-1"<?php echo $skp_f ? ' download' : ' aria-disabled="true"'; ?>>
+                <a href="<?php echo $skp_url ? esc_url($skp_url) : '#'; ?>" class="download-card reveal reveal--delay-1"<?php echo $skp_url ? ' target="_blank" rel="noopener"' : ' aria-disabled="true"'; ?>>
                     <svg class="download-card__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M24 6L8 14v20l16 8 16-8V14z"/><path d="M8 14l16 8 16-8M24 22v20"/></svg>
-                    <div><p class="download-card__label">Bloco 3D · SketchUp</p><p class="download-card__sub"><?php echo $skp_f ? 'SKP' : 'SKP · em breve'; ?></p></div>
-                    <span class="download-card__link"><?php echo $skp_f ? 'Baixar' : 'Em breve'; ?></span>
+                    <div><p class="download-card__label">Bloco 3D · SketchUp</p><p class="download-card__sub"><?php echo $skp_url ? 'SketchUp' : 'SKP · em breve'; ?></p></div>
+                    <span class="download-card__link"><?php echo $skp_url ? 'Abrir' : 'Em breve'; ?></span>
                 </a>
             </div>
         </div>
